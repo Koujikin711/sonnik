@@ -8,3 +8,7 @@ __pycache__/
 dist/
 build/
 *.log
+web/dist/
+web/dev-dist/
+.vscode/
+.idea/
