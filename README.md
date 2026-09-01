@@ -1,10 +1,10 @@
 # Сонник
 
-Свой сонник (приложение/справочник). Работаем в облачной копии Cursor — можно продолжать с любого компьютера (Linux, Mac).
+Свой сонник (приложение/справочник). Облачная копия: **https://github.com/Koujikin711/sonnik** (private).
 
 ## С чего начать на Mac
 
-1. Открыть этот репозиторий в Cursor (Cloud / Codebase).
+1. В Cursor: **Clone repo** → `https://github.com/Koujikin711/sonnik.git` (войти под GitHub Koujikin711).
 2. Читать `docs/obzor-sonnikov.md` — карта видов сонников.
 3. Читать `docs/musulmanskiy-sonnik.md` — исламская традиция.
 4. Дальше вместе наполняем `data/` своими толкованиями.
