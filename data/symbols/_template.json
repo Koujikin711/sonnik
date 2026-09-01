@@ -1,0 +1,24 @@
+{
+  "id": "example",
+  "title_ru": "Пример",
+  "tags": [],
+  "traditions": {
+    "own": {
+      "short": "",
+      "long": ""
+    },
+    "folk": {
+      "short": "",
+      "long": ""
+    },
+    "islamic": {
+      "short": "",
+      "long": "",
+      "context_hints": []
+    },
+    "psychology": {
+      "short": "",
+      "long": ""
+    }
+  }
+}
