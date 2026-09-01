@@ -360,6 +360,29 @@ function SymbolPage({
 }
 
 function About({ catalog }: { catalog: Catalog }) {
+  const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
+
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}version.json`, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { version?: string; deployedAt?: string } | null) => {
+        if (data?.version && data.deployedAt) {
+          setBuild({ version: data.version, deployedAt: data.deployedAt })
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  const updated = build
+    ? new Date(build.deployedAt).toLocaleString('ru-RU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    : null
+
   return (
     <section className="about">
       <h2>О приложении</h2>
@@ -376,7 +399,16 @@ function About({ catalog }: { catalog: Catalog }) {
         <li>Работает офлайн после первого открытия (PWA)</li>
       </ul>
       <p className="disclaimer">{catalog.disclaimer}</p>
-      <p className="meta">Символов в базе: {catalog.symbols.length}</p>
+      <p className="meta">
+        Символов в базе: {catalog.symbols.length}
+        {build && (
+          <>
+            <br />
+            Версия {build.version}
+            {updated ? ` · обновлено ${updated}` : ''}
+          </>
+        )}
+      </p>
     </section>
   )
 }

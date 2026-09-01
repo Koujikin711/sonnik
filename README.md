@@ -32,6 +32,17 @@ cd web
 npm run build
 ```
 
+Публикация на GitHub Pages:
+
+```bash
+cd web
+npm run deploy
+```
+
+Каждый пуш в `main` тоже собирает сайт и обновляет ветку `gh-pages`
+(workflow `.github/workflows/deploy-pages.yml`). В каждой сборке пишется
+`version.json` с датой, поэтому Pages всегда получает новый коммит.
+
 ## Docs
 
 - `docs/obzor-sonnikov.md`
