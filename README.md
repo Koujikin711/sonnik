@@ -3,7 +3,8 @@
 Веб‑приложение‑словарь толкований снов (по образцу офлайн‑сонника: поиск, традиции, избранное, история, озвучка).
 
 **Репозиторий:** https://github.com/Koujikin711/sonnik  
-**Демо (GitHub Pages):** https://koujikin711.github.io/sonnik/
+**Демо (GitHub Pages):** https://koujikin711.github.io/sonnik/  
+(если Pages ещё собирается — подожди 1–2 минуты)
 
 ## Возможности
 
