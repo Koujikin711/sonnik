@@ -171,16 +171,6 @@ export function BodyPanel({
       </section>
 
       <section className="zone-bar" aria-label="Зона тела">
-        <button
-          type="button"
-          className={!zone && !onlyFav ? 'chip active' : 'chip'}
-          onClick={() => {
-            onZone(null)
-            onOnlyFav(false)
-          }}
-        >
-          Все жесты
-        </button>
         <button type="button" className={onlyFav ? 'chip active' : 'chip'} onClick={() => onOnlyFav(!onlyFav)}>
           ★ Мои
         </button>
