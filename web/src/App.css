@@ -68,6 +68,12 @@ input {
   padding: 1.35rem 1.25rem 0.65rem;
 }
 
+.back-home {
+  display: inline-flex;
+  margin: 0 0 0.55rem;
+  font-size: 1.02rem;
+}
+
 .brand-block {
   display: flex;
   gap: 0.95rem;
@@ -347,7 +353,7 @@ input {
   bottom: 0;
   width: min(640px, 100%);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.25rem;
   padding: 0.5rem 0.55rem calc(0.5rem + env(safe-area-inset-bottom));
   background: rgba(247, 250, 251, 0.94);

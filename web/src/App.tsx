@@ -163,6 +163,11 @@ export default function App() {
   return (
     <div className="shell">
       <header className="top">
+        {onBody && (
+          <button type="button" className="text-btn back-home" onClick={() => goTab('search')}>
+            ← Сонник
+          </button>
+        )}
         <button type="button" className="brand-block brand-hit" onClick={() => goTab('search')}>
           <div className="moon" aria-hidden />
           <div>
@@ -330,6 +335,7 @@ export default function App() {
         <nav className="tabs" aria-label="Разделы">
           {(
             [
+              ['search', 'Сонник'],
               ['body', 'Тело'],
               ['favorites', 'Избранное'],
               ['history', 'История'],
@@ -583,7 +589,7 @@ function About({ catalog }: { catalog: Catalog }) {
         чужих сонников.
       </p>
       <ul>
-        <li>Поиск сверху. К заголовку «Сонник» — назад к словам</li>
+        <li>С «Тела» назад — кнопка «← Сонник» или вкладка «Сонник» внизу</li>
         <li>
           {catalog.symbols.length} слов, поиск по синонимам (зуб, летать, мама), связанные образы
         </li>
