@@ -495,6 +495,13 @@ input {
   font-size: 1.2rem;
 }
 
+.about h3 {
+  margin: 1.1rem 0 0.4rem;
+  font-family: var(--font-display);
+  color: var(--teal);
+  font-size: 1.08rem;
+}
+
 .related-chip {
   background: rgba(42, 86, 102, 0.08);
   border-color: transparent;
