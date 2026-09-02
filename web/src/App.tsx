@@ -34,6 +34,22 @@ const TRAD_SHORT: Record<string, string> = {
   family: 'Семья',
 }
 
+const HINT_TITLE: Record<string, string> = {
+  universal: 'Если во сне',
+  folk: 'Приметы',
+  islamic: 'Если во сне',
+  love: 'В любви',
+  family: 'В семье',
+}
+
+const CARD_KICKER: Record<string, string> = {
+  universal: 'К чему снится',
+  folk: 'Народный',
+  islamic: 'Исламский',
+  love: 'Любовный',
+  family: 'Семейный',
+}
+
 function matchesWord(word: string, q: string) {
   return word.toLocaleLowerCase('ru').includes(q)
 }
@@ -497,22 +513,17 @@ function SymbolPage({
 
       <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
 
-      {tradition === 'islamic' && (
-        <aside className="islamic-note">
-          <strong>Смысл сна.</strong> Здесь — что может значить этот образ: на что смотреть и что
-          полезно знать. Это не «хороший или плохой сон» и не фетва. Окончательное знание у Аллаха.
-        </aside>
-      )}
-
       <article className="meaning">
-        <p className="meaning-kicker">{traditions.find((t) => t.id === tradition)?.title}</p>
+        <p className="meaning-kicker">
+          {CARD_KICKER[tradition] ?? traditions.find((t) => t.id === tradition)?.title}
+        </p>
         <p className="meaning-short">{text}</p>
         {longText && <p className="meaning-long">{longText}</p>}
       </article>
 
       {hints.length > 0 && (
         <aside className="hints">
-          <h3>На что смотреть</h3>
+          <h3>{HINT_TITLE[tradition] ?? 'Если во сне'}</h3>
           <ul>
             {hints.map((h) => (
               <li key={h}>{h}</li>

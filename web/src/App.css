@@ -466,11 +466,13 @@ input {
 .hints ul {
   margin: 0.4rem 0 0;
   padding-left: 1.15rem;
-  color: var(--ink-soft);
+  color: var(--ink);
+  font-size: 1.02rem;
 }
 
 .hints li {
-  margin: 0.4rem 0;
+  margin: 0.55rem 0;
+  line-height: 1.45;
 }
 
 .related h3,

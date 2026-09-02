@@ -10,39 +10,68 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "public/data/symbols.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from clear_cards import CLEAR, apply_clear, card, i_card
+from clear_cards import CLEAR, apply_clear, card
 
 CLOSER = "Это смысл образа, не приговор и не фетва. Знание у Аллаха."
 
-HINTS_I = [
-    "Что вы делали и чем сон кончился.",
-    "Страх, спокойствие или злость после пробуждения — часть смысла.",
-    "Это не фетва и не приговор.",
-]
-HINTS_U = [
-    "Что именно происходило, не одно слово.",
-    "Чем сон кончился.",
-    "Какое чувство осталось после пробуждения.",
-]
-HINTS_F = [
-    "Своё или чужое, целое или битое.",
-    "Чем кончилось: справились, убежали, потеряли.",
-    "Примета про день, не про судьбу на год.",
-]
-HINTS_L = [
-    "Кто был рядом.",
-    "Тепло или холод после сна.",
-    "Какой разговор вы откладываете.",
-]
-HINTS_A = [
-    "Чей дом и кто за кадром.",
-    "Где в семье уже есть это напряжение.",
-    "Не вешайте сон на одного человека.",
-]
+def sits_lines(rows: list[tuple[str, str]]) -> list[str]:
+    return [f"{a} — {b}" for a, b in rows if a and b]
 
 
-def sits_text(rows: list[tuple[str, str]]) -> str:
-    return " ".join(f"{a} — {b}." for a, b in rows if a and b)
+def plain_short(text: str) -> str:
+    """Оставить одну прямую строку, без «смотрите / спросите»."""
+    cut = (
+        ". Смотрите",
+        ". Исход важнее",
+        ". Запомните",
+        ". Спросите",
+        ". Не ставьте",
+        ". Не вешайте",
+    )
+    s = text.strip()
+    for sep in cut:
+        idx = s.find(sep)
+        if idx > 8:
+            s = s[:idx].rstrip(" .,;:") + "."
+            break
+    return s
+
+
+def prose_lines(text: str) -> list[str]:
+    drop = (
+        "не ставьте",
+        "спросите",
+        "не вешайте",
+        "это зеркало",
+        "это примета",
+        "не делайте",
+        "не судите",
+        "не объявляйте",
+        "не хороните",
+        "не травите",
+    )
+    out: list[str] = []
+    blob = text.replace("\n\n", "\n")
+    for raw in blob.split("\n"):
+        chunk = raw.strip()
+        if not chunk:
+            continue
+        parts = []
+        buf = ""
+        for ch in chunk:
+            buf += ch
+            if ch in ".?!":
+                parts.append(buf.strip())
+                buf = ""
+        if buf.strip():
+            parts.append(buf.strip())
+        for sent in parts:
+            s = sent.strip()
+            low = s.lower()
+            if len(s) < 8 or any(d in low for d in drop):
+                continue
+            out.append(s.rstrip("."))
+    return out[:6] or [text.strip().rstrip(".")]
 
 
 def pack(
@@ -60,15 +89,13 @@ def pack(
     f_intro: str = "",
     i_intro: str = "",
 ) -> dict:
-    u_long = ((u_intro + "\n\n") if u_intro else "") + sits_text(u_rows)
-    f_long = ((f_intro + "\n\n") if f_intro else "") + sits_text(f_rows)
-    i_body = ((i_intro + "\n\n") if i_intro else "") + sits_text(i_rows)
+    del u_intro, f_intro, i_intro
     return {
-        "universal": card(u_short, u_long, HINTS_U),
-        "folk": card(f_short, f_long, HINTS_F),
-        "islamic": i_card(i_short, i_body),
-        "love": card(l_short, l_long, HINTS_L),
-        "family": card(a_short, a_long, HINTS_A),
+        "universal": card(plain_short(u_short), "", sits_lines(u_rows)),
+        "folk": card(plain_short(f_short), "", sits_lines(f_rows)),
+        "islamic": card(plain_short(i_short), "", sits_lines(i_rows)),
+        "love": card(plain_short(l_short), "", prose_lines(l_long)),
+        "family": card(plain_short(a_short), "", prose_lines(a_long)),
     }
 
 
@@ -379,6 +406,18 @@ def main() -> None:
     uncovered = [s["id"] for s in data["symbols"] if s["id"] not in TABIR and s["id"] not in CLEAR]
     if uncovered:
         print("WARN no tabir", uncovered)
+
+    for t in data.get("traditions", []):
+        if t.get("id") == "universal":
+            t["title"] = "К чему снится"
+        elif t.get("id") == "folk":
+            t["title"] = "Народный"
+        elif t.get("id") == "islamic":
+            t["title"] = "Мусульманский"
+        elif t.get("id") == "love":
+            t["title"] = "Любовный"
+        elif t.get("id") == "family":
+            t["title"] = "Семейный"
 
     data["symbols"].sort(key=lambda s: (AZ.get(s["letter"], 99), s["title"]))
     SRC.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
