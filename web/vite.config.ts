@@ -45,7 +45,26 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: false,
-      includeAssets: ['favicon.svg', 'version.json'],
+      includeAssets: ['favicon.svg'],
+      workbox: {
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
+        navigateFallback: '',
+        importScripts: ['sw-reload.js'],
+        globPatterns: ['**/*.{js,css,svg,woff2}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\/sonnik\/(version|data\/symbols)\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'sonnik-data',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 8, maxAgeSeconds: 60 },
+            },
+          },
+        ],
+      },
       manifest: {
         name: 'Сонник',
         short_name: 'Сонник',
@@ -61,23 +80,6 @@ export default defineConfig({
             sizes: 'any',
             type: 'image/svg+xml',
             purpose: 'any maskable',
-          },
-        ],
-      },
-      workbox: {
-        skipWaiting: true,
-        clientsClaim: true,
-        cleanupOutdatedCaches: true,
-        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: /\/sonnik\/(version|data\/symbols)\.json$/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'sonnik-data',
-              networkTimeoutSeconds: 3,
-              expiration: { maxEntries: 8, maxAgeSeconds: 60 },
-            },
           },
         ],
       },

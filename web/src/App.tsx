@@ -390,7 +390,7 @@ function BuildStamp() {
   if (!build) return null
   return (
     <p className="build-stamp">
-      v{build.version} · {build.updated}
+      Сборка {build.version} · {build.updated}
     </p>
   )
 }

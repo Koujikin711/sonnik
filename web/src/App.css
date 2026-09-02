@@ -99,9 +99,15 @@ input {
 }
 
 .build-stamp {
-  margin: 0.2rem 0 0;
-  color: var(--teal-mid);
-  font-size: 0.75rem;
+  display: inline-block;
+  margin: 0.35rem 0 0;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #f4f7f9;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .main {
