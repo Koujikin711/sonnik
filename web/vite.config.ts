@@ -45,25 +45,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: false,
+      selfDestroying: true,
       includeAssets: ['favicon.svg'],
       workbox: {
         skipWaiting: true,
         clientsClaim: true,
         cleanupOutdatedCaches: true,
         navigateFallback: '',
-        importScripts: ['sw-reload.js'],
-        globPatterns: ['**/*.{js,css,svg,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: /\/sonnik\/(version|data\/symbols)\.json$/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'sonnik-data',
-              networkTimeoutSeconds: 3,
-              expiration: { maxEntries: 8, maxAgeSeconds: 60 },
-            },
-          },
-        ],
       },
       manifest: {
         name: 'Сонник',
