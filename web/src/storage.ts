@@ -2,6 +2,8 @@ const KEY = {
   favorites: 'sonnik.favorites',
   history: 'sonnik.history',
   tradition: 'sonnik.tradition',
+  bodyFavorites: 'sonnik.bodyFavorites',
+  bodyHistory: 'sonnik.bodyHistory',
 }
 
 function readList(key: string): string[] {
@@ -42,6 +44,27 @@ export function pushHistory(id: string): string[] {
 
 export function clearHistory() {
   writeList(KEY.history, [])
+}
+
+export function getBodyFavorites(): string[] {
+  return readList(KEY.bodyFavorites)
+}
+
+export function toggleBodyFavorite(id: string): string[] {
+  const cur = getBodyFavorites()
+  const next = cur.includes(id) ? cur.filter((x) => x !== id) : [id, ...cur]
+  writeList(KEY.bodyFavorites, next)
+  return next
+}
+
+export function getBodyHistory(): string[] {
+  return readList(KEY.bodyHistory)
+}
+
+export function pushBodyHistory(id: string): string[] {
+  const next = [id, ...getBodyHistory().filter((x) => x !== id)].slice(0, 80)
+  writeList(KEY.bodyHistory, next)
+  return next
 }
 
 export function getSavedTradition(): string | null {

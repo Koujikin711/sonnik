@@ -35,6 +35,29 @@ export type Catalog = {
   symbols: SymbolEntry[]
 }
 
+export type BodyZone = {
+  id: string
+  title: string
+}
+
+export type BodyBehavior = {
+  id: string
+  title: string
+  letter: string
+  zone: string
+  aliases?: string[]
+  related?: string[]
+  short: string
+  long: string
+  hints: string[]
+}
+
+export type BodyCatalog = {
+  disclaimer: string
+  zones: BodyZone[]
+  items: BodyBehavior[]
+}
+
 export type SearchMode = 'contains' | 'prefix' | 'suffix'
 
 export type TabId = 'search' | 'alpha' | 'body' | 'favorites' | 'history' | 'about'

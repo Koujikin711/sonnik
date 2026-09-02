@@ -1,22 +1,28 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { Catalog, SearchMode, SymbolEntry, TabId, TraditionId } from './types'
+import type { BodyCatalog, Catalog, SearchMode, SymbolEntry, TabId, TraditionId } from './types'
 import { DREAM_TRADITIONS } from './types'
 import {
   clearHistory,
+  getBodyFavorites,
+  getBodyHistory,
   getFavorites,
   getHistory,
   getSavedTradition,
+  pushBodyHistory,
   pushHistory,
   saveTradition,
   speak,
+  toggleBodyFavorite,
   toggleFavorite,
 } from './storage'
 import { tawilForSymbol } from './hadithDreams'
+import { BodyPanel } from './BodyPanel'
 import './App.css'
 
 type View =
   | { kind: 'list' }
   | { kind: 'symbol'; id: string }
+  | { kind: 'behavior'; id: string }
 
 const AZ = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('')
 
@@ -36,19 +42,27 @@ function matchesSymbol(symbol: SymbolEntry, q: string, mode: SearchMode) {
 
 export default function App() {
   const [catalog, setCatalog] = useState<Catalog | null>(null)
+  const [bodyCatalog, setBodyCatalog] = useState<BodyCatalog | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [tab, setTab] = useState<TabId>('search')
   const [view, setView] = useState<View>({ kind: 'list' })
   const [query, setQuery] = useState('')
+  const [bodyQuery, setBodyQuery] = useState('')
+  const [bodyZone, setBodyZone] = useState<string | null>(null)
+  const [bodyOnlyFav, setBodyOnlyFav] = useState(false)
   const [mode, setMode] = useState<SearchMode>('contains')
   const [letter, setLetter] = useState<string | null>(null)
   const [tradition, setTradition] = useState<TraditionId>('universal')
   const [favorites, setFavorites] = useState<string[]>([])
   const [history, setHistory] = useState<string[]>([])
+  const [bodyFavorites, setBodyFavorites] = useState<string[]>([])
+  const [bodyHistory, setBodyHistory] = useState<string[]>([])
 
   useEffect(() => {
     setFavorites(getFavorites())
     setHistory(getHistory())
+    setBodyFavorites(getBodyFavorites())
+    setBodyHistory(getBodyHistory())
     const saved = getSavedTradition()
     if (saved && (DREAM_TRADITIONS as string[]).includes(saved)) {
       setTradition(saved as TraditionId)
@@ -61,6 +75,13 @@ export default function App() {
       })
       .then((data: Catalog) => setCatalog(data))
       .catch((e: Error) => setError(e.message))
+
+    fetch(`${import.meta.env.BASE_URL}data/behaviors.json?v=${Date.now()}`, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: BodyCatalog | null) => {
+        if (data?.items) setBodyCatalog(data)
+      })
+      .catch(() => {})
   }, [])
 
   const byId = useMemo(() => {
@@ -85,15 +106,22 @@ export default function App() {
     if (tab === 'alpha') {
       return catalog.symbols.filter((s) => (letter ? s.letter === letter : true))
     }
-    if (tab === 'body') {
-      return catalog.symbols.filter((s) => matchesSymbol(s, query, mode))
-    }
     return catalog.symbols.filter((s) => matchesSymbol(s, query, mode))
   }, [catalog, tab, favorites, history, byId, letter, query, mode])
 
   function openSymbol(id: string) {
     setHistory(pushHistory(id))
     setView({ kind: 'symbol', id })
+  }
+
+  function openBehavior(id: string) {
+    setBodyHistory(pushBodyHistory(id))
+    setView({ kind: 'behavior', id })
+  }
+
+  function goTab(id: TabId) {
+    setTab(id)
+    setView({ kind: 'list' })
   }
 
   function onTradition(id: TraditionId) {
@@ -119,11 +147,14 @@ export default function App() {
   }
 
   const symbol = view.kind === 'symbol' ? byId.get(view.id) : null
+  const selectedBehavior =
+    view.kind === 'behavior' && bodyCatalog
+      ? (bodyCatalog.items.find((i) => i.id === view.id) ?? null)
+      : null
   const dreamTraditions = catalog.traditions.filter((t) =>
     (DREAM_TRADITIONS as string[]).includes(t.id),
   )
-  const bodyLens = tab === 'body'
-  const listTradition: TraditionId = bodyLens ? 'psychosomatic' : tradition
+  const onBody = tab === 'body'
 
   return (
     <div className="shell">
@@ -131,10 +162,10 @@ export default function App() {
         <div className="brand-block">
           <div className="moon" aria-hidden />
           <div>
-            <h1 className="brand">{bodyLens ? 'Тело' : 'Сонник'}</h1>
+            <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
             <p className="tagline">
-              {bodyLens
-                ? 'Чувство и отклик тела · не толкование сна'
+              {onBody
+                ? 'Жесты напряжения · не слова сонника'
                 : `Толкование снов · ${catalog.symbols.length} слов`}
             </p>
             <BuildStamp />
@@ -151,8 +182,7 @@ export default function App() {
               .filter((s): s is SymbolEntry => Boolean(s))
           }
           traditions={dreamTraditions}
-          tradition={bodyLens ? 'psychosomatic' : tradition}
-          lens={bodyLens ? 'body' : 'dream'}
+          tradition={tradition}
           onTradition={onTradition}
           favorite={favorites.includes(symbol.id)}
           onToggleFavorite={() => setFavorites(toggleFavorite(symbol.id))}
@@ -160,13 +190,35 @@ export default function App() {
           onOpen={openSymbol}
           disclaimer={catalog.disclaimer}
         />
+      ) : onBody ? (
+        bodyCatalog ? (
+          <BodyPanel
+            catalog={bodyCatalog}
+            query={bodyQuery}
+            onQuery={setBodyQuery}
+            zone={bodyZone}
+            onZone={setBodyZone}
+            onlyFav={bodyOnlyFav}
+            onOnlyFav={setBodyOnlyFav}
+            favorites={bodyFavorites}
+            history={bodyHistory}
+            selected={selectedBehavior}
+            onOpen={openBehavior}
+            onBack={() => setView({ kind: 'list' })}
+            onToggleFavorite={(id) => setBodyFavorites(toggleBodyFavorite(id))}
+          />
+        ) : (
+          <main className="main">
+            <p className="empty">Загрузка жестов тела…</p>
+          </main>
+        )
       ) : (
         <main className="main">
           {tab === 'about' ? (
             <About catalog={catalog} />
           ) : (
             <>
-              {(tab === 'search' || tab === 'body') && (
+              {tab === 'search' && (
                 <section className="search-panel">
                   <label className="sr-only" htmlFor="q">
                     Поиск
@@ -174,11 +226,7 @@ export default function App() {
                   <input
                     id="q"
                     className="search"
-                    placeholder={
-                      tab === 'body'
-                        ? 'Где отозвалось? зубы, грудь, живот…'
-                        : 'зубы, летать, мама, кровь, деньги…'
-                    }
+                    placeholder="зубы, летать, мама, кровь, деньги…"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     autoComplete="off"
@@ -238,27 +286,18 @@ export default function App() {
                 </div>
               )}
 
-              {tab === 'body' && (
-                <aside className="psycho-note">
-                  <strong>Не сонник.</strong> Здесь не примета и не «к чему снится». Только где
-                  могло отозваться тело и какое чувство не дожили днём. Это не диагноз.
-                </aside>
-              )}
+              <TraditionSelect
+                traditions={dreamTraditions}
+                value={tradition}
+                onChange={onTradition}
+              />
 
-              {!bodyLens && (
-                <TraditionSelect
-                  traditions={dreamTraditions}
-                  value={tradition}
-                  onChange={onTradition}
-                />
-              )}
-
-              {(tab === 'search' || tab === 'body') && query.trim() && (
+              {tab === 'search' && query.trim() && (
                 <p className="result-count">
                   Найдено {list.length} из {catalog.symbols.length}
                 </p>
               )}
-              {tab !== 'search' && tab !== 'body' && (
+              {tab !== 'search' && (
                 <p className="result-count">
                   {list.length} {tab === 'alpha' ? 'в букве' : 'записей'}
                 </p>
@@ -280,7 +319,7 @@ export default function App() {
                       <span className="sym-body">
                         <span className="sym-title">{s.title}</span>
                         <span className="sym-preview">
-                          {s.traditions[listTradition]?.short ??
+                          {s.traditions[tradition]?.short ??
                             s.traditions.universal?.short ??
                             '—'}
                         </span>
@@ -322,7 +361,7 @@ export default function App() {
               key={id}
               type="button"
               className={tab === id ? 'tab active' : 'tab'}
-              onClick={() => setTab(id)}
+              onClick={() => goTab(id)}
             >
               {label}
             </button>
@@ -409,7 +448,6 @@ function SymbolPage({
   related,
   traditions,
   tradition,
-  lens,
   onTradition,
   favorite,
   onToggleFavorite,
@@ -421,7 +459,6 @@ function SymbolPage({
   related: SymbolEntry[]
   traditions: Catalog['traditions']
   tradition: TraditionId
-  lens: 'dream' | 'body'
   onTradition: (id: TraditionId) => void
   favorite: boolean
   onToggleFavorite: () => void
@@ -472,26 +509,17 @@ function SymbolPage({
       <h2 className="detail-title">{symbol.title}</h2>
       <p className="detail-tags">{symbol.tags.join(' · ')}</p>
 
-      {lens === 'dream' && (
-        <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
-      )}
+      <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
 
-      {lens === 'dream' && tradition === 'islamic' && (
+      {tradition === 'islamic' && (
         <aside className="islamic-note">
           <strong>Смысл сна.</strong> Здесь — что может значить этот образ: на что смотреть и что
           полезно знать. Это не «хороший или плохой сон» и не фетва. Окончательное знание у Аллаха.
         </aside>
       )}
 
-      {lens === 'body' && (
-        <aside className="psycho-note">
-          <strong>Тело, не сонник.</strong> Не «к чему снится». Только чувство и место в теле. Не
-          диагноз и не замена врача.
-        </aside>
-      )}
-
       <article className="meaning">
-        <p className="meaning-kicker">{lens === 'body' ? 'Отклик тела' : traditions.find((t) => t.id === tradition)?.title}</p>
+        <p className="meaning-kicker">{traditions.find((t) => t.id === tradition)?.title}</p>
         <p className="meaning-short">{text}</p>
         {longText && <p className="meaning-long">{longText}</p>}
       </article>
@@ -520,7 +548,7 @@ function SymbolPage({
         </aside>
       )}
 
-      {lens === 'dream' && tradition === 'islamic' && <IslamicTawil symbolId={symbol.id} />}
+      {tradition === 'islamic' && <IslamicTawil symbolId={symbol.id} />}
 
       <p className="disclaimer">{disclaimer}</p>
     </main>
@@ -570,8 +598,9 @@ function About({ catalog }: { catalog: Catalog }) {
       <h2>О приложении</h2>
       <p>
         Словарь толкований сна: универсальный, народный, мусульманский та‘бир, любовный и
-        семейный слои. Психосоматика вынесена отдельно — это не слой сна. База —{' '}
-        <strong>свои формулировки</strong>, не копия чужих сонников.
+        семейный слои. Раздел «Тело» — не сонник: только жесты напряжения (челюсть, ком в горле,
+        заедать), без акулы, воды и примет. База — <strong>свои формулировки</strong>, не копия
+        чужих сонников.
       </p>
       <ul>
         <li>Быстрый поиск: содержит / начинается / заканчивается</li>
@@ -580,7 +609,7 @@ function About({ catalog }: { catalog: Catalog }) {
           {catalog.symbols.length} слов, поиск по синонимам (зуб, летать, мама), связанные образы
         </li>
         <li>
-          Раздел «Тело» — отдельно от сонника: чувство и отклик, не примета
+          «Тело» — каталог жестов: стискивать челюсть, ком в горле, не ложиться. Слов сонника там нет
         </li>
         <li>
           В мусульманском режиме — смысл образа, а не «хороший / плохой сон»

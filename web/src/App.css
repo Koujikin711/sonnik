@@ -297,6 +297,27 @@ input {
   color: var(--ink-soft);
 }
 
+.zone-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.body-zone-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.zone-heading {
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-mid);
+}
+
 .tabs {
   position: fixed;
   left: 50%;
