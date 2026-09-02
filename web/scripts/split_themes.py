@@ -147,9 +147,14 @@ def layer_line(raw: str, kind: str) -> str:
                 else f"{rest} в доме"
             )
         else:
-            tail = " у людей" if kind == "folk" else " вдвоём" if kind == "love" else " среди своих"
-            if not new_right.lower().endswith(tail.strip()):
-                new_right = new_right.rstrip(".") + tail
+            if kind == "folk":
+                if "во дворе" not in left.lower():
+                    left = f"{left} во дворе"
+            elif kind == "love":
+                if not new_right.lower().endswith("вдвоём") and "в паре" not in new_right.lower():
+                    new_right = new_right.rstrip(".") + " вдвоём"
+            elif not new_right.lower().endswith("своих") and "в доме" not in new_right.lower():
+                new_right = new_right.rstrip(".") + " среди своих"
     left_l = left[0].lower() + left[1:] if left else left
     original = strip_prefix(raw).lower()
     line = f"{left} — {new_right}"
