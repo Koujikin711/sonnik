@@ -405,14 +405,7 @@ function IslamicTawil({ symbolId }: { symbolId: string }) {
   const tawil = tawilForSymbol(symbolId)
 
   if (!tawil) {
-    return (
-      <aside className="hadith-themes">
-        <h3>Хадис</h3>
-        <p className="hadith-meaning">
-          В «Сахих» Бухари и Муслиме этого образа нет. Номер не ставим.
-        </p>
-      </aside>
-    )
+    return null
   }
 
   return (
