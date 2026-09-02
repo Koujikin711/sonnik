@@ -1,18 +1,15 @@
-import type { BodyBehavior, BodyCatalog, SearchMode } from './types'
+import type { BodyBehavior, BodyCatalog } from './types'
 import { speak } from './storage'
 
-function matchesWord(word: string, q: string, mode: SearchMode) {
-  const t = word.toLocaleLowerCase('ru')
-  if (mode === 'prefix') return t.startsWith(q)
-  if (mode === 'suffix') return t.endsWith(q)
-  return t.includes(q)
+function matchesWord(word: string, q: string) {
+  return word.toLocaleLowerCase('ru').includes(q)
 }
 
-function matchesBehavior(item: BodyBehavior, q: string, zoneTitle: string, mode: SearchMode) {
+function matchesBehavior(item: BodyBehavior, q: string, zoneTitle: string) {
   const query = q.toLocaleLowerCase('ru').trim()
   if (!query) return true
   const words = [item.title, item.short, zoneTitle, ...(item.aliases ?? [])]
-  return words.some((w) => matchesWord(w, query, mode))
+  return words.some((w) => matchesWord(w, query))
 }
 
 function sortRu(items: BodyBehavior[]) {
@@ -124,7 +121,7 @@ export function BodyPanel({
     catalog.items.filter((item) => {
       if (onlyFav && !favorites.includes(item.id)) return false
       if (zone && item.zone !== zone) return false
-      return matchesBehavior(item, query, zoneTitle(item.zone), 'contains')
+      return matchesBehavior(item, query, zoneTitle(item.zone))
     }),
   )
 

@@ -58,9 +58,7 @@ export type BodyCatalog = {
   items: BodyBehavior[]
 }
 
-export type SearchMode = 'contains' | 'prefix' | 'suffix'
-
-export type TabId = 'search' | 'alpha' | 'body' | 'favorites' | 'history' | 'about'
+export type TabId = 'search' | 'body' | 'favorites' | 'history' | 'about'
 
 export const DREAM_TRADITIONS: TraditionId[] = [
   'universal',

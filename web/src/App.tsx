@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { BodyCatalog, Catalog, SearchMode, SymbolEntry, TabId, TraditionId } from './types'
+import type { BodyCatalog, Catalog, SymbolEntry, TabId, TraditionId } from './types'
 import { DREAM_TRADITIONS } from './types'
 import {
   clearHistory,
@@ -26,18 +26,15 @@ type View =
 
 const AZ = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('')
 
-function matchesWord(word: string, q: string, mode: SearchMode) {
-  const t = word.toLocaleLowerCase('ru')
-  if (mode === 'prefix') return t.startsWith(q)
-  if (mode === 'suffix') return t.endsWith(q)
-  return t.includes(q)
+function matchesWord(word: string, q: string) {
+  return word.toLocaleLowerCase('ru').includes(q)
 }
 
-function matchesSymbol(symbol: SymbolEntry, q: string, mode: SearchMode) {
+function matchesSymbol(symbol: SymbolEntry, q: string) {
   const query = q.toLocaleLowerCase('ru').trim()
   if (!query) return true
   const words = [symbol.title, ...(symbol.aliases ?? [])]
-  return words.some((w) => matchesWord(w, query, mode))
+  return words.some((w) => matchesWord(w, query))
 }
 
 export default function App() {
@@ -50,7 +47,6 @@ export default function App() {
   const [bodyQuery, setBodyQuery] = useState('')
   const [bodyZone, setBodyZone] = useState<string | null>(null)
   const [bodyOnlyFav, setBodyOnlyFav] = useState(false)
-  const [mode, setMode] = useState<SearchMode>('contains')
   const [letter, setLetter] = useState<string | null>(null)
   const [tradition, setTradition] = useState<TraditionId>('universal')
   const [favorites, setFavorites] = useState<string[]>([])
@@ -103,11 +99,11 @@ export default function App() {
     if (tab === 'history') {
       return history.map((id) => byId.get(id)).filter(Boolean) as SymbolEntry[]
     }
-    if (tab === 'alpha') {
-      return catalog.symbols.filter((s) => (letter ? s.letter === letter : true))
+    if (letter && !query.trim()) {
+      return catalog.symbols.filter((s) => s.letter === letter)
     }
-    return catalog.symbols.filter((s) => matchesSymbol(s, query, mode))
-  }, [catalog, tab, favorites, history, byId, letter, query, mode])
+    return catalog.symbols.filter((s) => matchesSymbol(s, query))
+  }, [catalog, tab, favorites, history, byId, letter, query])
 
   function openSymbol(id: string) {
     setHistory(pushHistory(id))
@@ -228,53 +224,42 @@ export default function App() {
                     className="search"
                     placeholder="зубы, летать, мама, кровь, деньги…"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                      setQuery(e.target.value)
+                      if (e.target.value) setLetter(null)
+                    }}
                     autoComplete="off"
                   />
-                  <div className="modes" role="group" aria-label="Режим поиска">
-                    {(
-                      [
-                        ['contains', 'Содержит'],
-                        ['prefix', 'Начинается'],
-                        ['suffix', 'Заканчивается'],
-                      ] as const
-                    ).map(([id, label]) => (
-                      <button
-                        key={id}
-                        type="button"
-                        className={mode === id ? 'chip active' : 'chip'}
-                        onClick={() => setMode(id)}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {tab === 'alpha' && (
-                <section className="alpha-bar" aria-label="Алфавит">
-                  <button
-                    type="button"
-                    className={!letter ? 'letter active' : 'letter'}
-                    onClick={() => setLetter(null)}
-                  >
-                    Все
-                  </button>
-                  {AZ.map((L) => {
-                    const has = presentLetters.has(L)
-                    return (
-                      <button
-                        key={L}
-                        type="button"
-                        className={letter === L ? 'letter active' : 'letter'}
-                        disabled={!has}
-                        onClick={() => has && setLetter(L)}
-                      >
-                        {L}
-                      </button>
-                    )
-                  })}
+                  <section className="alpha-bar" aria-label="Алфавит">
+                    <button
+                      type="button"
+                      className={!letter ? 'letter active' : 'letter'}
+                      onClick={() => {
+                        setLetter(null)
+                        setQuery('')
+                      }}
+                    >
+                      Все
+                    </button>
+                    {AZ.map((L) => {
+                      const has = presentLetters.has(L)
+                      return (
+                        <button
+                          key={L}
+                          type="button"
+                          className={letter === L ? 'letter active' : 'letter'}
+                          disabled={!has}
+                          onClick={() => {
+                            if (!has) return
+                            setQuery('')
+                            setLetter(letter === L ? null : L)
+                          }}
+                        >
+                          {L}
+                        </button>
+                      )
+                    })}
+                  </section>
                 </section>
               )}
 
@@ -297,10 +282,13 @@ export default function App() {
                   Найдено {list.length} из {catalog.symbols.length}
                 </p>
               )}
-              {tab !== 'search' && (
+              {tab === 'search' && letter && !query.trim() && (
                 <p className="result-count">
-                  {list.length} {tab === 'alpha' ? 'в букве' : 'записей'}
+                  {list.length} на букву {letter}
                 </p>
+              )}
+              {tab !== 'search' && (
+                <p className="result-count">{list.length} записей</p>
               )}
 
               <ul className="symbol-list">
@@ -350,7 +338,6 @@ export default function App() {
           {(
             [
               ['search', 'Поиск'],
-              ['alpha', 'А–Я'],
               ['body', 'Тело'],
               ['favorites', 'Избранное'],
               ['history', 'История'],
@@ -603,8 +590,7 @@ function About({ catalog }: { catalog: Catalog }) {
         чужих сонников.
       </p>
       <ul>
-        <li>Быстрый поиск: содержит / начинается / заканчивается</li>
-        <li>Алфавит А–Я</li>
+        <li>Один поиск: строка и буквы А–Я на том же экране</li>
         <li>
           {catalog.symbols.length} слов, поиск по синонимам (зуб, летать, мама), связанные образы
         </li>
