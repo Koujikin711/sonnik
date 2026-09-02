@@ -360,7 +360,9 @@ function SymbolPage({
 }) {
   const entry = symbol.traditions[tradition]
   const text = entry?.short ?? 'Для этой традиции пока нет текста.'
-  const longText = entry?.long
+  const rawLong = entry?.long
+  const longText =
+    rawLong && text && rawLong.startsWith(text) ? rawLong.slice(text.length).trim() : rawLong
   const hints = entry?.hints ?? []
   const titleText = `${symbol.title}. ${traditions.find((t) => t.id === tradition)?.title ?? ''}. ${text}`
 

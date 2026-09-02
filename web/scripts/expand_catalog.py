@@ -438,6 +438,15 @@ def sentences(*parts: str) -> str:
     return text.replace("  ", " ").strip()
 
 
+def without_lead(long: str, short: str) -> str:
+    """Карточка уже показывает short жирным — не дублировать его в long."""
+    long = long.strip()
+    short = short.strip()
+    if short and long.startswith(short):
+        return long[len(short) :].lstrip(" .")
+    return long
+
+
 def expand_one(sym: dict) -> dict:
     tid = sym["id"]
     title = sym["title"]
@@ -497,28 +506,24 @@ def expand_one(sym: dict) -> dict:
         )
 
     u_long = sentences(
-        u_short,
         str(u_add),
         f"Образ «{title}» в общем словаре — про направление внимания, а не про приговор.",
         "Сравните сон с тем, что уже происходит наяву: часто картинка догоняет решение, которое вы откладываете.",
         "Если после пробуждения ясно и спокойно — держитесь этого чувства сильнее, чем любой расшифровки.",
     )
     f_long = sentences(
-        f_short,
         str(f_add),
         "Народная традиция любит пару «к добру / к слезам»: не делайте из неё судьбу на год.",
         f"Спросите старших, как у вас в семье говорили про «{title}» — домашний слой иногда точнее книжного.",
         "Примета сбывается чаще как настроение дня, чем как событие «точь-в-точь».",
     )
     i_long = sentences(
-        i_short,
         str(i_add),
         "Классический та‘бир смотрит сон целиком: веру и работу человека, место, повтор, чем кончилось.",
         "Один символ у двух людей читается по-разному. Если после пробуждения ясно, что делать — это важнее ещё одной цитаты.",
         "Окончательное знание у Аллаха; статья помогает понять смысл образа, а не вынести приговор.",
     )
     l_long = sentences(
-        l_short,
         str(l_add),
         "Любовный слой легко спутать с тревогой: ревность рисует хищников, нежность — еду и свет.",
         "Честный разговор наяву почти всегда полезнее, чем ещё одна расшифровка символа.",
@@ -530,7 +535,6 @@ def expand_one(sym: dict) -> dict:
         "Если символ повторяется рядом с одним и тем же человеком — это уже не случайность картинки.",
     )
     a_long = sentences(
-        a_short,
         str(a_add),
         "Семейные сны часто про границы: кто входит в дом, кто ест за столом, кого не зовут.",
         "Не вешайте сон на одного человека как ярлык. Это зеркало системы, не приговор родне.",
@@ -550,32 +554,32 @@ def expand_one(sym: dict) -> dict:
         "traditions": {
             "universal": {
                 "short": u_short,
-                "long": u_long,
+                "long": without_lead(u_long, u_short),
                 "hints": hints_for("universal", title, tags, note),
             },
             "folk": {
                 "short": f_short,
-                "long": f_long,
+                "long": without_lead(f_long, f_short),
                 "hints": hints_for("folk", title, tags, note),
             },
             "islamic": {
                 "short": i_short,
-                "long": i_long,
+                "long": without_lead(i_long, i_short),
                 "hints": hints_for("islamic", title, tags, note),
             },
             "psychosomatic": {
                 "short": p_short,
-                "long": p_long,
+                "long": without_lead(p_long, p_short),
                 "hints": hints_for("psychosomatic", title, tags, note),
             },
             "love": {
                 "short": l_short,
-                "long": l_long,
+                "long": without_lead(l_long, l_short),
                 "hints": hints_for("love", title, tags, note),
             },
             "family": {
                 "short": a_short,
-                "long": a_long,
+                "long": without_lead(a_long, a_short),
                 "hints": hints_for("family", title, tags, note),
             },
         },
