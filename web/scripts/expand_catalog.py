@@ -4,10 +4,13 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "public/data/symbols.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from islamic_meanings import ISLAMIC
 
 DROP = {
     "miller_style",
@@ -17,26 +20,6 @@ DROP = {
     "vanga_style",
     "hasse_style",
 }
-
-HADITH_BASE = [
-    "В хадисах у Муслима сны делят на три вида: благие (от Аллаха), тревожные (от шайтана) и от мыслей человека.",
-    "Благую весть во сне можно рассказать близкому; неприятный сон — не разносить и просить защиты (Бухари, Муслим).",
-]
-
-HADITH_FEAR = [
-    "После неприятного сна в Сунне: попросить защиты у Аллаха, сменить положение, не придавать образу силы.",
-    "Пугающая картинка сама по себе не приговор; сначала отличите вид сна, потом смотрите символ.",
-]
-
-HADITH_GOOD = [
-    "Правдивый сон в хадисах связывают с долей пророчества — это про ясность и утешение, не про «угадай символ».",
-    "Если сон спокойный и ясный, его относят к мубашшират (благим вестям) — с благодарностью и без суеты.",
-]
-
-HADITH_NAFS = [
-    "Много образов еды, дороги и быта приходят от дневных мыслей; их не обязательно толковать.",
-    "Сначала спросите: это отражение дня или нечто ясное и необычное? От ответа зависит, нужен ли та‘бир.",
-]
 
 # Psychosomatic angle + extra sentences. Original wording; not a medical diagnosis.
 NOTE: dict[str, dict[str, object]] = {
@@ -413,19 +396,6 @@ NOTE: dict[str, dict[str, object]] = {
 }
 
 
-def hadith_for(tags: list[str], title: str, islamic_short: str) -> list[str]:
-    fear_words = ("страх", "тревог", "пуга", "хищ", "враг", "смерть", "нож", "гром")
-    blob = f"{title} {islamic_short} {' '.join(tags)}".lower()
-    themes = list(HADITH_BASE)
-    if any(w in blob for w in fear_words) or title in {"Акула", "Волк", "Змея", "Смерть", "Нож", "Гром", "Вор"}:
-        themes.extend(HADITH_FEAR)
-    elif title in {"Ангел", "Солнце", "Звезда", "Ясность", "Цветок"}:
-        themes.extend(HADITH_GOOD)
-    else:
-        themes.extend(HADITH_NAFS)
-    return themes[:4]
-
-
 def hints_for(kind: str, title: str, tags: list[str], note: dict) -> list[str]:
     if kind == "universal":
         return [
@@ -441,9 +411,9 @@ def hints_for(kind: str, title: str, tags: list[str], note: dict) -> list[str]:
         ]
     if kind == "islamic":
         return [
-            "Сначала вид сна: благий, тревожный или «просто день».",
-            "Не рассказывайте дурной сон всем подряд.",
-            "Толкование — предположение, не фетва.",
+            f"Смысл «{title.lower()}» зависит от действия, чувства и исхода, не от ярлыка.",
+            "Детали (чистое/мутное, своё/чужое, чем кончилось) важнее названия.",
+            "Это предположение о смысле сна, не фетва и не приговор.",
         ]
     if kind == "psychosomatic":
         body = note.get("body", "общее напряжение")
@@ -478,7 +448,8 @@ def expand_one(sym: dict) -> dict:
 
     u_short = old["universal"]["short"]
     f_short = old["folk"]["short"]
-    i_short = old["islamic"]["short"]
+    islam = ISLAMIC.get(tid, {})
+    i_short = str(islam.get("short") or old["islamic"]["short"])
     l_short = old["love"]["short"]
     a_short = old["family"]["short"]
 
@@ -490,9 +461,12 @@ def expand_one(sym: dict) -> dict:
         "f_add",
         f"В народной логике «{title}» читают по примете дня: к вести, хлопотам или ладу. Детали (своё/чужое, целое/битое, день/ночь) меняют оттенок сильнее, чем само слово.",
     )
-    i_add = note.get(
-        "i_add",
-        f"Образ «{title}» в та‘бире не работает как словарная статья. Сначала отличите вид сна, затем смотрите свой характер, место и чувство. Это предположение, не вердикт учёного.",
+    i_add = islam.get(
+        "add",
+        note.get(
+            "i_add",
+            f"Образ «{title}» в та‘бире читают по сюжету и жизни видевшего, не как одно слово из словаря. Это предположение о смысле, не вердикт учёного.",
+        ),
     )
     l_add = note.get(
         "l_add",
@@ -539,9 +513,9 @@ def expand_one(sym: dict) -> dict:
     i_long = sentences(
         i_short,
         str(i_add),
-        "Классический та‘бир смотрит на человека целиком: веру, профессию, место, повтор сна.",
-        "Пугающий сюжет не разносите и не стройте на нём планы. Спокойный ясный — можно рассказать знающему близкому.",
-        "Окончательное знание у Аллаха; статья в приложении — только помощь различить слой сна.",
+        "Классический та‘бир смотрит сон целиком: веру и работу человека, место, повтор, чем кончилось.",
+        "Один символ у двух людей читается по-разному. Если после пробуждения ясно, что делать — это важнее ещё одной цитаты.",
+        "Окончательное знание у Аллаха; статья помогает понять смысл образа, а не вынести приговор.",
     )
     l_long = sentences(
         l_short,

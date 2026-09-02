@@ -10,7 +10,7 @@ import {
   speak,
   toggleFavorite,
 } from './storage'
-import { DREAM_HADITHS } from './hadithDreams'
+import { tawilForSymbol } from './hadithDreams'
 import './App.css'
 
 type View =
@@ -295,6 +295,50 @@ function TraditionSelect({
   )
 }
 
+function IslamicTawil({ symbolId }: { symbolId: string }) {
+  const tawil = tawilForSymbol(symbolId)
+
+  if (!tawil) {
+    return (
+      <aside className="hadith-themes">
+        <h3>Что нужно знать</h3>
+        <p className="hadith-meaning">
+          В «Сахих» Бухари и Муслиме этот символ отдельно не толкуют. Текст выше — смысл образа по
+          та‘биру: что он может значить в вашей жизни. Это не цитата хадиса и не вердикт учёного.
+        </p>
+      </aside>
+    )
+  }
+
+  return (
+    <aside className="hadith-themes">
+      <h3>Похожий образ у Пророка ﷺ</h3>
+      <p className="hadith-meaning">{tawil.caveat}</p>
+      <ol className="hadith-list">
+        {tawil.items.map((h) => (
+          <li key={h.id} className="hadith-item">
+            <p className="hadith-ref">
+              <span className="hadith-badge">
+                {h.collection} {h.number}
+              </span>
+              <span className="hadith-meta">
+                {h.narrator} · {h.book}
+              </span>
+            </p>
+            <p className="hadith-meaning">{h.meaningRu}</p>
+            <a className="hadith-link" href={h.url} target="_blank" rel="noreferrer">
+              Текст на sunnah.com
+            </a>
+          </li>
+        ))}
+      </ol>
+      <p className="disclaimer">
+        Номера по sunnah.com. Русский — смысл, не официальный перевод. Не фетва.
+      </p>
+    </aside>
+  )
+}
+
 function SymbolPage({
   symbol,
   traditions,
@@ -359,8 +403,8 @@ function SymbolPage({
 
       {tradition === 'islamic' && (
         <aside className="islamic-note">
-          <strong>Мусульманский режим.</strong> Сначала отличите благий сон, тревожный и «от мыслей
-          дня». Толкование — предположение, не вердикт учёного.
+          <strong>Смысл сна.</strong> Здесь — что может значить этот образ: на что смотреть и что
+          полезно знать. Это не «хороший или плохой сон» и не фетва. Окончательное знание у Аллаха.
         </aside>
       )}
 
@@ -388,33 +432,7 @@ function SymbolPage({
         </aside>
       )}
 
-      {tradition === 'islamic' && (
-        <aside className="hadith-themes">
-          <h3>Хадисы о снах — Бухари и Муслим</h3>
-          <ol className="hadith-list">
-            {DREAM_HADITHS.map((h) => (
-              <li key={h.id} className="hadith-item">
-                <p className="hadith-ref">
-                  <span className="hadith-badge">
-                    {h.collection} {h.number}
-                  </span>
-                  <span className="hadith-meta">
-                    {h.narrator} · {h.book}
-                  </span>
-                </p>
-                <p className="hadith-meaning">{h.meaningRu}</p>
-                <a className="hadith-link" href={h.url} target="_blank" rel="noreferrer">
-                  Текст на sunnah.com
-                </a>
-              </li>
-            ))}
-          </ol>
-          <p className="disclaimer">
-            Номера по изданию sunnah.com. Русский текст — смысл, не официальный перевод. Не фетва
-            и не толкование конкретного символа.
-          </p>
-        </aside>
-      )}
+      {tradition === 'islamic' && <IslamicTawil symbolId={symbol.id} />}
 
       <p className="disclaimer">{disclaimer}</p>
     </main>
@@ -470,7 +488,10 @@ function About({ catalog }: { catalog: Catalog }) {
       <ul>
         <li>Быстрый поиск: содержит / начинается / заканчивается</li>
         <li>Алфавит А–Я</li>
-        <li>Развёрнутые тексты, подсказки; в исламском режиме — хадисы Бухари и Муслима с номерами</li>
+        <li>
+          Развёрнутые тексты и подсказки; в мусульманском режиме — смысл образа, а не «хороший /
+          плохой сон»
+        </li>
         <li>Избранное и история (на этом устройстве)</li>
         <li>Озвучивание текста</li>
       </ul>
