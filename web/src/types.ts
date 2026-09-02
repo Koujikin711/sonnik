@@ -2,12 +2,7 @@ export type TraditionId =
   | 'universal'
   | 'folk'
   | 'islamic'
-  | 'miller_style'
-  | 'freud_style'
-  | 'jung_style'
-  | 'loff_style'
-  | 'vanga_style'
-  | 'hasse_style'
+  | 'psychosomatic'
   | 'love'
   | 'family'
 
@@ -17,12 +12,19 @@ export type TraditionMeta = {
   group: string
 }
 
+export type Meaning = {
+  short: string
+  long?: string
+  hints?: string[]
+  hadith_themes?: string[]
+}
+
 export type SymbolEntry = {
   id: string
   title: string
   letter: string
   tags: string[]
-  traditions: Partial<Record<TraditionId, { short: string }>>
+  traditions: Partial<Record<TraditionId, Meaning>>
 }
 
 export type Catalog = {

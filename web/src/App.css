@@ -311,7 +311,10 @@ input {
 }
 
 .islamic-note,
+.psycho-note,
 .meaning,
+.hints,
+.hadith-themes,
 .about {
   background: var(--card);
   border: 1px solid var(--line);
@@ -320,13 +323,41 @@ input {
   box-shadow: var(--shadow);
 }
 
-.islamic-note {
+.islamic-note,
+.psycho-note {
   background: linear-gradient(135deg, rgba(232, 212, 176, 0.45), rgba(255, 255, 255, 0.7));
   font-size: 0.92rem;
   color: var(--ink-soft);
 }
 
+.psycho-note {
+  background: linear-gradient(135deg, rgba(47, 92, 107, 0.12), rgba(255, 255, 255, 0.7));
+}
+
+.meaning-short {
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+}
+
+.meaning-long {
+  line-height: 1.55;
+}
+
+.hints ul,
+.hadith-themes ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--ink-soft);
+}
+
+.hints li,
+.hadith-themes li {
+  margin: 0.35rem 0;
+}
+
 .meaning h3,
+.hints h3,
+.hadith-themes h3,
 .about h2 {
   margin: 0 0 0.5rem;
   font-family: var(--font-display);

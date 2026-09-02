@@ -41,7 +41,17 @@ export default function App() {
     setFavorites(getFavorites())
     setHistory(getHistory())
     const saved = getSavedTradition()
-    if (saved) setTradition(saved as TraditionId)
+    const allowed: TraditionId[] = [
+      'universal',
+      'folk',
+      'islamic',
+      'psychosomatic',
+      'love',
+      'family',
+    ]
+    if (saved && allowed.includes(saved as TraditionId)) {
+      setTradition(saved as TraditionId)
+    }
 
     fetch(`${import.meta.env.BASE_URL}data/symbols.json?v=${Date.now()}`, { cache: 'no-store' })
       .then((r) => {
@@ -303,7 +313,11 @@ function SymbolPage({
   onBack: () => void
   disclaimer: string
 }) {
-  const text = symbol.traditions[tradition]?.short ?? 'Для этой традиции пока нет текста.'
+  const entry = symbol.traditions[tradition]
+  const text = entry?.short ?? 'Для этой традиции пока нет текста.'
+  const longText = entry?.long
+  const hints = entry?.hints ?? []
+  const hadithThemes = entry?.hadith_themes ?? []
   const titleText = `${symbol.title}. ${traditions.find((t) => t.id === tradition)?.title ?? ''}. ${text}`
 
   return (
@@ -350,10 +364,43 @@ function SymbolPage({
         </aside>
       )}
 
+      {tradition === 'psychosomatic' && (
+        <aside className="psycho-note">
+          <strong>Психосоматика.</strong> Сон говорит о чувстве и телесном отклике. Это не диагноз
+          и не замена врача.
+        </aside>
+      )}
+
       <article className="meaning">
         <h3>{traditions.find((t) => t.id === tradition)?.title}</h3>
-        <p>{text}</p>
+        <p className="meaning-short">{text}</p>
+        {longText && <p className="meaning-long">{longText}</p>}
       </article>
+
+      {hints.length > 0 && (
+        <aside className="hints">
+          <h3>Подсказки</h3>
+          <ul>
+            {hints.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        </aside>
+      )}
+
+      {tradition === 'islamic' && hadithThemes.length > 0 && (
+        <aside className="hadith-themes">
+          <h3>Темы из Сунны</h3>
+          <ul>
+            {hadithThemes.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+          <p className="disclaimer">
+            Опора — известные хадисы о видах снов (Бухари, Муслим). Не фетва и не цитата словаря.
+          </p>
+        </aside>
+      )}
 
       <p className="disclaimer">{disclaimer}</p>
     </main>
@@ -402,16 +449,16 @@ function About({ catalog }: { catalog: Catalog }) {
     <section className="about">
       <h2>О приложении</h2>
       <p>
-        Словарь толкований с переключением традиций: народный, мусульманский, психологические
-        стили и тематические слои. База символов — <strong>свои формулировки</strong>, не копия
-        чужого APK.
+        Словарь толкований: универсальный, народный, мусульманский та‘бир, психосоматика,
+        любовный и семейный слои. База — <strong>свои формулировки</strong>, не копия чужих
+        сонников.
       </p>
       <ul>
         <li>Быстрый поиск: содержит / начинается / заканчивается</li>
         <li>Алфавит А–Я</li>
+        <li>Развёрнутые тексты, подсказки, в исламском режиме — темы из Сунны</li>
         <li>Избранное и история (на этом устройстве)</li>
         <li>Озвучивание текста</li>
-        <li>Обновления приходят сразу, без старого кэша приложения</li>
       </ul>
       <p className="disclaimer">{catalog.disclaimer}</p>
       <p className="meta">
