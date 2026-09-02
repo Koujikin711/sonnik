@@ -43,7 +43,7 @@ export default function App() {
     const saved = getSavedTradition()
     if (saved) setTradition(saved as TraditionId)
 
-    fetch(`${import.meta.env.BASE_URL}data/symbols.json`)
+    fetch(`${import.meta.env.BASE_URL}data/symbols.json`, { cache: 'no-store' })
       .then((r) => {
         if (!r.ok) throw new Error('Не удалось загрузить базу')
         return r.json()
@@ -116,6 +116,7 @@ export default function App() {
           <div>
             <h1 className="brand">Сонник</h1>
             <p className="tagline">Толкование снов · свой словарь</p>
+            <BuildStamp />
           </div>
         </div>
       </header>
@@ -359,7 +360,7 @@ function SymbolPage({
   )
 }
 
-function About({ catalog }: { catalog: Catalog }) {
+function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
 
   useEffect(() => {
@@ -373,15 +374,29 @@ function About({ catalog }: { catalog: Catalog }) {
       .catch(() => {})
   }, [])
 
-  const updated = build
-    ? new Date(build.deployedAt).toLocaleString('ru-RU', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      })
-    : null
+  if (!build) return null
+  const updated = new Date(build.deployedAt).toLocaleString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+  return { version: build.version, updated }
+}
+
+function BuildStamp() {
+  const build = useBuildStamp()
+  if (!build) return null
+  return (
+    <p className="build-stamp">
+      v{build.version} · {build.updated}
+    </p>
+  )
+}
+
+function About({ catalog }: { catalog: Catalog }) {
+  const build = useBuildStamp()
 
   return (
     <section className="about">
@@ -405,7 +420,7 @@ function About({ catalog }: { catalog: Catalog }) {
           <>
             <br />
             Версия {build.version}
-            {updated ? ` · обновлено ${updated}` : ''}
+            {build.updated ? ` · обновлено ${build.updated}` : ''}
           </>
         )}
       </p>

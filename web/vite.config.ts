@@ -65,7 +65,21 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,json,woff2}'],
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
+        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        runtimeCaching: [
+          {
+            urlPattern: /\/sonnik\/(version|data\/symbols)\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'sonnik-data',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 8, maxAgeSeconds: 60 },
+            },
+          },
+        ],
       },
     }),
   ],
