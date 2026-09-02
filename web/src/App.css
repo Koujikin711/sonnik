@@ -74,6 +74,15 @@ input {
   align-items: center;
 }
 
+.brand-hit {
+  border: none;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
 .moon {
   width: 52px;
   height: 52px;
@@ -157,6 +166,20 @@ input {
   overflow: visible;
 }
 
+.trad-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.trad-row .chip {
+  padding: 0.48rem 0.12rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 0;
+}
+
 .chip,
 .letter,
 .tab,
@@ -205,13 +228,13 @@ input {
 .symbol-row {
   width: 100%;
   display: flex;
-  gap: 0.8rem;
-  align-items: flex-start;
+  gap: 0.65rem;
+  align-items: center;
   text-align: left;
   border: 1px solid var(--line);
   background: var(--card);
   border-radius: var(--radius);
-  padding: 0.9rem 0.95rem;
+  padding: 0.78rem 0.9rem;
   cursor: pointer;
   box-shadow: var(--shadow);
 }
@@ -250,9 +273,9 @@ input {
 
 .sym-preview {
   color: var(--ink-soft);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -324,7 +347,7 @@ input {
   bottom: 0;
   width: min(640px, 100%);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.25rem;
   padding: 0.5rem 0.55rem calc(0.5rem + env(safe-area-inset-bottom));
   background: rgba(247, 250, 251, 0.94);

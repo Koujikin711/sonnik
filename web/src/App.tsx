@@ -26,6 +26,14 @@ type View =
 
 const AZ = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('')
 
+const TRAD_SHORT: Record<string, string> = {
+  universal: 'Общий',
+  folk: 'Народ',
+  islamic: 'Ислам',
+  love: 'Любовь',
+  family: 'Семья',
+}
+
 function matchesWord(word: string, q: string) {
   return word.toLocaleLowerCase('ru').includes(q)
 }
@@ -155,7 +163,7 @@ export default function App() {
   return (
     <div className="shell">
       <header className="top">
-        <div className="brand-block">
+        <button type="button" className="brand-block brand-hit" onClick={() => goTab('search')}>
           <div className="moon" aria-hidden />
           <div>
             <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
@@ -166,7 +174,7 @@ export default function App() {
             </p>
             <BuildStamp />
           </div>
-        </div>
+        </button>
       </header>
 
       {view.kind === 'symbol' && symbol ? (
@@ -241,24 +249,19 @@ export default function App() {
                     >
                       Все
                     </button>
-                    {AZ.map((L) => {
-                      const has = presentLetters.has(L)
-                      return (
-                        <button
-                          key={L}
-                          type="button"
-                          className={letter === L ? 'letter active' : 'letter'}
-                          disabled={!has}
-                          onClick={() => {
-                            if (!has) return
-                            setQuery('')
-                            setLetter(letter === L ? null : L)
-                          }}
-                        >
-                          {L}
-                        </button>
-                      )
-                    })}
+                    {AZ.filter((L) => presentLetters.has(L)).map((L) => (
+                      <button
+                        key={L}
+                        type="button"
+                        className={letter === L ? 'letter active' : 'letter'}
+                        onClick={() => {
+                          setQuery('')
+                          setLetter(letter === L ? null : L)
+                        }}
+                      >
+                        {L}
+                      </button>
+                    ))}
                   </section>
                 </section>
               )}
@@ -303,7 +306,6 @@ export default function App() {
                 {list.map((s) => (
                   <li key={s.id}>
                     <button type="button" className="symbol-row" onClick={() => openSymbol(s.id)}>
-                      <span className="sym-letter">{s.letter}</span>
                       <span className="sym-body">
                         <span className="sym-title">{s.title}</span>
                         <span className="sym-preview">
@@ -311,15 +313,6 @@ export default function App() {
                             s.traditions.universal?.short ??
                             '—'}
                         </span>
-                        {s.tags.length > 0 && (
-                          <span className="sym-tags">
-                            {s.tags.slice(0, 2).map((tag) => (
-                              <span key={tag} className="pill">
-                                {tag}
-                              </span>
-                            ))}
-                          </span>
-                        )}
                       </span>
                       <span className="sym-chevron" aria-hidden>
                         ›
@@ -337,7 +330,6 @@ export default function App() {
         <nav className="tabs" aria-label="Разделы">
           {(
             [
-              ['search', 'Поиск'],
               ['body', 'Тело'],
               ['favorites', 'Избранное'],
               ['history', 'История'],
@@ -370,15 +362,16 @@ function TraditionSelect({
 }) {
   return (
     <section className="traditions" aria-label="Сонник">
-      <div className="trad-scroll">
+      <div className="trad-row">
         {traditions.map((t) => (
           <button
             key={t.id}
             type="button"
             className={value === t.id ? 'chip active' : 'chip'}
+            title={t.title}
             onClick={() => onChange(t.id as TraditionId)}
           >
-            {t.title}
+            {TRAD_SHORT[t.id] ?? t.title}
           </button>
         ))}
       </div>
@@ -590,7 +583,7 @@ function About({ catalog }: { catalog: Catalog }) {
         чужих сонников.
       </p>
       <ul>
-        <li>Один поиск: строка и буквы А–Я на том же экране</li>
+        <li>Поиск сверху. К заголовку «Сонник» — назад к словам</li>
         <li>
           {catalog.symbols.length} слов, поиск по синонимам (зуб, летать, мама), связанные образы
         </li>

@@ -136,14 +136,11 @@ export function BodyPanel({
     return (
       <li key={item.id}>
         <button type="button" className="symbol-row" onClick={() => onOpen(item.id)}>
-          <span className="sym-letter">{item.letter}</span>
           <span className="sym-body">
             <span className="sym-title">{item.title}</span>
             <span className="sym-preview">{item.short}</span>
-            <span className="sym-tags">
-              <span className="pill">{zoneTitle(item.zone)}</span>
-            </span>
           </span>
+          <span className="pill">{zoneTitle(item.zone)}</span>
           <span className="sym-chevron" aria-hidden>
             ›
           </span>
