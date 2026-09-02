@@ -409,7 +409,7 @@ function IslamicTawil({ symbolId }: { symbolId: string }) {
           <li key={h.id} className="hadith-item">
             <p className="hadith-ref">
               <span className="hadith-badge">
-                {h.collection} {h.number}
+                Сахих {h.collection === 'Бухари' ? 'аль-Бухари' : 'Муслим'}, {h.number}
               </span>
               <span className="hadith-meta">
                 {h.narrator} · {h.book}
