@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "public/data/symbols.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from islamic_meanings import ISLAMIC
+from new_symbols import EXISTING_ALIASES, EXISTING_RELATED, NEW_SYMBOLS, as_seed, extra_islamic, extra_note
 
 DROP = {
     "miller_style",
@@ -395,6 +396,9 @@ NOTE: dict[str, dict[str, object]] = {
     },
 }
 
+NOTE.update(extra_note())
+ISLAMIC.update(extra_islamic())
+
 
 def hints_for(kind: str, title: str, tags: list[str], note: dict) -> list[str]:
     if kind == "universal":
@@ -546,11 +550,16 @@ def expand_one(sym: dict) -> dict:
         "Один тихий разговор за столом часто закрывает тему лучше, чем ещё одна примета.",
     )
 
+    aliases = list(sym.get("aliases") or EXISTING_ALIASES.get(tid, []))
+    related = list(sym.get("related") or EXISTING_RELATED.get(tid, []))
+
     return {
         "id": tid,
         "title": title,
         "letter": sym["letter"],
         "tags": tags,
+        "aliases": aliases,
+        "related": related,
         "traditions": {
             "universal": {
                 "short": u_short,
@@ -588,6 +597,12 @@ def expand_one(sym: dict) -> dict:
 
 def main() -> None:
     src = json.loads(SRC.read_text(encoding="utf-8"))
+    have = {s["id"] for s in src["symbols"]}
+    for item in NEW_SYMBOLS:
+        if item["id"] not in have:
+            src["symbols"].append(as_seed(item))
+            have.add(item["id"])
+    src["symbols"].sort(key=lambda s: (s["letter"], s["title"]))
     symbols = [expand_one(s) for s in src["symbols"]]
     catalog = {
         "version": 2,

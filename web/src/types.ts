@@ -23,6 +23,8 @@ export type SymbolEntry = {
   title: string
   letter: string
   tags: string[]
+  aliases?: string[]
+  related?: string[]
   traditions: Partial<Record<TraditionId, Meaning>>
 }
 

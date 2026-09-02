@@ -17,13 +17,20 @@ type View =
   | { kind: 'list' }
   | { kind: 'symbol'; id: string }
 
-function matches(title: string, q: string, mode: SearchMode) {
-  const t = title.toLocaleLowerCase('ru')
+const AZ = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('')
+
+function matchesWord(word: string, q: string, mode: SearchMode) {
+  const t = word.toLocaleLowerCase('ru')
+  if (mode === 'prefix') return t.startsWith(q)
+  if (mode === 'suffix') return t.endsWith(q)
+  return t.includes(q)
+}
+
+function matchesSymbol(symbol: SymbolEntry, q: string, mode: SearchMode) {
   const query = q.toLocaleLowerCase('ru').trim()
   if (!query) return true
-  if (mode === 'prefix') return t.startsWith(query)
-  if (mode === 'suffix') return t.endsWith(query)
-  return t.includes(query)
+  const words = [symbol.title, ...(symbol.aliases ?? [])]
+  return words.some((w) => matchesWord(w, query, mode))
 }
 
 export default function App() {
@@ -69,11 +76,9 @@ export default function App() {
     return map
   }, [catalog])
 
-  const letters = useMemo(() => {
-    if (!catalog) return []
-    return [...new Set(catalog.symbols.map((s) => s.letter))].sort((a, b) =>
-      a.localeCompare(b, 'ru'),
-    )
+  const presentLetters = useMemo(() => {
+    if (!catalog) return new Set<string>()
+    return new Set(catalog.symbols.map((s) => s.letter))
   }, [catalog])
 
   const list = useMemo(() => {
@@ -87,7 +92,7 @@ export default function App() {
     if (tab === 'alpha') {
       return catalog.symbols.filter((s) => (letter ? s.letter === letter : true))
     }
-    return catalog.symbols.filter((s) => matches(s.title, query, mode))
+    return catalog.symbols.filter((s) => matchesSymbol(s, query, mode))
   }, [catalog, tab, favorites, history, byId, letter, query, mode])
 
   function openSymbol(id: string) {
@@ -126,7 +131,7 @@ export default function App() {
           <div className="moon" aria-hidden />
           <div>
             <h1 className="brand">Сонник</h1>
-            <p className="tagline">Толкование снов · свой словарь</p>
+            <p className="tagline">Толкование снов · {catalog.symbols.length} слов</p>
             <BuildStamp />
           </div>
         </div>
@@ -135,12 +140,18 @@ export default function App() {
       {view.kind === 'symbol' && symbol ? (
         <SymbolPage
           symbol={symbol}
+          related={
+            (symbol.related ?? [])
+              .map((id) => byId.get(id))
+              .filter((s): s is SymbolEntry => Boolean(s))
+          }
           traditions={catalog.traditions}
           tradition={tradition}
           onTradition={onTradition}
           favorite={favorites.includes(symbol.id)}
           onToggleFavorite={() => setFavorites(toggleFavorite(symbol.id))}
           onBack={() => setView({ kind: 'list' })}
+          onOpen={openSymbol}
           disclaimer={catalog.disclaimer}
         />
       ) : (
@@ -157,7 +168,7 @@ export default function App() {
                   <input
                     id="q"
                     className="search"
-                    placeholder="Что снилось? Например: вода, змея…"
+                    placeholder="зубы, летать, мама, кровь, деньги…"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     autoComplete="off"
@@ -192,16 +203,20 @@ export default function App() {
                   >
                     Все
                   </button>
-                  {letters.map((L) => (
-                    <button
-                      key={L}
-                      type="button"
-                      className={letter === L ? 'letter active' : 'letter'}
-                      onClick={() => setLetter(L)}
-                    >
-                      {L}
-                    </button>
-                  ))}
+                  {AZ.map((L) => {
+                    const has = presentLetters.has(L)
+                    return (
+                      <button
+                        key={L}
+                        type="button"
+                        className={letter === L ? 'letter active' : 'letter'}
+                        disabled={!has}
+                        onClick={() => has && setLetter(L)}
+                      >
+                        {L}
+                      </button>
+                    )
+                  })}
                 </section>
               )}
 
@@ -219,9 +234,25 @@ export default function App() {
                 onChange={onTradition}
               />
 
+              {tab === 'search' && query.trim() && (
+                <p className="result-count">
+                  Найдено {list.length} из {catalog.symbols.length}
+                </p>
+              )}
+              {tab !== 'search' && (
+                <p className="result-count">
+                  {list.length} {tab === 'alpha' ? 'в букве' : 'записей'}
+                </p>
+              )}
+
               <ul className="symbol-list">
                 {list.length === 0 && (
-                  <li className="empty">Ничего не найдено. Попробуйте другое слово.</li>
+                  <li className="empty">
+                    <strong>Такого слова в базе нет.</strong>
+                    <span>
+                      Попробуйте синоним: зуб, летать, мама, упасть, кровь, деньги, машина.
+                    </span>
+                  </li>
                 )}
                 {list.map((s) => (
                   <li key={s.id}>
@@ -232,6 +263,18 @@ export default function App() {
                         <span className="sym-preview">
                           {s.traditions[tradition]?.short ?? s.traditions.universal?.short ?? '—'}
                         </span>
+                        {s.tags.length > 0 && (
+                          <span className="sym-tags">
+                            {s.tags.slice(0, 2).map((tag) => (
+                              <span key={tag} className="pill">
+                                {tag}
+                              </span>
+                            ))}
+                          </span>
+                        )}
+                      </span>
+                      <span className="sym-chevron" aria-hidden>
+                        ›
                       </span>
                     </button>
                   </li>
@@ -341,21 +384,25 @@ function IslamicTawil({ symbolId }: { symbolId: string }) {
 
 function SymbolPage({
   symbol,
+  related,
   traditions,
   tradition,
   onTradition,
   favorite,
   onToggleFavorite,
   onBack,
+  onOpen,
   disclaimer,
 }: {
   symbol: SymbolEntry
+  related: SymbolEntry[]
   traditions: Catalog['traditions']
   tradition: TraditionId
   onTradition: (id: TraditionId) => void
   favorite: boolean
   onToggleFavorite: () => void
   onBack: () => void
+  onOpen: (id: string) => void
   disclaimer: string
 }) {
   const entry = symbol.traditions[tradition]
@@ -418,19 +465,34 @@ function SymbolPage({
       )}
 
       <article className="meaning">
-        <h3>{traditions.find((t) => t.id === tradition)?.title}</h3>
+        <p className="meaning-kicker">
+          {traditions.find((t) => t.id === tradition)?.title}
+        </p>
         <p className="meaning-short">{text}</p>
         {longText && <p className="meaning-long">{longText}</p>}
       </article>
 
       {hints.length > 0 && (
         <aside className="hints">
-          <h3>Подсказки</h3>
+          <h3>На что смотреть</h3>
           <ul>
             {hints.map((h) => (
               <li key={h}>{h}</li>
             ))}
           </ul>
+        </aside>
+      )}
+
+      {related.length > 0 && (
+        <aside className="related">
+          <h3>Рядом по смыслу</h3>
+          <div className="related-row">
+            {related.map((s) => (
+              <button key={s.id} type="button" className="chip related-chip" onClick={() => onOpen(s.id)}>
+                {s.title}
+              </button>
+            ))}
+          </div>
         </aside>
       )}
 
@@ -491,8 +553,10 @@ function About({ catalog }: { catalog: Catalog }) {
         <li>Быстрый поиск: содержит / начинается / заканчивается</li>
         <li>Алфавит А–Я</li>
         <li>
-          Развёрнутые тексты и подсказки; в мусульманском режиме — смысл образа, а не «хороший /
-          плохой сон»
+          {catalog.symbols.length} слов, поиск по синонимам (зуб, летать, мама), связанные образы
+        </li>
+        <li>
+          Развёрнутые тексты; в мусульманском режиме — смысл образа, а не «хороший / плохой сон»
         </li>
         <li>Избранное и история (на этом устройстве)</li>
         <li>Озвучивание текста</li>
