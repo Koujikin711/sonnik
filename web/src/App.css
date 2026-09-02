@@ -459,6 +459,24 @@ input {
   color: #9a6b2f;
 }
 
+.meaning-folk,
+.hints-folk {
+  background: rgba(245, 238, 228, 0.94);
+  border-color: #d8c4a4;
+}
+
+.meaning-love,
+.hints-love {
+  background: rgba(255, 240, 242, 0.94);
+  border-color: #e8c4c8;
+}
+
+.meaning-family,
+.hints-family {
+  background: rgba(236, 245, 238, 0.94);
+  border-color: #b9d0be;
+}
+
 .meaning-short {
   font-family: var(--font-display);
   font-weight: 600;
