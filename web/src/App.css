@@ -304,7 +304,7 @@ input {
   bottom: 0;
   width: min(640px, 100%);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0.25rem;
   padding: 0.5rem 0.55rem calc(0.5rem + env(safe-area-inset-bottom));
   background: rgba(247, 250, 251, 0.94);
@@ -314,8 +314,8 @@ input {
 
 .tab {
   border-radius: 12px;
-  font-size: 0.68rem;
-  padding: 0.58rem 0.15rem;
+  font-size: 0.62rem;
+  padding: 0.55rem 0.08rem;
   border: none;
   background: transparent;
 }

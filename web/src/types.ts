@@ -37,4 +37,12 @@ export type Catalog = {
 
 export type SearchMode = 'contains' | 'prefix' | 'suffix'
 
-export type TabId = 'search' | 'alpha' | 'favorites' | 'history' | 'about'
+export type TabId = 'search' | 'alpha' | 'body' | 'favorites' | 'history' | 'about'
+
+export const DREAM_TRADITIONS: TraditionId[] = [
+  'universal',
+  'folk',
+  'islamic',
+  'love',
+  'family',
+]

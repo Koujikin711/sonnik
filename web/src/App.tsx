@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Catalog, SearchMode, SymbolEntry, TabId, TraditionId } from './types'
+import { DREAM_TRADITIONS } from './types'
 import {
   clearHistory,
   getFavorites,
@@ -49,15 +50,7 @@ export default function App() {
     setFavorites(getFavorites())
     setHistory(getHistory())
     const saved = getSavedTradition()
-    const allowed: TraditionId[] = [
-      'universal',
-      'folk',
-      'islamic',
-      'psychosomatic',
-      'love',
-      'family',
-    ]
-    if (saved && allowed.includes(saved as TraditionId)) {
+    if (saved && (DREAM_TRADITIONS as string[]).includes(saved)) {
       setTradition(saved as TraditionId)
     }
 
@@ -92,6 +85,9 @@ export default function App() {
     if (tab === 'alpha') {
       return catalog.symbols.filter((s) => (letter ? s.letter === letter : true))
     }
+    if (tab === 'body') {
+      return catalog.symbols.filter((s) => matchesSymbol(s, query, mode))
+    }
     return catalog.symbols.filter((s) => matchesSymbol(s, query, mode))
   }, [catalog, tab, favorites, history, byId, letter, query, mode])
 
@@ -123,6 +119,11 @@ export default function App() {
   }
 
   const symbol = view.kind === 'symbol' ? byId.get(view.id) : null
+  const dreamTraditions = catalog.traditions.filter((t) =>
+    (DREAM_TRADITIONS as string[]).includes(t.id),
+  )
+  const bodyLens = tab === 'body'
+  const listTradition: TraditionId = bodyLens ? 'psychosomatic' : tradition
 
   return (
     <div className="shell">
@@ -130,8 +131,12 @@ export default function App() {
         <div className="brand-block">
           <div className="moon" aria-hidden />
           <div>
-            <h1 className="brand">Сонник</h1>
-            <p className="tagline">Толкование снов · {catalog.symbols.length} слов</p>
+            <h1 className="brand">{bodyLens ? 'Тело' : 'Сонник'}</h1>
+            <p className="tagline">
+              {bodyLens
+                ? 'Чувство и отклик тела · не толкование сна'
+                : `Толкование снов · ${catalog.symbols.length} слов`}
+            </p>
             <BuildStamp />
           </div>
         </div>
@@ -145,8 +150,9 @@ export default function App() {
               .map((id) => byId.get(id))
               .filter((s): s is SymbolEntry => Boolean(s))
           }
-          traditions={catalog.traditions}
-          tradition={tradition}
+          traditions={dreamTraditions}
+          tradition={bodyLens ? 'psychosomatic' : tradition}
+          lens={bodyLens ? 'body' : 'dream'}
           onTradition={onTradition}
           favorite={favorites.includes(symbol.id)}
           onToggleFavorite={() => setFavorites(toggleFavorite(symbol.id))}
@@ -160,7 +166,7 @@ export default function App() {
             <About catalog={catalog} />
           ) : (
             <>
-              {tab === 'search' && (
+              {(tab === 'search' || tab === 'body') && (
                 <section className="search-panel">
                   <label className="sr-only" htmlFor="q">
                     Поиск
@@ -168,7 +174,11 @@ export default function App() {
                   <input
                     id="q"
                     className="search"
-                    placeholder="зубы, летать, мама, кровь, деньги…"
+                    placeholder={
+                      tab === 'body'
+                        ? 'Где отозвалось? зубы, грудь, живот…'
+                        : 'зубы, летать, мама, кровь, деньги…'
+                    }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     autoComplete="off"
@@ -228,18 +238,27 @@ export default function App() {
                 </div>
               )}
 
-              <TraditionSelect
-                traditions={catalog.traditions}
-                value={tradition}
-                onChange={onTradition}
-              />
+              {tab === 'body' && (
+                <aside className="psycho-note">
+                  <strong>Не сонник.</strong> Здесь не примета и не «к чему снится». Только где
+                  могло отозваться тело и какое чувство не дожили днём. Это не диагноз.
+                </aside>
+              )}
 
-              {tab === 'search' && query.trim() && (
+              {!bodyLens && (
+                <TraditionSelect
+                  traditions={dreamTraditions}
+                  value={tradition}
+                  onChange={onTradition}
+                />
+              )}
+
+              {(tab === 'search' || tab === 'body') && query.trim() && (
                 <p className="result-count">
                   Найдено {list.length} из {catalog.symbols.length}
                 </p>
               )}
-              {tab !== 'search' && (
+              {tab !== 'search' && tab !== 'body' && (
                 <p className="result-count">
                   {list.length} {tab === 'alpha' ? 'в букве' : 'записей'}
                 </p>
@@ -261,7 +280,9 @@ export default function App() {
                       <span className="sym-body">
                         <span className="sym-title">{s.title}</span>
                         <span className="sym-preview">
-                          {s.traditions[tradition]?.short ?? s.traditions.universal?.short ?? '—'}
+                          {s.traditions[listTradition]?.short ??
+                            s.traditions.universal?.short ??
+                            '—'}
                         </span>
                         {s.tags.length > 0 && (
                           <span className="sym-tags">
@@ -291,6 +312,7 @@ export default function App() {
             [
               ['search', 'Поиск'],
               ['alpha', 'А–Я'],
+              ['body', 'Тело'],
               ['favorites', 'Избранное'],
               ['history', 'История'],
               ['about', 'О приложении'],
@@ -387,6 +409,7 @@ function SymbolPage({
   related,
   traditions,
   tradition,
+  lens,
   onTradition,
   favorite,
   onToggleFavorite,
@@ -398,6 +421,7 @@ function SymbolPage({
   related: SymbolEntry[]
   traditions: Catalog['traditions']
   tradition: TraditionId
+  lens: 'dream' | 'body'
   onTradition: (id: TraditionId) => void
   favorite: boolean
   onToggleFavorite: () => void
@@ -448,26 +472,26 @@ function SymbolPage({
       <h2 className="detail-title">{symbol.title}</h2>
       <p className="detail-tags">{symbol.tags.join(' · ')}</p>
 
-      <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
+      {lens === 'dream' && (
+        <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
+      )}
 
-      {tradition === 'islamic' && (
+      {lens === 'dream' && tradition === 'islamic' && (
         <aside className="islamic-note">
           <strong>Смысл сна.</strong> Здесь — что может значить этот образ: на что смотреть и что
           полезно знать. Это не «хороший или плохой сон» и не фетва. Окончательное знание у Аллаха.
         </aside>
       )}
 
-      {tradition === 'psychosomatic' && (
+      {lens === 'body' && (
         <aside className="psycho-note">
-          <strong>Психосоматика.</strong> Сон говорит о чувстве и телесном отклике. Это не диагноз
-          и не замена врача.
+          <strong>Тело, не сонник.</strong> Не «к чему снится». Только чувство и место в теле. Не
+          диагноз и не замена врача.
         </aside>
       )}
 
       <article className="meaning">
-        <p className="meaning-kicker">
-          {traditions.find((t) => t.id === tradition)?.title}
-        </p>
+        <p className="meaning-kicker">{lens === 'body' ? 'Отклик тела' : traditions.find((t) => t.id === tradition)?.title}</p>
         <p className="meaning-short">{text}</p>
         {longText && <p className="meaning-long">{longText}</p>}
       </article>
@@ -496,7 +520,7 @@ function SymbolPage({
         </aside>
       )}
 
-      {tradition === 'islamic' && <IslamicTawil symbolId={symbol.id} />}
+      {lens === 'dream' && tradition === 'islamic' && <IslamicTawil symbolId={symbol.id} />}
 
       <p className="disclaimer">{disclaimer}</p>
     </main>
@@ -545,9 +569,9 @@ function About({ catalog }: { catalog: Catalog }) {
     <section className="about">
       <h2>О приложении</h2>
       <p>
-        Словарь толкований: универсальный, народный, мусульманский та‘бир, психосоматика,
-        любовный и семейный слои. База — <strong>свои формулировки</strong>, не копия чужих
-        сонников.
+        Словарь толкований сна: универсальный, народный, мусульманский та‘бир, любовный и
+        семейный слои. Психосоматика вынесена отдельно — это не слой сна. База —{' '}
+        <strong>свои формулировки</strong>, не копия чужих сонников.
       </p>
       <ul>
         <li>Быстрый поиск: содержит / начинается / заканчивается</li>
@@ -556,7 +580,10 @@ function About({ catalog }: { catalog: Catalog }) {
           {catalog.symbols.length} слов, поиск по синонимам (зуб, летать, мама), связанные образы
         </li>
         <li>
-          Развёрнутые тексты; в мусульманском режиме — смысл образа, а не «хороший / плохой сон»
+          Раздел «Тело» — отдельно от сонника: чувство и отклик, не примета
+        </li>
+        <li>
+          В мусульманском режиме — смысл образа, а не «хороший / плохой сон»
         </li>
         <li>Избранное и история (на этом устройстве)</li>
         <li>Озвучивание текста</li>
