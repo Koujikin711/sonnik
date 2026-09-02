@@ -37,7 +37,7 @@ const TRAD_SHORT: Record<string, string> = {
 const HINT_TITLE: Record<string, string> = {
   universal: 'Если во сне',
   folk: 'Приметы',
-  islamic: 'Если во сне',
+  islamic: 'Если увидит',
   love: 'В любви',
   family: 'В семье',
 }
