@@ -16,7 +16,6 @@ export type Meaning = {
   short: string
   long?: string
   hints?: string[]
-  hadith_themes?: string[]
 }
 
 export type SymbolEntry = {

@@ -343,16 +343,68 @@ input {
   line-height: 1.55;
 }
 
-.hints ul,
-.hadith-themes ul {
+.hints ul {
   margin: 0.35rem 0 0;
   padding-left: 1.15rem;
   color: var(--ink-soft);
 }
 
-.hints li,
-.hadith-themes li {
+.hints li {
   margin: 0.35rem 0;
+}
+
+.hadith-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.hadith-item {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hadith-item:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hadith-ref {
+  margin: 0 0 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.65rem;
+  align-items: baseline;
+}
+
+.hadith-badge {
+  background: var(--teal);
+  color: #f4f7f9;
+  border-radius: 999px;
+  padding: 0.12rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.hadith-meta {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.hadith-meaning {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.hadith-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: var(--teal-mid);
+  font-size: 0.82rem;
 }
 
 .meaning h3,

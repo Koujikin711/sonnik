@@ -10,6 +10,7 @@ import {
   speak,
   toggleFavorite,
 } from './storage'
+import { DREAM_HADITHS } from './hadithDreams'
 import './App.css'
 
 type View =
@@ -317,7 +318,6 @@ function SymbolPage({
   const text = entry?.short ?? 'Для этой традиции пока нет текста.'
   const longText = entry?.long
   const hints = entry?.hints ?? []
-  const hadithThemes = entry?.hadith_themes ?? []
   const titleText = `${symbol.title}. ${traditions.find((t) => t.id === tradition)?.title ?? ''}. ${text}`
 
   return (
@@ -388,16 +388,30 @@ function SymbolPage({
         </aside>
       )}
 
-      {tradition === 'islamic' && hadithThemes.length > 0 && (
+      {tradition === 'islamic' && (
         <aside className="hadith-themes">
-          <h3>Темы из Сунны</h3>
-          <ul>
-            {hadithThemes.map((h) => (
-              <li key={h}>{h}</li>
+          <h3>Хадисы о снах — Бухари и Муслим</h3>
+          <ol className="hadith-list">
+            {DREAM_HADITHS.map((h) => (
+              <li key={h.id} className="hadith-item">
+                <p className="hadith-ref">
+                  <span className="hadith-badge">
+                    {h.collection} {h.number}
+                  </span>
+                  <span className="hadith-meta">
+                    {h.narrator} · {h.book}
+                  </span>
+                </p>
+                <p className="hadith-meaning">{h.meaningRu}</p>
+                <a className="hadith-link" href={h.url} target="_blank" rel="noreferrer">
+                  Текст на sunnah.com
+                </a>
+              </li>
             ))}
-          </ul>
+          </ol>
           <p className="disclaimer">
-            Опора — известные хадисы о видах снов (Бухари, Муслим). Не фетва и не цитата словаря.
+            Номера по изданию sunnah.com. Русский текст — смысл, не официальный перевод. Не фетва
+            и не толкование конкретного символа.
           </p>
         </aside>
       )}
@@ -456,7 +470,7 @@ function About({ catalog }: { catalog: Catalog }) {
       <ul>
         <li>Быстрый поиск: содержит / начинается / заканчивается</li>
         <li>Алфавит А–Я</li>
-        <li>Развёрнутые тексты, подсказки, в исламском режиме — темы из Сунны</li>
+        <li>Развёрнутые тексты, подсказки; в исламском режиме — хадисы Бухари и Муслима с номерами</li>
         <li>Избранное и история (на этом устройстве)</li>
         <li>Озвучивание текста</li>
       </ul>

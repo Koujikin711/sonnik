@@ -588,7 +588,6 @@ def expand_one(sym: dict) -> dict:
                 "short": i_short,
                 "long": i_long,
                 "hints": hints_for("islamic", title, tags, note),
-                "hadith_themes": hadith_for(tags, title, i_short),
             },
             "psychosomatic": {
                 "short": p_short,
