@@ -2,7 +2,6 @@ import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
 import pkg from './package.json' with { type: 'json' }
 
 function versionStamp(): Plugin {
@@ -18,6 +17,7 @@ function versionStamp(): Plugin {
         const path = req.url?.split('?')[0]
         if (path === '/sonnik/version.json' || path === '/version.json') {
           res.setHeader('Content-Type', 'application/json')
+          res.setHeader('Cache-Control', 'no-store')
           res.end(JSON.stringify(stamp(), null, 2) + '\n')
           return
         }
@@ -39,38 +39,5 @@ function versionStamp(): Plugin {
 
 export default defineConfig({
   base: '/sonnik/',
-  plugins: [
-    react(),
-    versionStamp(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: false,
-      selfDestroying: true,
-      includeAssets: ['favicon.svg'],
-      workbox: {
-        skipWaiting: true,
-        clientsClaim: true,
-        cleanupOutdatedCaches: true,
-        navigateFallback: '',
-      },
-      manifest: {
-        name: 'Сонник',
-        short_name: 'Сонник',
-        description: 'Толкование снов — свой словарь традиций',
-        theme_color: '#1a3a4a',
-        background_color: '#eef3f6',
-        display: 'standalone',
-        lang: 'ru',
-        start_url: '/sonnik/',
-        icons: [
-          {
-            src: 'favicon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any maskable',
-          },
-        ],
-      },
-    }),
-  ],
+  plugins: [react(), versionStamp()],
 })

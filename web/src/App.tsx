@@ -43,7 +43,7 @@ export default function App() {
     const saved = getSavedTradition()
     if (saved) setTradition(saved as TraditionId)
 
-    fetch(`${import.meta.env.BASE_URL}data/symbols.json`, { cache: 'no-store' })
+    fetch(`${import.meta.env.BASE_URL}data/symbols.json?v=${Date.now()}`, { cache: 'no-store' })
       .then((r) => {
         if (!r.ok) throw new Error('Не удалось загрузить базу')
         return r.json()
@@ -364,7 +364,7 @@ function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}version.json`, { cache: 'no-store' })
+    fetch(`${import.meta.env.BASE_URL}version.json?v=${Date.now()}`, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
       .then((data: { version?: string; deployedAt?: string } | null) => {
         if (data?.version && data.deployedAt) {
@@ -411,7 +411,7 @@ function About({ catalog }: { catalog: Catalog }) {
         <li>Алфавит А–Я</li>
         <li>Избранное и история (на этом устройстве)</li>
         <li>Озвучивание текста</li>
-        <li>Работает офлайн после первого открытия (PWA)</li>
+        <li>Обновления приходят сразу, без старого кэша приложения</li>
       </ul>
       <p className="disclaimer">{catalog.disclaimer}</p>
       <p className="meta">
