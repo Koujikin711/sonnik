@@ -45,7 +45,7 @@ const HINT_TITLE: Record<string, string> = {
 const CARD_KICKER: Record<string, string> = {
   universal: 'К чему снится',
   folk: 'Народный',
-  islamic: 'Исламский',
+  islamic: 'Та‘бир',
   love: 'Любовный',
   family: 'Семейный',
 }
@@ -512,7 +512,7 @@ function SymbolPage({
 
       <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
 
-      <article className="meaning">
+      <article className={`meaning${tradition === 'islamic' ? ' meaning-islam' : ''}`}>
         <p className="meaning-kicker">
           {CARD_KICKER[tradition] ?? traditions.find((t) => t.id === tradition)?.title}
         </p>
@@ -521,7 +521,7 @@ function SymbolPage({
       </article>
 
       {hints.length > 0 && (
-        <aside className="hints">
+        <aside className={`hints${tradition === 'islamic' ? ' hints-islam' : ''}`}>
           <h3>{HINT_TITLE[tradition] ?? 'Если во сне'}</h3>
           <ul>
             {hints.map((h) => (

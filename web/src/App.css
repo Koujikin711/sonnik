@@ -449,6 +449,16 @@ input {
   color: var(--sand);
 }
 
+.meaning-islam,
+.hints-islam {
+  background: rgba(255, 248, 236, 0.94);
+  border-color: #e4d0a8;
+}
+
+.meaning-islam .meaning-kicker {
+  color: #9a6b2f;
+}
+
 .meaning-short {
   font-family: var(--font-display);
   font-weight: 600;
