@@ -602,7 +602,8 @@ def main() -> None:
         if item["id"] not in have:
             src["symbols"].append(as_seed(item))
             have.add(item["id"])
-    src["symbols"].sort(key=lambda s: (s["letter"], s["title"]))
+    letter_order = {ch: i for i, ch in enumerate("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ")}
+    src["symbols"].sort(key=lambda s: (letter_order.get(s["letter"], 99), s["title"]))
     symbols = [expand_one(s) for s in src["symbols"]]
     catalog = {
         "version": 2,
