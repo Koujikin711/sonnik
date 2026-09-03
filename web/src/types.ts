@@ -40,14 +40,6 @@ export type BodyZone = {
   title: string
 }
 
-export type BodySource = {
-  authors: string
-  year: number
-  title: string
-  journal: string
-  url: string
-}
-
 export type BodyBehavior = {
   id: string
   title: string
@@ -62,7 +54,6 @@ export type BodyBehavior = {
   causes?: string[]
   findings?: string[]
   doctor?: string
-  sources?: BodySource[]
 }
 
 export type BodyCatalog = {
