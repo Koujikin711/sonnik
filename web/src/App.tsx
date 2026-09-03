@@ -52,12 +52,13 @@ const CARD_KICKER: Record<string, string> = {
 
 function stripHintLead(raw: string, tradition: TraditionId) {
   let t = raw.trim().replace(/\.+$/, '')
-  if (tradition === 'islamic') {
-    return t
-  }
   t = t.replace(/^в народе так читают:\s*если\s+/i, '')
   t = t.replace(/^в народе:\s*если\s+/i, '')
-  t = t.replace(/^если\s+/i, '')
+  t = t.replace(/^если увидит,\s*что\s+/i, '')
+  t = t.replace(/^если увидит\s+/i, '')
+  if (tradition !== 'islamic') {
+    t = t.replace(/^если\s+/i, '')
+  }
   if (!t) return raw.trim()
   return t.replace(/^\p{Ll}/u, (ch) => ch.toLocaleUpperCase('ru'))
 }
@@ -83,7 +84,7 @@ function prettyHints(hints: string[], short: string, tradition: TraditionId) {
     taken.add(key)
     const cleaned = stripHintLead(raw, tradition)
     const dash = cleaned.indexOf(' — ')
-    if (tradition !== 'islamic' && dash > 0) {
+    if (dash > 0) {
       out.push({ lead: cleaned.slice(0, dash), out: cleaned.slice(dash + 3) })
     } else {
       out.push({ lead: null, out: cleaned.endsWith('.') ? cleaned : `${cleaned}.` })

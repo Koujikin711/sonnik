@@ -179,7 +179,8 @@ def widen_hint(title: str, layer: str, raw: str) -> str | None:
         lead = left[:1].upper() + left[1:] if left else left
         return f"{lead} — {right}."
     if layer == "islamic":
-        return f"Если увидит, что {left} — {right}."
+        lead = left[:1].upper() + left[1:] if left else left
+        return f"{lead} — {right}."
     if layer == "love":
         return f"Если {left} — {right}."
     return f"Если {left} — {right}."
