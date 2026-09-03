@@ -176,7 +176,8 @@ def widen_hint(title: str, layer: str, raw: str) -> str | None:
             right = "к " + right
         return f"Если {left} — {right}."
     if layer == "folk":
-        return f"В народе так читают: если {left} — {right}."
+        lead = left[:1].upper() + left[1:] if left else left
+        return f"{lead} — {right}."
     if layer == "islamic":
         return f"Если увидит, что {left} — {right}."
     if layer == "love":
@@ -199,7 +200,7 @@ def widen_short(title: str, layer: str, short: str, first_hints: list[str]) -> s
         body = re.sub(r"^в народе[^.]*толкуют так:\s*", "", body, flags=re.I)
         if body.lower().startswith(low):
             body = body[len(low) :].strip(" —")
-        return f"В народе {low} толкуют так: {body[0].lower() + body[1:]}."
+        return (body[:1].upper() + body[1:] + ".") if body else f"{title} — к примете двора."
     if layer == "islamic":
         if s.lower().startswith("это "):
             return s[0].upper() + s[1:] + "."
@@ -251,11 +252,10 @@ def main() -> None:
                 for h in hints[:2]:
                     p = split_dash(h)
                     bits.append(f"{p[0]} — {p[1]}" if p else h.rstrip("."))
-                card["short"] = f"В народе {title.lower()} толкуют так: {bits[0]}."
+                first = bits[0][:1].upper() + bits[0][1:]
+                card["short"] = f"{first}."
                 if len(bits) > 1:
-                    card["short"] = (
-                        f"В народе {title.lower()} толкуют так: {bits[0]}; {bits[1]}."
-                    )
+                    card["short"] = f"{first}; {bits[1]}."
             else:
                 card["short"] = widen_short(title, layer, card.get("short") or "", hints)
             card["long"] = ""

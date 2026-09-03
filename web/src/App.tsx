@@ -50,6 +50,48 @@ const CARD_KICKER: Record<string, string> = {
   family: 'Семейный',
 }
 
+function stripHintLead(raw: string, tradition: TraditionId) {
+  let t = raw.trim().replace(/\.+$/, '')
+  if (tradition === 'islamic') {
+    return t
+  }
+  t = t.replace(/^в народе так читают:\s*если\s+/i, '')
+  t = t.replace(/^в народе:\s*если\s+/i, '')
+  t = t.replace(/^если\s+/i, '')
+  if (!t) return raw.trim()
+  return t.replace(/^\p{Ll}/u, (ch) => ch.toLocaleUpperCase('ru'))
+}
+
+function hintKey(raw: string, tradition: TraditionId) {
+  const t = stripHintLead(raw, tradition)
+  const dash = t.indexOf(' — ')
+  const left = (dash > 0 ? t.slice(0, dash) : t).toLocaleLowerCase('ru')
+  return left.replace(/\s+/g, ' ').trim()
+}
+
+function prettyHints(hints: string[], short: string, tradition: TraditionId) {
+  const taken = new Set(
+    short
+      .split(/[.;]/)
+      .map((chunk) => hintKey(chunk, tradition))
+      .filter(Boolean),
+  )
+  const out: { lead: string | null; out: string }[] = []
+  for (const raw of hints) {
+    const key = hintKey(raw, tradition)
+    if (!key || taken.has(key)) continue
+    taken.add(key)
+    const cleaned = stripHintLead(raw, tradition)
+    const dash = cleaned.indexOf(' — ')
+    if (tradition !== 'islamic' && dash > 0) {
+      out.push({ lead: cleaned.slice(0, dash), out: cleaned.slice(dash + 3) })
+    } else {
+      out.push({ lead: null, out: cleaned.endsWith('.') ? cleaned : `${cleaned}.` })
+    }
+  }
+  return out
+}
+
 function matchesWord(word: string, q: string) {
   return word.toLocaleLowerCase('ru').includes(q)
 }
@@ -465,7 +507,7 @@ function SymbolPage({
   const rawLong = entry?.long
   const longText =
     rawLong && text && rawLong.startsWith(text) ? rawLong.slice(text.length).trim() : rawLong
-  const hints = entry?.hints ?? []
+  const hints = prettyHints(entry?.hints ?? [], text, tradition)
   const titleText = `${symbol.title}. ${traditions.find((t) => t.id === tradition)?.title ?? ''}. ${text}`
 
   return (
@@ -518,7 +560,17 @@ function SymbolPage({
           <h3>{HINT_TITLE[tradition] ?? 'Если во сне'}</h3>
           <ul>
             {hints.map((h) => (
-              <li key={h}>{h}</li>
+              <li key={`${h.lead ?? ''}|${h.out}`}>
+                {h.lead ? (
+                  <>
+                    <span className="hint-lead">{h.lead}</span>
+                    {' — '}
+                    {h.out}
+                  </>
+                ) : (
+                  h.out
+                )}
+              </li>
             ))}
           </ul>
         </aside>

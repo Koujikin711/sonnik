@@ -544,6 +544,11 @@ input {
   line-height: 1.45;
 }
 
+.hint-lead {
+  font-weight: 650;
+  color: var(--ink);
+}
+
 .related h3,
 .hints h3,
 .hadith-themes h3,
