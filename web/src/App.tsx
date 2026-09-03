@@ -240,7 +240,7 @@ export default function App() {
       ) : (
         <main className="main">
           {tab === 'about' ? (
-            <About />
+            <About catalog={catalog} />
           ) : (
             <>
               {tab === 'search' && (
@@ -579,7 +579,9 @@ function BuildStamp() {
   )
 }
 
-function About() {
+function About({ catalog }: { catalog: Catalog }) {
+  const build = useBuildStamp()
+
   return (
     <section className="about">
       <h2>О приложении</h2>
@@ -615,6 +617,16 @@ function About() {
         сновидений не является предсказанием будущего, а информация в разделе «Тело» не является
         медицинским диагнозом и не заменяет консультацию врача или другого квалифицированного
         специалиста.
+      </p>
+      <p className="meta">
+        Слов: {catalog.symbols.length}
+        {build && (
+          <>
+            <br />
+            Версия {build.version}
+            {build.updated ? ` · обновлено ${build.updated}` : ''}
+          </>
+        )}
       </p>
     </section>
   )
