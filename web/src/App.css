@@ -491,7 +491,7 @@ input {
 .meaning-kicker {
   margin: 0 0 0.45rem;
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--sand);
@@ -523,6 +523,21 @@ input {
 .hints-family {
   background: rgba(236, 245, 238, 0.94);
   border-color: #b9d0be;
+}
+
+.meaning,
+.meaning p,
+.meaning-short,
+.meaning-long,
+.hints,
+.hints h3,
+.hints li,
+.hints p,
+.hadith-themes,
+.hadith-themes h3,
+.hadith-themes p,
+.science-card h3 {
+  font-weight: 400;
 }
 
 .meaning-short {
@@ -585,9 +600,10 @@ input {
 .hadith-themes h3,
 .about h2 {
   margin: 0 0 0.55rem;
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
+  font-weight: 400;
   color: var(--teal);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 
 .about h3 {

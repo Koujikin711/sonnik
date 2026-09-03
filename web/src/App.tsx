@@ -587,6 +587,8 @@ function SymbolPage({
   )
 }
 
+const APP_VERSION = '0.2.31'
+
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
 
@@ -596,6 +598,10 @@ function useBuildStamp() {
       .then((data: { version?: string; deployedAt?: string } | null) => {
         if (data?.version && data.deployedAt) {
           setBuild({ version: data.version, deployedAt: data.deployedAt })
+          if (data.version !== APP_VERSION && sessionStorage.getItem('sonnik-v') !== data.version) {
+            sessionStorage.setItem('sonnik-v', data.version)
+            location.reload()
+          }
         }
       })
       .catch(() => {})
