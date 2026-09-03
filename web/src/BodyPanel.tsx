@@ -109,21 +109,6 @@ export function BodyPanel({
           </aside>
         )}
 
-        {(selected.sources?.length ?? 0) > 0 && (
-          <aside className="hints science-card sources-card">
-            <h3>Источники</h3>
-            <ol className="source-list">
-              {selected.sources!.map((s) => (
-                <li key={s.url}>
-                  <a href={s.url} target="_blank" rel="noreferrer">
-                    {s.authors} ({s.year}). {s.title}. {s.journal}.
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </aside>
-        )}
-
         {selected.doctor && (
           <aside className="hints science-card doctor-card">
             <h3>Когда к врачу</h3>
@@ -195,8 +180,8 @@ export function BodyPanel({
   return (
     <main className="main">
       <aside className="psycho-note">
-        <strong>Не сонник.</strong> Жесты названы клиническими терминами. В карточке — причины,
-        результаты обзоров и ссылки. Это не диагноз.
+        <strong>Не сонник.</strong> Жесты названы клиническими терминами. В карточке — причины
+        и результаты обзоров. Это не диагноз.
       </aside>
 
       <section className="search-panel">

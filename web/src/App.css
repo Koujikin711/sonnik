@@ -526,13 +526,13 @@ input {
 }
 
 .meaning-short {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.22rem;
-  letter-spacing: -0.02em;
-  line-height: 1.28;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  line-height: 1.42;
   margin-bottom: 0.55rem;
-  color: var(--teal);
+  color: var(--ink);
 }
 
 .meaning-long {
@@ -578,11 +578,6 @@ input {
 
 .doctor-card {
   background: rgba(42, 86, 102, 0.08);
-}
-
-.hint-lead {
-  font-weight: 650;
-  color: var(--ink);
 }
 
 .related h3,
@@ -723,6 +718,6 @@ input {
   }
 
   .meaning-short {
-    font-size: 1.1rem;
+    font-size: 1.02rem;
   }
 }

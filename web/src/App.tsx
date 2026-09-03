@@ -561,17 +561,7 @@ function SymbolPage({
           <h3>{HINT_TITLE[tradition] ?? 'Если во сне'}</h3>
           <ul>
             {hints.map((h) => (
-              <li key={`${h.lead ?? ''}|${h.out}`}>
-                {h.lead ? (
-                  <>
-                    <span className="hint-lead">{h.lead}</span>
-                    {' — '}
-                    {h.out}
-                  </>
-                ) : (
-                  h.out
-                )}
-              </li>
+              <li key={`${h.lead ?? ''}|${h.out}`}>{h.lead ? `${h.lead} — ${h.out}` : h.out}</li>
             ))}
           </ul>
         </aside>
