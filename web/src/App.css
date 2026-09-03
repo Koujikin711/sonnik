@@ -12,16 +12,17 @@
   --shadow: 0 8px 28px rgba(18, 35, 44, 0.07);
   --shadow-hover: 0 14px 32px rgba(18, 35, 44, 0.12);
   --radius: 20px;
-  --font-ui: 'Source Sans 3', 'Noto Sans', system-ui, sans-serif;
-  --font-display: 'Cormorant Garamond', 'Noto Serif', Georgia, serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif;
   color: var(--ink);
   background: var(--bg0);
   font-family: var(--font-ui);
-  line-height: 1.45;
+  line-height: 1.4;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: 'kern' 1, 'liga' 1;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01' 1, 'cv11' 1, 'kern' 1;
 }
 
 * {
@@ -105,10 +106,10 @@ input {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 2.2rem;
-  letter-spacing: 0.02em;
+  font-size: 2.15rem;
+  letter-spacing: -0.03em;
   color: var(--teal);
-  line-height: 1.02;
+  line-height: 1.05;
 }
 
 .tagline {
@@ -276,9 +277,9 @@ input {
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--ink);
-  font-size: 1.22rem;
-  letter-spacing: 0.01em;
-  line-height: 1.15;
+  font-size: 1.12rem;
+  letter-spacing: -0.018em;
+  line-height: 1.2;
 }
 
 .sym-preview {
@@ -449,11 +450,11 @@ input {
 .detail-title {
   margin: 0.15rem 0 0;
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 2.55rem;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  font-size: 2.35rem;
+  letter-spacing: -0.028em;
   color: var(--teal);
-  line-height: 1.05;
+  line-height: 1.08;
 }
 
 .detail-tags {
@@ -527,7 +528,8 @@ input {
 .meaning-short {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.38rem;
+  font-size: 1.22rem;
+  letter-spacing: -0.02em;
   line-height: 1.28;
   margin-bottom: 0.55rem;
   color: var(--teal);
