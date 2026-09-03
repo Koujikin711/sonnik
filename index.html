@@ -5,14 +5,26 @@
     <link rel="icon" type="image/svg+xml" href="/sonnik/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#1a3a4a" />
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('sonnik.theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark')
+            document.documentElement.style.colorScheme = 'dark'
+            var meta = document.querySelector('meta[name="theme-color"]')
+            if (meta) meta.setAttribute('content', '#0f161a')
+          }
+        } catch (e) {}
+      })()
+    </script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta name="description" content="Сонник — толкование снов по разным традициям" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;1,14..32,400&display=swap" rel="stylesheet" />
     <title>Сонник</title>
-    <script type="module" crossorigin src="/sonnik/assets/index-DyAwt4RT.js"></script>
-    <link rel="stylesheet" crossorigin href="/sonnik/assets/index-B5B_lgjr.css">
+    <script type="module" crossorigin src="/sonnik/assets/index-Bsdfrkmp.js"></script>
+    <link rel="stylesheet" crossorigin href="/sonnik/assets/index-CGDFQLm0.css">
   </head>
   <body>
     <div id="root"></div>
