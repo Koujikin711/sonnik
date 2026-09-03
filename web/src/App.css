@@ -11,11 +11,31 @@
   --card: rgba(255, 255, 255, 0.82);
   --shadow: 0 8px 28px rgba(18, 35, 44, 0.07);
   --shadow-hover: 0 14px 32px rgba(18, 35, 44, 0.12);
+  --fill: #163644;
+  --on-fill: #f4f7f9;
+  --tabs-bg: rgba(247, 250, 251, 0.94);
+  --glow-1: rgba(196, 165, 116, 0.32);
+  --glow-2: rgba(42, 86, 102, 0.14);
+  --page-top: #d8e4eb;
+  --page-end: #eef4f7;
+  --note-warm: linear-gradient(135deg, rgba(237, 217, 180, 0.5), rgba(255, 255, 255, 0.78));
+  --note-cool: linear-gradient(135deg, rgba(42, 86, 102, 0.12), rgba(255, 255, 255, 0.78));
+  --islam-card: rgba(255, 248, 236, 0.94);
+  --islam-line: #e4d0a8;
+  --islam-kicker: #9a6b2f;
+  --folk-card: rgba(245, 238, 228, 0.94);
+  --folk-line: #d8c4a4;
+  --love-card: rgba(255, 240, 242, 0.94);
+  --love-line: #e8c4c8;
+  --family-card: rgba(236, 245, 238, 0.94);
+  --family-line: #b9d0be;
+  --wash: rgba(42, 86, 102, 0.08);
   --radius: 20px;
   --font-ui: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', system-ui, sans-serif;
   color: var(--ink);
   background: var(--bg0);
+  color-scheme: light;
   font-family: var(--font-ui);
   line-height: 1.4;
   font-synthesis: none;
@@ -23,6 +43,41 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'ss01' 1, 'cv11' 1, 'kern' 1;
+}
+
+html[data-theme='dark'] {
+  --bg0: #0f161a;
+  --bg1: #152026;
+  --ink: #e6eef2;
+  --ink-soft: #9aafb8;
+  --line: #2c3f48;
+  --teal: #e4eef2;
+  --teal-mid: #9ab8c4;
+  --sand: #c4a574;
+  --sand-soft: #3d3426;
+  --card: rgba(22, 32, 38, 0.92);
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+  --shadow-hover: 0 14px 32px rgba(0, 0, 0, 0.42);
+  --fill: #3d6d7c;
+  --on-fill: #f4f7f9;
+  --tabs-bg: rgba(12, 18, 22, 0.94);
+  --glow-1: rgba(196, 165, 116, 0.14);
+  --glow-2: rgba(80, 140, 160, 0.12);
+  --page-top: #0c1216;
+  --page-end: #121a1f;
+  --note-warm: linear-gradient(135deg, rgba(90, 72, 42, 0.55), rgba(22, 32, 38, 0.88));
+  --note-cool: linear-gradient(135deg, rgba(42, 86, 102, 0.28), rgba(22, 32, 38, 0.88));
+  --islam-card: rgba(48, 38, 24, 0.88);
+  --islam-line: #5a4a32;
+  --islam-kicker: #d4b07a;
+  --folk-card: rgba(42, 36, 28, 0.88);
+  --folk-line: #5a4e3a;
+  --love-card: rgba(48, 30, 34, 0.88);
+  --love-line: #6a4248;
+  --family-card: rgba(28, 42, 34, 0.88);
+  --family-line: #3e5a48;
+  --wash: rgba(155, 184, 196, 0.12);
+  color-scheme: dark;
 }
 
 * {
@@ -39,9 +94,9 @@ body,
 body {
   min-height: 100dvh;
   background:
-    radial-gradient(ellipse 90% 55% at 100% -8%, rgba(196, 165, 116, 0.32), transparent 52%),
-    radial-gradient(ellipse 55% 40% at -8% 12%, rgba(42, 86, 102, 0.14), transparent 48%),
-    linear-gradient(180deg, #d8e4eb 0%, var(--bg0) 38%, #eef4f7 100%);
+    radial-gradient(ellipse 90% 55% at 100% -8%, var(--glow-1), transparent 52%),
+    radial-gradient(ellipse 55% 40% at -8% 12%, var(--glow-2), transparent 48%),
+    linear-gradient(180deg, var(--page-top) 0%, var(--bg0) 38%, var(--page-end) 100%);
 }
 
 button,
@@ -70,6 +125,72 @@ input {
   padding: 1.35rem 1.25rem 0.65rem;
 }
 
+.top-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.theme-switch {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  margin-top: 0.45rem;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  padding: 0;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.theme-switch-sun,
+.theme-switch-moon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.theme-switch-sun {
+  left: 7px;
+  opacity: 0.9;
+}
+
+.theme-switch-moon {
+  right: 7px;
+  opacity: 0.45;
+}
+
+.theme-switch.on .theme-switch-sun {
+  opacity: 0.45;
+}
+
+.theme-switch.on .theme-switch-moon {
+  opacity: 0.95;
+}
+
+.theme-switch-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sand);
+  box-shadow: 0 1px 4px rgba(18, 35, 44, 0.25);
+  transition: transform 0.18s ease;
+}
+
+.theme-switch.on .theme-switch-knob {
+  transform: translateX(22px);
+}
+
 .back-home {
   display: inline-flex;
   margin: 0 0 0.55rem;
@@ -86,7 +207,9 @@ input {
   border: none;
   background: transparent;
   padding: 0;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
+  width: auto;
   text-align: left;
   cursor: pointer;
 }
@@ -123,8 +246,8 @@ input {
   margin: 0.4rem 0 0;
   padding: 0.18rem 0.6rem;
   border-radius: 999px;
-  background: var(--teal);
-  color: #f4f7f9;
+  background: var(--fill);
+  color: var(--on-fill);
   font-size: 0.7rem;
   font-weight: 600;
 }
@@ -147,6 +270,7 @@ input {
   width: 100%;
   border: 1px solid var(--line);
   background: var(--card);
+  color: var(--ink);
   backdrop-filter: blur(10px);
   border-radius: 999px;
   padding: 0.95rem 1.2rem;
@@ -206,9 +330,9 @@ input {
 .chip.active,
 .letter.active,
 .tab.active {
-  background: var(--teal);
-  border-color: var(--teal);
-  color: #f7fafb;
+  background: var(--fill);
+  border-color: var(--fill);
+  color: var(--on-fill);
 }
 
 .letter {
@@ -257,8 +381,8 @@ input {
   width: 2.15rem;
   height: 2.15rem;
   border-radius: 11px;
-  background: linear-gradient(160deg, var(--teal-mid), var(--teal));
-  color: #f4f7f9;
+  background: linear-gradient(160deg, var(--teal-mid), var(--fill));
+  color: var(--on-fill);
   display: grid;
   place-items: center;
   font-weight: 700;
@@ -300,7 +424,7 @@ input {
 .pill {
   font-size: 0.7rem;
   color: var(--teal-mid);
-  background: rgba(42, 86, 102, 0.08);
+  background: var(--wash);
   border-radius: 999px;
   padding: 0.08rem 0.45rem;
 }
@@ -402,7 +526,7 @@ input {
   grid-template-columns: repeat(5, 1fr);
   gap: 0.25rem;
   padding: 0.5rem 0.55rem calc(0.5rem + env(safe-area-inset-bottom));
-  background: rgba(247, 250, 251, 0.94);
+  background: var(--tabs-bg);
   backdrop-filter: blur(14px);
   border-top: 1px solid var(--line);
 }
@@ -416,7 +540,7 @@ input {
 }
 
 .tab.active {
-  background: var(--teal);
+  background: var(--fill);
 }
 
 .detail-actions {
@@ -479,13 +603,13 @@ input {
 
 .islamic-note,
 .psycho-note {
-  background: linear-gradient(135deg, rgba(237, 217, 180, 0.5), rgba(255, 255, 255, 0.78));
+  background: var(--note-warm);
   font-size: 0.92rem;
   color: var(--ink-soft);
 }
 
 .psycho-note {
-  background: linear-gradient(135deg, rgba(42, 86, 102, 0.12), rgba(255, 255, 255, 0.78));
+  background: var(--note-cool);
 }
 
 .meaning-kicker {
@@ -499,30 +623,30 @@ input {
 
 .meaning-islam,
 .hints-islam {
-  background: rgba(255, 248, 236, 0.94);
-  border-color: #e4d0a8;
+  background: var(--islam-card);
+  border-color: var(--islam-line);
 }
 
 .meaning-islam .meaning-kicker {
-  color: #9a6b2f;
+  color: var(--islam-kicker);
 }
 
 .meaning-folk,
 .hints-folk {
-  background: rgba(245, 238, 228, 0.94);
-  border-color: #d8c4a4;
+  background: var(--folk-card);
+  border-color: var(--folk-line);
 }
 
 .meaning-love,
 .hints-love {
-  background: rgba(255, 240, 242, 0.94);
-  border-color: #e8c4c8;
+  background: var(--love-card);
+  border-color: var(--love-line);
 }
 
 .meaning-family,
 .hints-family {
-  background: rgba(236, 245, 238, 0.94);
-  border-color: #b9d0be;
+  background: var(--family-card);
+  border-color: var(--family-line);
 }
 
 .meaning,
@@ -581,7 +705,7 @@ input {
 }
 
 .doctor-card {
-  background: rgba(42, 86, 102, 0.08);
+  background: var(--wash);
 }
 
 .related h3,
@@ -603,7 +727,7 @@ input {
 }
 
 .related-chip {
-  background: rgba(42, 86, 102, 0.08);
+  background: var(--wash);
   border-color: transparent;
   color: var(--teal);
   font-weight: 600;
@@ -637,8 +761,8 @@ input {
 }
 
 .hadith-badge {
-  background: var(--teal);
-  color: #f4f7f9;
+  background: var(--fill);
+  color: var(--on-fill);
   border-radius: 999px;
   padding: 0.12rem 0.55rem;
   font-size: 0.75rem;

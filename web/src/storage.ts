@@ -4,6 +4,7 @@ const KEY = {
   tradition: 'sonnik.tradition',
   bodyFavorites: 'sonnik.bodyFavorites',
   bodyHistory: 'sonnik.bodyHistory',
+  theme: 'sonnik.theme',
 }
 
 function readList(key: string): string[] {
@@ -73,6 +74,23 @@ export function getSavedTradition(): string | null {
 
 export function saveTradition(id: string) {
   localStorage.setItem(KEY.tradition, id)
+}
+
+export type ThemeId = 'light' | 'dark'
+
+export function getSavedTheme(): ThemeId {
+  return localStorage.getItem(KEY.theme) === 'dark' ? 'dark' : 'light'
+}
+
+export function saveTheme(theme: ThemeId) {
+  localStorage.setItem(KEY.theme, theme)
+}
+
+export function applyTheme(theme: ThemeId) {
+  document.documentElement.setAttribute('data-theme', theme)
+  document.documentElement.style.colorScheme = theme
+  const meta = document.querySelector('meta[name="theme-color"]')
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f161a' : '#1a3a4a')
 }
 
 export function speak(text: string) {

@@ -2,18 +2,22 @@ import { useEffect, useMemo, useState } from 'react'
 import type { BodyCatalog, Catalog, SymbolEntry, TabId, TraditionId } from './types'
 import { DREAM_TRADITIONS } from './types'
 import {
+  applyTheme,
   clearHistory,
   getBodyFavorites,
   getBodyHistory,
   getFavorites,
   getHistory,
+  getSavedTheme,
   getSavedTradition,
   pushBodyHistory,
   pushHistory,
+  saveTheme,
   saveTradition,
   speak,
   toggleBodyFavorite,
   toggleFavorite,
+  type ThemeId,
 } from './storage'
 import { tawilForSymbol } from './hadithDreams'
 import { BodyPanel } from './BodyPanel'
@@ -120,8 +124,12 @@ export default function App() {
   const [history, setHistory] = useState<string[]>([])
   const [bodyFavorites, setBodyFavorites] = useState<string[]>([])
   const [bodyHistory, setBodyHistory] = useState<string[]>([])
+  const [theme, setTheme] = useState<ThemeId>('light')
 
   useEffect(() => {
+    const next = getSavedTheme()
+    setTheme(next)
+    applyTheme(next)
     setFavorites(getFavorites())
     setHistory(getHistory())
     setBodyFavorites(getBodyFavorites())
@@ -192,6 +200,12 @@ export default function App() {
     saveTradition(id)
   }
 
+  function onTheme(next: ThemeId) {
+    setTheme(next)
+    saveTheme(next)
+    applyTheme(next)
+  }
+
   if (error) {
     return (
       <div className="shell">
@@ -227,18 +241,21 @@ export default function App() {
             ← Сонник
           </button>
         )}
-        <button type="button" className="brand-block brand-hit" onClick={() => goTab('search')}>
-          <div className="moon" aria-hidden />
-          <div>
-            <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
-            <p className="tagline">
-              {onBody
-                ? 'Признаки и исследования · не сонник'
-                : `Толкование снов · ${catalog.symbols.length} слов`}
-            </p>
-            <BuildStamp />
-          </div>
-        </button>
+        <div className="top-main">
+          <button type="button" className="brand-block brand-hit" onClick={() => goTab('search')}>
+            <div className="moon" aria-hidden />
+            <div>
+              <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
+              <p className="tagline">
+                {onBody
+                  ? 'Признаки и исследования · не сонник'
+                  : `Толкование снов · ${catalog.symbols.length} слов`}
+              </p>
+              <BuildStamp />
+            </div>
+          </button>
+          <ThemeSwitch theme={theme} onChange={onTheme} />
+        </div>
       </header>
 
       {view.kind === 'symbol' && symbol ? (
@@ -416,6 +433,29 @@ export default function App() {
   )
 }
 
+function ThemeSwitch({ theme, onChange }: { theme: ThemeId; onChange: (theme: ThemeId) => void }) {
+  const dark = theme === 'dark'
+  return (
+    <button
+      type="button"
+      className={dark ? 'theme-switch on' : 'theme-switch'}
+      role="switch"
+      aria-checked={dark}
+      aria-label={dark ? 'Светлая тема' : 'Тёмная тема'}
+      title={dark ? 'Светлая тема' : 'Тёмная тема'}
+      onClick={() => onChange(dark ? 'light' : 'dark')}
+    >
+      <span className="theme-switch-sun" aria-hidden>
+        ✦
+      </span>
+      <span className="theme-switch-moon" aria-hidden>
+        ☾
+      </span>
+      <span className="theme-switch-knob" />
+    </button>
+  )
+}
+
 function TraditionSelect({
   traditions,
   value,
@@ -587,7 +627,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.32'
+const APP_VERSION = '0.2.33'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
