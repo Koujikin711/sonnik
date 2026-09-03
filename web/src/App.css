@@ -12,15 +12,16 @@
   --shadow: 0 8px 28px rgba(18, 35, 44, 0.07);
   --shadow-hover: 0 14px 32px rgba(18, 35, 44, 0.12);
   --radius: 20px;
-  --font-ui: 'Manrope', system-ui, sans-serif;
-  --font-display: 'Spectral', Georgia, serif;
+  --font-ui: 'Source Sans 3', 'Noto Sans', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', 'Noto Serif', Georgia, serif;
   color: var(--ink);
   background: var(--bg0);
   font-family: var(--font-ui);
-  line-height: 1.5;
+  line-height: 1.45;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 * {
@@ -104,10 +105,10 @@ input {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 2.05rem;
-  letter-spacing: 0.01em;
+  font-size: 2.2rem;
+  letter-spacing: 0.02em;
   color: var(--teal);
-  line-height: 1.08;
+  line-height: 1.02;
 }
 
 .tagline {
@@ -272,9 +273,12 @@ input {
 }
 
 .sym-title {
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
   color: var(--ink);
-  font-size: 1.05rem;
+  font-size: 1.22rem;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
 }
 
 .sym-preview {
@@ -445,9 +449,11 @@ input {
 .detail-title {
   margin: 0.15rem 0 0;
   font-family: var(--font-display);
-  font-size: 2.35rem;
+  font-weight: 600;
+  font-size: 2.55rem;
+  letter-spacing: 0.01em;
   color: var(--teal);
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .detail-tags {
@@ -521,14 +527,14 @@ input {
 .meaning-short {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.22rem;
-  line-height: 1.4;
-  margin-bottom: 0.7rem;
+  font-size: 1.38rem;
+  line-height: 1.28;
+  margin-bottom: 0.55rem;
   color: var(--teal);
 }
 
 .meaning-long {
-  line-height: 1.62;
+  line-height: 1.42;
   color: var(--ink);
 }
 
@@ -540,8 +546,8 @@ input {
 }
 
 .hints li {
-  margin: 0.55rem 0;
-  line-height: 1.45;
+  margin: 0.4rem 0;
+  line-height: 1.38;
 }
 
 .science-card h3 {
@@ -710,7 +716,7 @@ input {
 
 @media (max-width: 420px) {
   .detail-title {
-    font-size: 1.9rem;
+    font-size: 2.1rem;
   }
 
   .meaning-short {
