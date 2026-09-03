@@ -93,16 +93,7 @@
         "Консенсус Lobbezoo и соавт. (2018): sleep и awake bruxism описывают отдельно.",
         "У здоровых это continuum поведения, а не жёсткий порог «есть / нет болезнь»."
       ],
-      "doctor": "Боль в суставе, стёртая эмаль, ограничение открывания рта — к стоматологу или врачу по ВНЧС.",
-      "sources": [
-        {
-          "authors": "Lobbezoo F., Ahlberg J., Raphael K.G. и др.",
-          "year": 2018,
-          "title": "International consensus on the assessment of bruxism: Report of a work in progress",
-          "journal": "Journal of Oral Rehabilitation, 45(11), 837–844",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6287494/"
-        }
-      ]
+      "doctor": "Боль в суставе, стёртая эмаль, ограничение открывания рта — к стоматологу или врачу по ВНЧС."
     },
     {
       "id": "grind-teeth",
@@ -134,16 +125,7 @@
         "Lobbezoo и соавт. (2018): раздельные определения для сна и бодрствования.",
         "Порог «болен / здоров» для здоровых людей не рекомендуют."
       ],
-      "doctor": "Стёртая эмаль, боль ВНЧС, апноэ, храп с остановками дыхания — к стоматологу и сомнологу.",
-      "sources": [
-        {
-          "authors": "Lobbezoo F., Ahlberg J., Raphael K.G. и др.",
-          "year": 2018,
-          "title": "International consensus on the assessment of bruxism: Report of a work in progress",
-          "journal": "Journal of Oral Rehabilitation, 45(11), 837–844",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6287494/"
-        }
-      ]
+      "doctor": "Стёртая эмаль, боль ВНЧС, апноэ, храп с остановками дыхания — к стоматологу и сомнологу."
     },
     {
       "id": "bite-lips",
@@ -175,16 +157,7 @@
         "Lee и Lipner (2022): BFRB ногтей и кожи часто не распознают на приёме.",
         "Стандартизированного лечения нет; поведенческие протоколы изучают чаще лекарств."
       ],
-      "doctor": "Трещины, кровь, инфекция слизистой — к стоматологу или дерматологу.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        }
-      ]
+      "doctor": "Трещины, кровь, инфекция слизистой — к стоматологу или дерматологу."
     },
     {
       "id": "bite-nails",
@@ -216,16 +189,7 @@
         "Распространённость, по обзору, до 20–30% населения; у детей выше.",
         "Habit reversal в испытаниях сильнее снижал частоту, чем «негативная практика» (Azrin и соавт., цит. в обзоре 2022)."
       ],
-      "doctor": "Паронихия, гной, деформация пластины — к дерматологу.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        }
-      ]
+      "doctor": "Паронихия, гной, деформация пластины — к дерматологу."
     },
     {
       "id": "lump-throat",
@@ -258,16 +222,7 @@
         "В выборках здоровых взрослых globus описывали у 21,5–46% (сводки обзоров).",
         "Причинно-следственная связь с рефлюксом спорная: часть исследований не находит разницы с контролем."
       ],
-      "doctor": "Боль, дисфагия, кровь, потеря веса, лихорадка — к ЛОРу или гастроэнтерологу.",
-      "sources": [
-        {
-          "authors": "Lee B.E., Kim G.H.",
-          "year": 2012,
-          "title": "Globus pharyngeus: a review of its etiology, diagnosis and treatment",
-          "journal": "World Journal of Gastroenterology, 18(20), 2462–2471",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3360444/"
-        }
-      ]
+      "doctor": "Боль, дисфагия, кровь, потеря веса, лихорадка — к ЛОРу или гастроэнтерологу."
     },
     {
       "id": "silent-pain",
@@ -300,16 +255,7 @@
         "Подавление выражения меняет физиологию сильнее, чем когнитивная переоценка (Gross, 2002).",
         "Социальная цена: партнёру труднее считывать состояние."
       ],
-      "doctor": "Полный уход из общения, суицидные мысли, боль при глотании — к врачу или психиатру.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Полный уход из общения, суицидные мысли, боль при глотании — к врачу или психиатру."
     },
     {
       "id": "harsh-voice",
@@ -341,16 +287,7 @@
         "Подавление аффекта (Gross, 2002) оставляет физиологическую активацию — голос может «прорваться» позже.",
         "Стойкая дисфония — повод к ларингоскопии, не к самолечению."
       ],
-      "doctor": "Осиплость дольше 2 недель, боль при глотании, кровь — к ЛОРу.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Осиплость дольше 2 недель, боль при глотании, кровь — к ЛОРу."
     },
     {
       "id": "hold-breath",
@@ -382,16 +319,7 @@
         "Каждый этап каскада имеет свой нейровегетативный рисунок (Kozlowska, 2015).",
         "Freeze — это fight/flight «на паузе», не лень."
       ],
-      "doctor": "Боль в груди, обморок, синюшность губ — скорая.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Боль в груди, обморок, синюшность губ — скорая."
     },
     {
       "id": "shallow-breath",
@@ -423,16 +351,7 @@
         "Arousal — первый шаг defense cascade: мышцы и дыхание готовятся к действию.",
         "Отличить тревожный паттерн от астмы или эмболии по тексту нельзя."
       ],
-      "doctor": "Нехватка воздуха в покое, синюшность, отёк, свист — врач или скорая.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Нехватка воздуха в покое, синюшность, отёк, свист — врач или скорая."
     },
     {
       "id": "frequent-sigh",
@@ -464,16 +383,7 @@
         "Kozlowska (2015): дыхание меняется уже на этапе arousal.",
         "Сам по себе вздох не доказывает психиатрический диагноз."
       ],
-      "doctor": "Одышка лёжа, отёки, боль в груди — к терапевту.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Одышка лёжа, отёки, боль в груди — к терапевту."
     },
     {
       "id": "suck-belly",
@@ -504,16 +414,7 @@
         "Защитный каскад повышает мышечный тонус до движения (Kozlowska, 2015).",
         "Нет РКИ, которое лечит «втянутый живот» как отдельную нозологию."
       ],
-      "doctor": "Спазм, кровь в стуле, лихорадка — к врачу.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Спазм, кровь в стуле, лихорадка — к врачу."
     },
     {
       "id": "cramp-belly",
@@ -545,16 +446,7 @@
         "Macht выделяет разные классы: эмоция может и подавлять еду, и запускать еду «для регуляции».",
         "Связь «стресс — живот» наблюдательна; кровь и жар ею не объясняют."
       ],
-      "doctor": "Кровь, кинжальная боль, жар, рвота, потеря веса — врач сразу.",
-      "sources": [
-        {
-          "authors": "Macht M.",
-          "year": 2008,
-          "title": "How emotions affect eating: a five-way model",
-          "journal": "Appetite, 50(1), 1–11",
-          "url": "https://doi.org/10.1016/j.appet.2007.07.002"
-        }
-      ]
+      "doctor": "Кровь, кинжальная боль, жар, рвота, потеря веса — врач сразу."
     },
     {
       "id": "eat-anxiety",
@@ -586,16 +478,7 @@
         "Пять классов: выбор пищи, подавление еды, срыв контроля, еда-регулятор, эмоция-конгруэнтная модуляция.",
         "Emotional eating связан с ростом приёма сладкого и жирного при негативном аффекте."
       ],
-      "doctor": "Ежедневные срывы, компенсация, сильный страх веса — к специалисту по РПП.",
-      "sources": [
-        {
-          "authors": "Macht M.",
-          "year": 2008,
-          "title": "How emotions affect eating: a five-way model",
-          "journal": "Appetite, 50(1), 1–11",
-          "url": "https://doi.org/10.1016/j.appet.2007.07.002"
-        }
-      ]
+      "doctor": "Ежедневные срывы, компенсация, сильный страх веса — к специалисту по РПП."
     },
     {
       "id": "skip-meals",
@@ -627,16 +510,7 @@
         "Macht: сильный аффект подавляет еду; умеренный может её усиливать у emotional eaters.",
         "Два противоположных эффекта эмоции на еду нельзя свести к одной примете."
       ],
-      "doctor": "Потеря веса, страх еды, обмороки — к врачу.",
-      "sources": [
-        {
-          "authors": "Macht M.",
-          "year": 2008,
-          "title": "How emotions affect eating: a five-way model",
-          "journal": "Appetite, 50(1), 1–11",
-          "url": "https://doi.org/10.1016/j.appet.2007.07.002"
-        }
-      ]
+      "doctor": "Потеря веса, страх еды, обмороки — к врачу."
     },
     {
       "id": "eat-standing",
@@ -667,16 +541,7 @@
         "Эмоции умеренной силы меняют контроль еды у restrained eaters (Macht, 2008).",
         "Нет нормы «стоя есть нельзя» как медицинского критерия."
       ],
-      "doctor": "Боль, рвота, кровь после еды — к врачу.",
-      "sources": [
-        {
-          "authors": "Macht M.",
-          "year": 2008,
-          "title": "How emotions affect eating: a five-way model",
-          "journal": "Appetite, 50(1), 1–11",
-          "url": "https://doi.org/10.1016/j.appet.2007.07.002"
-        }
-      ]
+      "doctor": "Боль, рвота, кровь после еды — к врачу."
     },
     {
       "id": "clench-fists",
@@ -707,16 +572,7 @@
         "Fight имеет свой нейровегетативный рисунок, отличный от freeze.",
         "У людей паттерн часто не сбрасывается после исчезновения угрозы."
       ],
-      "doctor": "Планы насилия, самоповреждение — срочно к специалисту.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Планы насилия, самоповреждение — срочно к специалисту."
     },
     {
       "id": "squeeze-phone",
@@ -747,23 +603,7 @@
         "Checking — ядро многих форм ОКР; распространённость ОКР в популяции около 2% (Abramowitz, 2009).",
         "Один жест с телефоном ≠ диагноз ОКР."
       ],
-      "doctor": "Паника без телефона, часы ритуалов — к психиатру или психотерапевту.",
-      "sources": [
-        {
-          "authors": "Abramowitz J.S., Taylor S., McKay D.",
-          "year": 2009,
-          "title": "Obsessive-compulsive disorder",
-          "journal": "The Lancet, 374(9688), 491–499",
-          "url": "https://doi.org/10.1016/S0140-6736(09)60240-3"
-        },
-        {
-          "authors": "Chang A.M., Aeschbach D., Duffy J.F., Czeisler C.A.",
-          "year": 2015,
-          "title": "Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness",
-          "journal": "Proceedings of the National Academy of Sciences, 112(4), 1232–1237",
-          "url": "https://doi.org/10.1073/pnas.1418490112"
-        }
-      ]
+      "doctor": "Паника без телефона, часы ритуалов — к психиатру или психотерапевту."
     },
     {
       "id": "crack-knuckles",
@@ -794,16 +634,7 @@
         "Нет качественного доказательства, что привычный хруст вызывает остеоартрит кисти.",
         "Отёк и жар этим наблюдением не объясняют."
       ],
-      "doctor": "Отёк, жар, утренняя скованность — к ревматологу.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        }
-      ]
+      "doctor": "Отёк, жар, утренняя скованность — к ревматологу."
     },
     {
       "id": "freeze",
@@ -835,16 +666,7 @@
         "Нейросеть: амигдала, гипоталамус, PAG, симпатические и вагусные ядра.",
         "У людей паттерн чаще «залипает», чем у животных после исчезновения угрозы."
       ],
-      "doctor": "Провалы памяти, самоповреждение, травма — к специалисту.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Провалы памяти, самоповреждение, травма — к специалисту."
     },
     {
       "id": "pace-room",
@@ -876,16 +698,7 @@
         "Flight имеет иной рисунок, чем freeze: движение вместо паузы.",
         "Текст не отличает тревогу от акатизии."
       ],
-      "doctor": "Новые нейролептики + невозможность сидеть, мания — к врачу.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Новые нейролептики + невозможность сидеть, мания — к врачу."
     },
     {
       "id": "shake-foot",
@@ -916,16 +729,7 @@
         "Kozlowska: мышцы напрягаются уже на первом этапе каскада.",
         "Жест сам по себе не ставит СДВГ."
       ],
-      "doctor": "Отёк сустава, асимметрия, слабость — к врачу.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Отёк сустава, асимметрия, слабость — к врачу."
     },
     {
       "id": "weak-legs",
@@ -957,16 +761,7 @@
         "Collapsed immobility — этап «последнего средства», не бытовая робость.",
         "Дифференцировать с инсультом по тексту нельзя."
       ],
-      "doctor": "Лицо, речь, половина тела, потеря сознания — скорая.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Лицо, речь, половина тела, потеря сознания — скорая."
     },
     {
       "id": "no-sleep",
@@ -998,23 +793,7 @@
         "Около 25% взрослых имеют проблемы со сном; 6–10% — инсомнию как расстройство.",
         "CBT-I даёт устойчивый эффект; гипнотики — в основном кратко."
       ],
-      "doctor": "Недели без сна, апноэ, боль в груди ночью — к врачу.",
-      "sources": [
-        {
-          "authors": "Morin C.M., Benca R.",
-          "year": 2012,
-          "title": "Chronic insomnia",
-          "journal": "The Lancet, 379(9821), 1129–1141",
-          "url": "https://doi.org/10.1016/S0140-6736(11)60750-2"
-        },
-        {
-          "authors": "Chang A.M., Aeschbach D., Duffy J.F., Czeisler C.A.",
-          "year": 2015,
-          "title": "Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness",
-          "journal": "Proceedings of the National Academy of Sciences, 112(4), 1232–1237",
-          "url": "https://doi.org/10.1073/pnas.1418490112"
-        }
-      ]
+      "doctor": "Недели без сна, апноэ, боль в груди ночью — к врачу."
     },
     {
       "id": "toss-night",
@@ -1046,16 +825,7 @@
         "Инсомнию лечат как самостоятельную мишень, даже если есть коморбидность.",
         "CBT-I предпочтительнее длительных гипнотиков."
       ],
-      "doctor": "Паузы дыхания, удушье, боль в груди — к сомнологу или терапевту.",
-      "sources": [
-        {
-          "authors": "Morin C.M., Benca R.",
-          "year": 2012,
-          "title": "Chronic insomnia",
-          "journal": "The Lancet, 379(9821), 1129–1141",
-          "url": "https://doi.org/10.1016/S0140-6736(11)60750-2"
-        }
-      ]
+      "doctor": "Паузы дыхания, удушье, боль в груди — к сомнологу или терапевту."
     },
     {
       "id": "wake-jolt",
@@ -1086,23 +856,7 @@
         "Arousal имеет свой вегетативный рисунок.",
         "Инсомния и тревога взаимно повышают риск (Morin, Benca, 2012)."
       ],
-      "doctor": "Боль в груди, удушье, каждая ночь — врач, не статья.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        },
-        {
-          "authors": "Morin C.M., Benca R.",
-          "year": 2012,
-          "title": "Chronic insomnia",
-          "journal": "The Lancet, 379(9821), 1129–1141",
-          "url": "https://doi.org/10.1016/S0140-6736(11)60750-2"
-        }
-      ]
+      "doctor": "Боль в груди, удушье, каждая ночь — врач, не статья."
     },
     {
       "id": "sleep-with-phone",
@@ -1133,23 +887,7 @@
         "eReader вечером: позже мелатонин, дольше засыпание, хуже утренняя алертность (Chang, 2015).",
         "Эффект измерен в лаборатории, не в народной примете."
       ],
-      "doctor": "Паника без экрана, хроническая инсомния — к специалисту.",
-      "sources": [
-        {
-          "authors": "Chang A.M., Aeschbach D., Duffy J.F., Czeisler C.A.",
-          "year": 2015,
-          "title": "Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness",
-          "journal": "Proceedings of the National Academy of Sciences, 112(4), 1232–1237",
-          "url": "https://doi.org/10.1073/pnas.1418490112"
-        },
-        {
-          "authors": "Morin C.M., Benca R.",
-          "year": 2012,
-          "title": "Chronic insomnia",
-          "journal": "The Lancet, 379(9821), 1129–1141",
-          "url": "https://doi.org/10.1016/S0140-6736(11)60750-2"
-        }
-      ]
+      "doctor": "Паника без экрана, хроническая инсомния — к специалисту."
     },
     {
       "id": "shoulders-up",
@@ -1181,16 +919,7 @@
         "TTH — самая частая первичная головная боль (ICHD-3).",
         "Связь стресса и повышенной ЭМГ перикраниальных мышц не доказана однозначно."
       ],
-      "doctor": "Слабость руки, речь, громовая боль — скорая.",
-      "sources": [
-        {
-          "authors": "Headache Classification Committee of the International Headache Society",
-          "year": 2018,
-          "title": "The International Classification of Headache Disorders, 3rd edition (ICHD-3)",
-          "journal": "Cephalalgia, 38(1), 1–211",
-          "url": "https://doi.org/10.1177/0333102417738202"
-        }
-      ]
+      "doctor": "Слабость руки, речь, громовая боль — скорая."
     },
     {
       "id": "stoop",
@@ -1221,16 +950,7 @@
         "Перикраниальная болезненность учитывается в ICHD-3 для TTH.",
         "Осанка сама по себе не равна диагнозу головной боли."
       ],
-      "doctor": "Слабость ног, онемение промежности, громовая боль — врач.",
-      "sources": [
-        {
-          "authors": "Headache Classification Committee of the International Headache Society",
-          "year": 2018,
-          "title": "The International Classification of Headache Disorders, 3rd edition (ICHD-3)",
-          "journal": "Cephalalgia, 38(1), 1–211",
-          "url": "https://doi.org/10.1177/0333102417738202"
-        }
-      ]
+      "doctor": "Слабость ног, онемение промежности, громовая боль — врач."
     },
     {
       "id": "fake-smile",
@@ -1261,16 +981,7 @@
         "Suppression ≠ reappraisal: разная физиология и разный социальный эффект.",
         "Партнёр хуже считывает состояние при подавлении."
       ],
-      "doctor": "Депрессия, паника, суицидные мысли — к специалисту.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Депрессия, паника, суицидные мысли — к специалисту."
     },
     {
       "id": "no-eye-contact",
@@ -1302,16 +1013,7 @@
         "Подавление выражения ухудшает социальный обмен (Gross, 2002).",
         "Жест ≠ диагноз социофобии."
       ],
-      "doctor": "Паника в любых встречах, внезапное двоение — к врачу.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Паника в любых встречах, внезапное двоение — к врачу."
     },
     {
       "id": "phone-stare",
@@ -1343,23 +1045,7 @@
         "Лабораторно: eReader вечером хуже бумаги для мелатонина и засыпания.",
         "Избегание взгляда — про тревогу, не про люмены."
       ],
-      "doctor": "Инсомния неделями, паника без экрана — к специалисту.",
-      "sources": [
-        {
-          "authors": "Chang A.M., Aeschbach D., Duffy J.F., Czeisler C.A.",
-          "year": 2015,
-          "title": "Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness",
-          "journal": "Proceedings of the National Academy of Sciences, 112(4), 1232–1237",
-          "url": "https://doi.org/10.1073/pnas.1418490112"
-        },
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Инсомния неделями, паника без экрана — к специалисту."
     },
     {
       "id": "cross-arms",
@@ -1390,16 +1076,7 @@
         "Нет надёжного теста личности по скрещенным рукам.",
         "Мышечный тонус при угрозе растёт (Kozlowska, 2015) — это общий факт, не чтение мыслей."
       ],
-      "doctor": "Боль в груди, одышка — не поза, а врач.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Боль в груди, одышка — не поза, а врач."
     },
     {
       "id": "scratch-skin",
@@ -1431,16 +1108,7 @@
         "BFRB часто скрывают; обращаемость ниже истинной частоты.",
         "Поведенческие протоколы изучают чаще, чем крупные лекарственные РКИ."
       ],
-      "doctor": "Инфекция, кровь, распространяющаяся сыпь — к дерматологу.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        }
-      ]
+      "doctor": "Инфекция, кровь, распространяющаяся сыпь — к дерматологу."
     },
     {
       "id": "pinch-self",
@@ -1471,16 +1139,7 @@
         "Обзоры BFRB подчёркивают стыд и низкую обращаемость.",
         "Самоповреждение требует иного протокола, чем nail biting."
       ],
-      "doctor": "Самоповреждение, суицидные мысли — срочно к специалисту.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        }
-      ]
+      "doctor": "Самоповреждение, суицидные мысли — срочно к специалисту."
     },
     {
       "id": "hold-tears",
@@ -1512,16 +1171,7 @@
         "Suppression сохраняет или усиливает физиологическую мобилизацию.",
         "Это не лабораторный тест «вы должны плакать»."
       ],
-      "doctor": "Боль в груди, удушье, депрессия — к врачу.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Боль в груди, удушье, депрессия — к врачу."
     },
     {
       "id": "say-fine",
@@ -1552,16 +1202,7 @@
       "findings": [
         "Подавление выражения имеет измеримую физиологическую и социальную цену (Gross, 2002)."
       ],
-      "doctor": "Депрессия, суицидные мысли — к специалисту.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Депрессия, суицидные мысли — к специалисту."
     },
     {
       "id": "no-help",
@@ -1593,23 +1234,7 @@
         "BFRB и инсомния систематически недовыявляются на обычном приёме.",
         "Раннее лечение инсомнии в обзоре Lancet связывают с меньшим хвостом осложнений."
       ],
-      "doctor": "Если симптом мешает работе или сну неделями — к врачу, даже без «разрешения» статьи.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        },
-        {
-          "authors": "Morin C.M., Benca R.",
-          "year": 2012,
-          "title": "Chronic insomnia",
-          "journal": "The Lancet, 379(9821), 1129–1141",
-          "url": "https://doi.org/10.1016/S0140-6736(11)60750-2"
-        }
-      ]
+      "doctor": "Если симптом мешает работе или сну неделями — к врачу, даже без «разрешения» статьи."
     },
     {
       "id": "check-lock",
@@ -1641,16 +1266,7 @@
         "ОКР в популяционных оценках около 2%; checking — один из частых ритуалов.",
         "Экспозиция с предотвращением ритуала — базовая психологическая линия в обзоре Lancet."
       ],
-      "doctor": "Часы проверок, невозможность выйти — к психиатру.",
-      "sources": [
-        {
-          "authors": "Abramowitz J.S., Taylor S., McKay D.",
-          "year": 2009,
-          "title": "Obsessive-compulsive disorder",
-          "journal": "The Lancet, 374(9688), 491–499",
-          "url": "https://doi.org/10.1016/S0140-6736(09)60240-3"
-        }
-      ]
+      "doctor": "Часы проверок, невозможность выйти — к психиатру."
     },
     {
       "id": "no-sit",
@@ -1682,16 +1298,7 @@
         "Flight и arousal моторно активны; freeze — нет.",
         "Текст не заменяет лекарственный анамнез."
       ],
-      "doctor": "Новый нейролептик, мания, лихорадка — к врачу.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Новый нейролептик, мания, лихорадка — к врачу."
     },
     {
       "id": "laugh-pain",
@@ -1721,16 +1328,7 @@
       "findings": [
         "Подавление выражения измеримо меняет физиологию и социальный обмен."
       ],
-      "doctor": "Спутанность, бред, мания — к врачу.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Спутанность, бред, мания — к врачу."
     },
     {
       "id": "cover-mouth",
@@ -1761,23 +1359,7 @@
         "Подавление выражения имеет физиологическую цену (Gross, 2002).",
         "Жест не валиден как детектор лжи."
       ],
-      "doctor": "Боль ВНЧС, травма зубов — к стоматологу.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        },
-        {
-          "authors": "Lobbezoo F., Ahlberg J., Raphael K.G. и др.",
-          "year": 2018,
-          "title": "International consensus on the assessment of bruxism: Report of a work in progress",
-          "journal": "Journal of Oral Rehabilitation, 45(11), 837–844",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6287494/"
-        }
-      ]
+      "doctor": "Боль ВНЧС, травма зубов — к стоматологу."
     },
     {
       "id": "rub-neck",
@@ -1808,16 +1390,7 @@
       "findings": [
         "ICHD-3 явно кодирует TTH с перикраниальной болезненностью и без неё."
       ],
-      "doctor": "Громовая боль, жар, ригидность шеи — скорая.",
-      "sources": [
-        {
-          "authors": "Headache Classification Committee of the International Headache Society",
-          "year": 2018,
-          "title": "The International Classification of Headache Disorders, 3rd edition (ICHD-3)",
-          "journal": "Cephalalgia, 38(1), 1–211",
-          "url": "https://doi.org/10.1177/0333102417738202"
-        }
-      ]
+      "doctor": "Громовая боль, жар, ригидность шеи — скорая."
     },
     {
       "id": "stiff-neck",
@@ -1847,16 +1420,7 @@
       "findings": [
         "TTH может сочетаться с болезненностью шеи, но не объясняет менингизм."
       ],
-      "doctor": "Жар, громовая боль, слабость руки — врач.",
-      "sources": [
-        {
-          "authors": "Headache Classification Committee of the International Headache Society",
-          "year": 2018,
-          "title": "The International Classification of Headache Disorders, 3rd edition (ICHD-3)",
-          "journal": "Cephalalgia, 38(1), 1–211",
-          "url": "https://doi.org/10.1177/0333102417738202"
-        }
-      ]
+      "doctor": "Жар, громовая боль, слабость руки — врач."
     },
     {
       "id": "lock-back",
@@ -1888,16 +1452,7 @@
         "Нет обзора, который лечит «не разгибаться» как чисто эмоциональный диагноз.",
         "Kozlowska: тонус растёт на arousal — общий фон, не МРТ."
       ],
-      "doctor": "Онемение промежности, задержка мочи, слабость стоп — скорая.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Онемение промежности, задержка мочи, слабость стоп — скорая."
     },
     {
       "id": "rub-temples",
@@ -1929,16 +1484,7 @@
         "ICHD-3 — стандарт классификации, не народный сонник.",
         "Связь стресса и ЭМГ перикраниальных мышц в обзорах не однозначна."
       ],
-      "doctor": "Громовая боль, слабость, спутанность, новый паттерн — врач.",
-      "sources": [
-        {
-          "authors": "Headache Classification Committee of the International Headache Society",
-          "year": 2018,
-          "title": "The International Classification of Headache Disorders, 3rd edition (ICHD-3)",
-          "journal": "Cephalalgia, 38(1), 1–211",
-          "url": "https://doi.org/10.1177/0333102417738202"
-        }
-      ]
+      "doctor": "Громовая боль, слабость, спутанность, новый паттерн — врач."
     },
     {
       "id": "nod-yes",
@@ -1969,16 +1515,7 @@
       "findings": [
         "Подавление выражения измеримо, чтение лжи по кивку — нет."
       ],
-      "doctor": "Полный отказ от решений, депрессия — к специалисту.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Полный отказ от решений, депрессия — к специалисту."
     },
     {
       "id": "twist-hair",
@@ -2009,16 +1546,7 @@
         "BFRB недовыявляют из-за стыда.",
         "Нет стандарта лекарства; поведенческие методы в приоритете обзоров."
       ],
-      "doctor": "Проплешины, боль кожи головы, поедание волос — к дерматологу и психиатру.",
-      "sources": [
-        {
-          "authors": "Lee D.K., Lipner S.R.",
-          "year": 2022,
-          "title": "Update on diagnosis and management of onychophagia and onychotillomania",
-          "journal": "International Journal of Environmental Research and Public Health, 19(6), 3392",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8953487/"
-        }
-      ]
+      "doctor": "Проплешины, боль кожи головы, поедание волос — к дерматологу и психиатру."
     },
     {
       "id": "sweaty-palms",
@@ -2049,16 +1577,7 @@
         "Arousal включает вегетатику: пот, сердце, дыхание.",
         "Постоянный пот без триггера — не «просто характер»."
       ],
-      "doctor": "Пот ночью, потеря веса, сердцебиение в покое — к терапевту.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Пот ночью, потеря веса, сердцебиение в покое — к терапевту."
     },
     {
       "id": "clear-throat",
@@ -2090,16 +1609,7 @@
         "Рефлюкс находили у 23–68% пациентов с globus в части серий; контроль иногда не отличается.",
         "Кашель с кровью этим не объясняют."
       ],
-      "doctor": "Кровь, потеря веса, кашель >3 недель, одышка — к врачу.",
-      "sources": [
-        {
-          "authors": "Lee B.E., Kim G.H.",
-          "year": 2012,
-          "title": "Globus pharyngeus: a review of its etiology, diagnosis and treatment",
-          "journal": "World Journal of Gastroenterology, 18(20), 2462–2471",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3360444/"
-        }
-      ]
+      "doctor": "Кровь, потеря веса, кашель >3 недель, одышка — к врачу."
     },
     {
       "id": "lock-knees",
@@ -2129,16 +1639,7 @@
       "findings": [
         "Freeze — высокий тонус, не расслабленная пауза."
       ],
-      "doctor": "Обморок, боль и отёк колена — к врачу.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Обморок, боль и отёк колена — к врачу."
     },
     {
       "id": "cinch-belt",
@@ -2169,16 +1670,7 @@
         "Эмоции меняют и еду, и контроль тела (модель Macht).",
         "Потеря веса плюс страх объёма — не «привычка ремня»."
       ],
-      "doctor": "Падение веса, обмороки, страх еды — к специалисту по РПП.",
-      "sources": [
-        {
-          "authors": "Macht M.",
-          "year": 2008,
-          "title": "How emotions affect eating: a five-way model",
-          "journal": "Appetite, 50(1), 1–11",
-          "url": "https://doi.org/10.1016/j.appet.2007.07.002"
-        }
-      ]
+      "doctor": "Падение веса, обмороки, страх еды — к специалисту по РПП."
     },
     {
       "id": "cold-no-reason",
@@ -2210,16 +1702,7 @@
         "Вегетатика каскада включает сосудистый компонент.",
         "Термометрия важнее ощущения."
       ],
-      "doctor": "Измеренная лихорадка, потеря веса, отёки — к терапевту.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Измеренная лихорадка, потеря веса, отёки — к терапевту."
     },
     {
       "id": "sweat-fear",
@@ -2251,16 +1734,7 @@
         "Вегетативный рисунок arousal описан нейрофизиологически.",
         "Ночные поты статьёй не списывают."
       ],
-      "doctor": "Ночные поты, жар, потеря веса — к терапевту.",
-      "sources": [
-        {
-          "authors": "Kozlowska K., Walker P., McLean L., Carrive P.",
-          "year": 2015,
-          "title": "Fear and the defense cascade: clinical implications and management",
-          "journal": "Harvard Review of Psychiatry, 23(4), 263–287",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4495877/"
-        }
-      ]
+      "doctor": "Ночные поты, жар, потеря веса — к терапевту."
     },
     {
       "id": "hold-toilet",
@@ -2292,16 +1766,7 @@
         "Checking как цикл снижения тревоги описан при ОКР (Abramowitz, 2009) — если терпение стало ритуалом.",
         "Кровь и анурия этим не объясняют."
       ],
-      "doctor": "Кровь, жар, анурия, кинжальная боль — врач.",
-      "sources": [
-        {
-          "authors": "Abramowitz J.S., Taylor S., McKay D.",
-          "year": 2009,
-          "title": "Obsessive-compulsive disorder",
-          "journal": "The Lancet, 374(9688), 491–499",
-          "url": "https://doi.org/10.1016/S0140-6736(09)60240-3"
-        }
-      ]
+      "doctor": "Кровь, жар, анурия, кинжальная боль — врач."
     },
     {
       "id": "whisper-only",
@@ -2332,16 +1797,7 @@
       "findings": [
         "Подавление выражения и голос могут идти вместе, но осиплость неделями — осмотр складок."
       ],
-      "doctor": "Шёпот дольше 2 недель, кровь, одышка — к ЛОРу.",
-      "sources": [
-        {
-          "authors": "Gross J.J.",
-          "year": 2002,
-          "title": "Emotion regulation: affective, cognitive, and social consequences",
-          "journal": "Psychophysiology, 39(3), 281–291",
-          "url": "https://doi.org/10.1017/S0048577201393198"
-        }
-      ]
+      "doctor": "Шёпот дольше 2 недель, кровь, одышка — к ЛОРу."
     }
   ]
 }
