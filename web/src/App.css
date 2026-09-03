@@ -331,6 +331,47 @@ input {
   gap: 0.4rem;
 }
 
+.recent-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  margin: 0.1rem 0 0.15rem;
+}
+
+.recent-bar h3 {
+  margin: 0;
+  flex: 0 0 auto;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.recent-row {
+  display: flex;
+  gap: 0.3rem;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.recent-row::-webkit-scrollbar {
+  display: none;
+}
+
+.recent-chip {
+  flex: 0 0 auto;
+  max-width: 9.6rem;
+  padding: 0.28rem 0.58rem;
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .body-zone-group {
   display: flex;
   flex-direction: column;

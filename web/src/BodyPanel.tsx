@@ -128,7 +128,7 @@ export function BodyPanel({
   const recent = history
     .map((id) => byId.get(id))
     .filter((x): x is BodyBehavior => Boolean(x))
-    .slice(0, 6)
+    .slice(0, 3)
 
   const grouped = !query.trim() && !zone && !onlyFav
 
@@ -190,11 +190,11 @@ export function BodyPanel({
       </section>
 
       {!query && !zone && !onlyFav && recent.length > 0 && (
-        <section className="related" aria-label="Недавние жесты">
+        <section className="recent-bar" aria-label="Недавние жесты">
           <h3>Недавно</h3>
-          <div className="related-row">
+          <div className="recent-row">
             {recent.map((r) => (
-              <button key={r.id} type="button" className="chip related-chip" onClick={() => onOpen(r.id)}>
+              <button key={r.id} type="button" className="chip recent-chip" onClick={() => onOpen(r.id)}>
                 {r.title}
               </button>
             ))}
