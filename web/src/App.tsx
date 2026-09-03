@@ -233,7 +233,7 @@ export default function App() {
             <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
             <p className="tagline">
               {onBody
-                ? 'Жесты напряжения · не слова сонника'
+                ? 'Признаки и исследования · не сонник'
                 : `Толкование снов · ${catalog.symbols.length} слов`}
             </p>
             <BuildStamp />

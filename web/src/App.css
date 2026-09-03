@@ -544,6 +544,34 @@ input {
   line-height: 1.45;
 }
 
+.science-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal-mid);
+}
+
+.science-card p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.source-list {
+  margin: 0.4rem 0 0;
+  padding-left: 1.15rem;
+}
+
+.source-list a {
+  color: var(--teal);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.doctor-card {
+  background: rgba(42, 86, 102, 0.08);
+}
+
 .hint-lead {
   font-weight: 650;
   color: var(--ink);
