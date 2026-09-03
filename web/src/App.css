@@ -671,8 +671,9 @@ input {
 
 .about-lead {
   font-family: var(--font-display);
-  font-size: 1.28rem;
+  font-size: 1.2rem;
   font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--teal);
   line-height: 1.35;
 }
