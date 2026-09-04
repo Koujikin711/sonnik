@@ -28,30 +28,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;1,14..32,400&display=swap" rel="stylesheet" />
     <title>Сонник</title>
-    <script type="module" crossorigin src="/sonnik/assets/index-Bx1EbLMU.js"></script>
+    <script type="module" crossorigin src="/sonnik/assets/index-K87o1pIH.js"></script>
     <link rel="stylesheet" crossorigin href="/sonnik/assets/index-DhsVc3c9.css">
   </head>
   <body>
     <div id="root"></div>
     <script>
       (function () {
+        var BUILD = '0.2.48'
+        try {
+          if (window.caches) {
+            caches.keys().then(function (keys) {
+              return Promise.all(keys.map(function (k) { return caches.delete(k) }))
+            })
+          }
+          if (localStorage.getItem('sonnik-build') !== BUILD) {
+            localStorage.setItem('sonnik-build', BUILD)
+            sessionStorage.removeItem('sonnik-v')
+          }
+        } catch (e) {}
         if (!('serviceWorker' in navigator)) return
-        navigator.serviceWorker.getRegistrations().then(function (regs) {
-          if (!regs.length) return
-          return Promise.all(regs.map(function (r) { return r.unregister() }))
-            .then(function () {
-              if (!window.caches) return
-              return caches.keys().then(function (keys) {
-                return Promise.all(keys.map(function (k) { return caches.delete(k) }))
-              })
-            })
-            .then(function () {
-              if (!sessionStorage.getItem('sonnik-sw-cleared')) {
-                sessionStorage.setItem('sonnik-sw-cleared', '1')
-                location.reload()
-              }
-            })
-        })
+        navigator.serviceWorker.getRegistration('/sonnik/').then(function (reg) {
+          if (reg || navigator.serviceWorker.controller) {
+            return navigator.serviceWorker.register('/sonnik/sw.js')
+          }
+        }).catch(function () {})
       })()
     </script>
   </body>
