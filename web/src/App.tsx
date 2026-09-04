@@ -5,7 +5,6 @@ import {
   applyTheme,
   clearHistory,
   getBodyFavorites,
-  getBodyHistory,
   getFavorites,
   getHistory,
   getSavedTheme,
@@ -121,7 +120,6 @@ export default function App() {
   const [favorites, setFavorites] = useState<string[]>([])
   const [history, setHistory] = useState<string[]>([])
   const [bodyFavorites, setBodyFavorites] = useState<string[]>([])
-  const [bodyHistory, setBodyHistory] = useState<string[]>([])
   const [theme, setTheme] = useState<ThemeId>('light')
   const [azOpen, setAzOpen] = useState(false)
   const [letter, setLetter] = useState<string | null>(null)
@@ -133,7 +131,6 @@ export default function App() {
     setFavorites(getFavorites())
     setHistory(getHistory())
     setBodyFavorites(getBodyFavorites())
-    setBodyHistory(getBodyHistory())
     const saved = getSavedTradition()
     if (saved && (DREAM_TRADITIONS as string[]).includes(saved)) {
       setTradition(saved as TraditionId)
@@ -192,7 +189,7 @@ export default function App() {
   }
 
   function openBehavior(id: string) {
-    setBodyHistory(pushBodyHistory(id))
+    pushBodyHistory(id)
     setView({ kind: 'behavior', id })
   }
 
@@ -675,16 +672,6 @@ function useBuildStamp() {
     minute: '2-digit',
   })
   return { version: build.version, updated }
-}
-
-function BuildStamp() {
-  const build = useBuildStamp()
-  if (!build) return null
-  return (
-    <p className="build-stamp">
-      Сборка {build.version} · {build.updated}
-    </p>
-  )
 }
 
 function About({ catalog }: { catalog: Catalog }) {
