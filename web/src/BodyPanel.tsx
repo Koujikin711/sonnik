@@ -16,6 +16,10 @@ function sortRu(items: BodyBehavior[]) {
   return [...items].sort((a, b) => a.title.localeCompare(b.title, 'ru'))
 }
 
+function sortZones(zones: BodyCatalog['zones']) {
+  return [...zones].sort((a, b) => a.title.localeCompare(b.title, 'ru'))
+}
+
 export function BodyPanel({
   catalog,
   query,
@@ -40,8 +44,9 @@ export function BodyPanel({
   onToggleFavorite: (id: string) => void
 }) {
   const byId = new Map(catalog.items.map((i) => [i.id, i]))
-  const zoneTitle = (id: string) => catalog.zones.find((z) => z.id === id)?.title ?? id
-  const zoneMid = Math.ceil(catalog.zones.length / 2)
+  const zonesAz = sortZones(catalog.zones)
+  const zoneTitle = (id: string) => zonesAz.find((z) => z.id === id)?.title ?? id
+  const zoneMid = Math.ceil(zonesAz.length / 2)
 
   if (selected) {
     const related = (selected.related ?? [])
@@ -194,8 +199,8 @@ export function BodyPanel({
         aria-label="Зона тела"
         style={{ ['--zone-n' as string]: String(zoneMid) }}
       >
-        <div className="zone-row">{renderZones(catalog.zones.slice(0, zoneMid))}</div>
-        <div className="zone-row">{renderZones(catalog.zones.slice(zoneMid))}</div>
+        <div className="zone-row">{renderZones(zonesAz.slice(0, zoneMid))}</div>
+        <div className="zone-row">{renderZones(zonesAz.slice(zoneMid))}</div>
       </section>
 
       {list.length === 0 ? (
@@ -206,7 +211,7 @@ export function BodyPanel({
           </li>
         </ul>
       ) : grouped ? (
-        catalog.zones.map((z) => {
+        zonesAz.map((z) => {
           const items = list.filter((i) => i.zone === z.id)
           if (items.length === 0) return null
           return (

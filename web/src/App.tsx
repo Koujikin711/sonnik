@@ -745,7 +745,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.41'
+const APP_VERSION = '0.2.42'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
