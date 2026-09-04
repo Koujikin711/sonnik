@@ -107,6 +107,45 @@ function matchesSymbol(symbol: SymbolEntry, q: string) {
   return words.some((w) => matchesWord(w, query))
 }
 
+function letterIndex(letter: string) {
+  const i = AZ.indexOf(letter)
+  return i < 0 ? 99 : i
+}
+
+function sortSymbolsAz(items: SymbolEntry[]) {
+  return [...items].sort((a, b) => {
+    const byLetter = letterIndex(a.letter) - letterIndex(b.letter)
+    if (byLetter !== 0) return byLetter
+    return a.title.localeCompare(b.title, 'ru')
+  })
+}
+
+function groupByLetter(items: SymbolEntry[]) {
+  const groups: { letter: string; items: SymbolEntry[] }[] = []
+  for (const s of items) {
+    const last = groups[groups.length - 1]
+    if (!last || last.letter !== s.letter) groups.push({ letter: s.letter, items: [s] })
+    else last.items.push(s)
+  }
+  return groups
+}
+
+function hashSymbolId() {
+  const raw = decodeURIComponent(location.hash.replace(/^#\/?/, '')).trim()
+  if (!raw) return null
+  return raw.startsWith('s/') ? raw.slice(2) : raw
+}
+
+function setSymbolHash(id: string | null) {
+  const next = id ? `#/${id}` : `${location.pathname}${location.search}`
+  const current = id ? `#/${id}` : ''
+  if (id) {
+    if (location.hash !== current) history.pushState(null, '', next)
+  } else if (location.hash) {
+    history.pushState(null, '', next)
+  }
+}
+
 export default function App() {
   const [catalog, setCatalog] = useState<Catalog | null>(null)
   const [bodyCatalog, setBodyCatalog] = useState<BodyCatalog | null>(null)
@@ -178,14 +217,36 @@ export default function App() {
       return history.map((id) => byId.get(id)).filter(Boolean) as SymbolEntry[]
     }
     if (letter && !query.trim()) {
-      return catalog.symbols.filter((s) => s.letter === letter)
+      return sortSymbolsAz(catalog.symbols.filter((s) => s.letter === letter))
     }
-    return catalog.symbols.filter((s) => matchesSymbol(s, query))
+    return sortSymbolsAz(catalog.symbols.filter((s) => matchesSymbol(s, query)))
   }, [catalog, tab, favorites, history, byId, query, letter])
+
+  useEffect(() => {
+    if (!catalog) return
+    const applyHash = () => {
+      const id = hashSymbolId()
+      if (!id) {
+        setView((v) => (v.kind === 'symbol' ? { kind: 'list' } : v))
+        return
+      }
+      if (!catalog.symbols.some((s) => s.id === id)) return
+      setHistory(pushHistory(id))
+      setView({ kind: 'symbol', id })
+    }
+    applyHash()
+    window.addEventListener('hashchange', applyHash)
+    window.addEventListener('popstate', applyHash)
+    return () => {
+      window.removeEventListener('hashchange', applyHash)
+      window.removeEventListener('popstate', applyHash)
+    }
+  }, [catalog])
 
   function openSymbol(id: string) {
     setHistory(pushHistory(id))
     setView({ kind: 'symbol', id })
+    setSymbolHash(id)
   }
 
   function openBehavior(id: string) {
@@ -196,6 +257,7 @@ export default function App() {
   function goTab(id: TabId) {
     setTab(id)
     setView({ kind: 'list' })
+    setSymbolHash(null)
   }
 
   function onTradition(id: TraditionId) {
@@ -261,7 +323,10 @@ export default function App() {
           onTradition={onTradition}
           favorite={favorites.includes(symbol.id)}
           onToggleFavorite={() => setFavorites(toggleFavorite(symbol.id))}
-          onBack={() => setView({ kind: 'list' })}
+          onBack={() => {
+            setView({ kind: 'list' })
+            setSymbolHash(null)
+          }}
           onOpen={openSymbol}
         />
       ) : onBody ? (
@@ -399,23 +464,34 @@ export default function App() {
                     </span>
                   </li>
                 )}
-                {list.map((s) => (
-                  <li key={s.id}>
-                    <button type="button" className="symbol-row" onClick={() => openSymbol(s.id)}>
-                      <span className="sym-body">
-                        <span className="sym-title">{s.title}</span>
-                        <span className="sym-preview">
-                          {s.traditions[tradition]?.short ??
-                            s.traditions.universal?.short ??
-                            '—'}
-                        </span>
-                      </span>
-                      <span className="sym-chevron" aria-hidden>
-                        ›
-                      </span>
-                    </button>
-                  </li>
-                ))}
+                {(tab === 'search' && !query.trim() ? groupByLetter(list) : [{ letter: '', items: list }]).flatMap(
+                  (g) => [
+                    ...(g.letter
+                      ? [
+                          <li key={`az-${g.letter}`} className="az-head" aria-hidden>
+                            {g.letter}
+                          </li>,
+                        ]
+                      : []),
+                    ...g.items.map((s) => (
+                      <li key={s.id}>
+                        <button type="button" className="symbol-row" onClick={() => openSymbol(s.id)}>
+                          <span className="sym-body">
+                            <span className="sym-title">{s.title}</span>
+                            <span className="sym-preview">
+                              {s.traditions[tradition]?.short ??
+                                s.traditions.universal?.short ??
+                                '—'}
+                            </span>
+                          </span>
+                          <span className="sym-chevron" aria-hidden>
+                            ›
+                          </span>
+                        </button>
+                      </li>
+                    )),
+                  ],
+                )}
               </ul>
             </>
           )}
@@ -583,10 +659,11 @@ function SymbolPage({
             title="Поделиться"
             onClick={() => {
               const payload = `${symbol.title} — ${text}`
+              const url = `${location.origin}${location.pathname}#/${symbol.id}`
               if (navigator.share) {
-                void navigator.share({ title: symbol.title, text: payload })
+                void navigator.share({ title: symbol.title, text: payload, url })
               } else {
-                void navigator.clipboard.writeText(payload)
+                void navigator.clipboard.writeText(`${payload}\n${url}`)
                 alert('Текст скопирован')
               }
             }}
@@ -638,7 +715,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.39'
+const APP_VERSION = '0.2.40'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

@@ -394,6 +394,20 @@ input {
   gap: 0.5rem;
 }
 
+.az-head {
+  margin: 0.35rem 0 -0.15rem;
+  padding: 0 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.symbol-list > .az-head:first-child {
+  margin-top: 0;
+}
+
 .symbol-row {
   width: 100%;
   display: flex;
