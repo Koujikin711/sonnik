@@ -176,10 +176,13 @@ export default function App() {
       setTradition(saved as TraditionId)
     }
 
-    fetch(`${import.meta.env.BASE_URL}data/symbols.json?v=${Date.now()}`, { cache: 'no-store' })
+    fetch(`${import.meta.env.BASE_URL}data/words.json?v=${Date.now()}`, { cache: 'no-store' })
       .then((r) => {
-        if (!r.ok) throw new Error('Не удалось загрузить базу')
-        return r.json()
+        if (r.ok) return r.json()
+        return fetch(`${import.meta.env.BASE_URL}data/symbols.json?v=${Date.now()}`, { cache: 'no-store' }).then((x) => {
+          if (!x.ok) throw new Error('Не удалось загрузить базу')
+          return x.json()
+        })
       })
       .then((data: Catalog) => setCatalog(data))
       .catch((e: Error) => setError(e.message))
@@ -752,7 +755,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.49'
+const APP_VERSION = '0.2.50'
 
 function cleanBodyCatalog(data: BodyCatalog): BodyCatalog {
   return {
