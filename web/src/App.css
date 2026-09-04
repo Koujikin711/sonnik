@@ -627,6 +627,11 @@ input {
   font-size: 1.1rem;
 }
 
+.icon-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
 .text-btn {
   background: transparent;
   border: none;

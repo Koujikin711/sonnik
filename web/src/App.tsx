@@ -289,6 +289,10 @@ export default function App() {
   }
 
   const symbol = view.kind === 'symbol' ? byId.get(view.id) : null
+  const symbolIndex = symbol ? list.findIndex((s) => s.id === symbol.id) : -1
+  const prevSymbol = symbolIndex > 0 ? list[symbolIndex - 1] : null
+  const nextSymbol =
+    symbolIndex >= 0 && symbolIndex < list.length - 1 ? list[symbolIndex + 1] : null
   const selectedBehavior =
     view.kind === 'behavior' && bodyCatalog
       ? (bodyCatalog.items.find((i) => i.id === view.id) ?? null)
@@ -328,6 +332,8 @@ export default function App() {
             setSymbolHash(null)
           }}
           onOpen={openSymbol}
+          prev={prevSymbol}
+          next={nextSymbol}
         />
       ) : onBody ? (
         bodyCatalog ? (
@@ -621,6 +627,8 @@ function SymbolPage({
   onToggleFavorite,
   onBack,
   onOpen,
+  prev,
+  next,
 }: {
   symbol: SymbolEntry
   related: SymbolEntry[]
@@ -631,6 +639,8 @@ function SymbolPage({
   onToggleFavorite: () => void
   onBack: () => void
   onOpen: (id: string) => void
+  prev: SymbolEntry | null
+  next: SymbolEntry | null
 }) {
   const entry = symbol.traditions[tradition]
   const text = entry?.short ?? 'Для этой традиции пока нет текста.'
@@ -647,6 +657,26 @@ function SymbolPage({
           ← Назад
         </button>
         <div className="detail-actions-right">
+          <button
+            type="button"
+            className="icon-btn"
+            disabled={!prev}
+            title={prev ? prev.title : 'Назад'}
+            aria-label="Предыдущее слово"
+            onClick={() => prev && onOpen(prev.id)}
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            className="icon-btn"
+            disabled={!next}
+            title={next ? next.title : 'Вперёд'}
+            aria-label="Следующее слово"
+            onClick={() => next && onOpen(next.id)}
+          >
+            →
+          </button>
           <button type="button" className="icon-btn" onClick={() => speak(titleText)} title="Озвучить">
             ♪
           </button>
@@ -715,7 +745,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.40'
+const APP_VERSION = '0.2.41'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
