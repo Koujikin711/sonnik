@@ -263,7 +263,6 @@ export default function App() {
           onToggleFavorite={() => setFavorites(toggleFavorite(symbol.id))}
           onBack={() => setView({ kind: 'list' })}
           onOpen={openSymbol}
-          disclaimer={catalog.disclaimer}
         />
       ) : onBody ? (
         bodyCatalog ? (
@@ -546,7 +545,6 @@ function SymbolPage({
   onToggleFavorite,
   onBack,
   onOpen,
-  disclaimer,
 }: {
   symbol: SymbolEntry
   related: SymbolEntry[]
@@ -557,7 +555,6 @@ function SymbolPage({
   onToggleFavorite: () => void
   onBack: () => void
   onOpen: (id: string) => void
-  disclaimer: string
 }) {
   const entry = symbol.traditions[tradition]
   const text = entry?.short ?? 'Для этой традиции пока нет текста.'
@@ -637,13 +634,11 @@ function SymbolPage({
       )}
 
       {tradition === 'islamic' && <IslamicTawil symbolId={symbol.id} />}
-
-      <p className="disclaimer">{disclaimer}</p>
     </main>
   )
 }
 
-const APP_VERSION = '0.2.38'
+const APP_VERSION = '0.2.39'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
