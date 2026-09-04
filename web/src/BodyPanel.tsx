@@ -20,6 +20,14 @@ function sortZones(zones: BodyCatalog['zones']) {
   return [...zones].sort((a, b) => a.title.localeCompare(b.title, 'ru'))
 }
 
+function ruVisible(text: string) {
+  return text
+    .replace(/[A-Za-z][A-Za-z0-9'’./_-]*/g, '')
+    .replace(/\(\s*\)/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
 export function BodyPanel({
   catalog,
   query,
@@ -78,9 +86,9 @@ export function BodyPanel({
         <p className="detail-tags">{zoneTitle(selected.zone)}</p>
 
         <article className="meaning">
-          <p className="meaning-kicker">{selected.term ?? 'Признак'}</p>
-          <p className="meaning-short">{selected.short}</p>
-          <p className="meaning-long">{selected.long}</p>
+          <p className="meaning-kicker">{ruVisible(selected.term ?? '') || 'Признак'}</p>
+          <p className="meaning-short">{ruVisible(selected.short)}</p>
+          <p className="meaning-long">{ruVisible(selected.long)}</p>
         </article>
 
         {(selected.causes?.length ?? 0) > 0 && (
@@ -88,7 +96,7 @@ export function BodyPanel({
             <h3>Причины</h3>
             <ul>
               {selected.causes!.map((h) => (
-                <li key={h}>{h}</li>
+                <li key={h}>{ruVisible(h)}</li>
               ))}
             </ul>
           </aside>
@@ -99,7 +107,7 @@ export function BodyPanel({
             <h3>Что показали исследования</h3>
             <ul>
               {selected.findings!.map((h) => (
-                <li key={h}>{h}</li>
+                <li key={h}>{ruVisible(h)}</li>
               ))}
             </ul>
           </aside>
@@ -108,7 +116,7 @@ export function BodyPanel({
         {selected.doctor && (
           <aside className="hints science-card doctor-card">
             <h3>Когда к врачу</h3>
-            <p>{selected.doctor}</p>
+            <p>{ruVisible(selected.doctor)}</p>
           </aside>
         )}
 
@@ -117,7 +125,7 @@ export function BodyPanel({
             <h3>Что проверить себе</h3>
             <ul>
               {selected.hints.map((h) => (
-                <li key={h}>{h}</li>
+                <li key={h}>{ruVisible(h)}</li>
               ))}
             </ul>
           </aside>
