@@ -28,6 +28,8 @@ type View =
   | { kind: 'symbol'; id: string }
   | { kind: 'behavior'; id: string }
 
+const AZ = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('')
+
 const TRAD_SHORT: Record<string, string> = {
   universal: 'Общий',
   folk: 'Народ',
@@ -122,6 +124,8 @@ export default function App() {
   const [bodyFavorites, setBodyFavorites] = useState<string[]>([])
   const [bodyHistory, setBodyHistory] = useState<string[]>([])
   const [theme, setTheme] = useState<ThemeId>('light')
+  const [azOpen, setAzOpen] = useState(false)
+  const [letter, setLetter] = useState<string | null>(null)
 
   useEffect(() => {
     const next = getSavedTheme()
@@ -158,6 +162,11 @@ export default function App() {
     return map
   }, [catalog])
 
+  const presentLetters = useMemo(() => {
+    if (!catalog) return new Set<string>()
+    return new Set(catalog.symbols.map((s) => s.letter))
+  }, [catalog])
+
   const list = useMemo(() => {
     if (!catalog) return []
     if (tab === 'favorites') {
@@ -166,8 +175,11 @@ export default function App() {
     if (tab === 'history') {
       return history.map((id) => byId.get(id)).filter(Boolean) as SymbolEntry[]
     }
+    if (letter && !query.trim()) {
+      return catalog.symbols.filter((s) => s.letter === letter)
+    }
     return catalog.symbols.filter((s) => matchesSymbol(s, query))
-  }, [catalog, tab, favorites, history, byId, query])
+  }, [catalog, tab, favorites, history, byId, query, letter])
 
   function openSymbol(id: string) {
     setHistory(pushHistory(id))
@@ -303,18 +315,47 @@ export default function App() {
                       className="search"
                       placeholder="зубы, летать, мама, кровь, деньги…"
                       value={query}
-                      onChange={(e) => setQuery(e.target.value)}
+                      onChange={(e) => {
+                        setQuery(e.target.value)
+                        if (e.target.value) {
+                          setLetter(null)
+                          setAzOpen(false)
+                        }
+                      }}
                       autoComplete="off"
                     />
                     <button
                       type="button"
-                      className="az-btn"
-                      title="Весь список А–Я"
-                      onClick={() => setQuery('')}
+                      className={azOpen || letter ? 'az-btn on' : 'az-btn'}
+                      title="Алфавит"
+                      aria-expanded={azOpen}
+                      onClick={() => {
+                        setQuery('')
+                        if (azOpen) {
+                          setAzOpen(false)
+                          setLetter(null)
+                        } else {
+                          setAzOpen(true)
+                        }
+                      }}
                     >
                       А–Я
                     </button>
                   </div>
+                  {azOpen && (
+                    <section className="alpha-bar" aria-label="Алфавит">
+                      {AZ.filter((L) => presentLetters.has(L)).map((L) => (
+                        <button
+                          key={L}
+                          type="button"
+                          className={letter === L ? 'letter active' : 'letter'}
+                          onClick={() => setLetter(letter === L ? null : L)}
+                        >
+                          {L}
+                        </button>
+                      ))}
+                    </section>
+                  )}
                 </section>
               )}
 
@@ -335,6 +376,11 @@ export default function App() {
               {tab === 'search' && query.trim() && (
                 <p className="result-count">
                   Найдено {list.length} из {catalog.symbols.length}
+                </p>
+              )}
+              {tab === 'search' && letter && !query.trim() && (
+                <p className="result-count">
+                  {list.length} на букву {letter}
                 </p>
               )}
               {tab !== 'search' && (
@@ -593,7 +639,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.35'
+const APP_VERSION = '0.2.36'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

@@ -296,6 +296,12 @@ input {
   cursor: pointer;
 }
 
+.az-btn.on {
+  background: var(--fill);
+  border-color: var(--fill);
+  color: var(--on-fill);
+}
+
 .search:focus {
   border-color: var(--teal-mid);
   box-shadow: 0 0 0 3px rgba(42, 86, 102, 0.12);
@@ -312,9 +318,9 @@ input {
 }
 
 .alpha-bar {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   overflow: visible;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .trad-row {
