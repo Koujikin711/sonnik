@@ -20,6 +20,7 @@ import {
 } from './storage'
 import { tawilForSymbol } from './hadithDreams'
 import { BodyPanel } from './BodyPanel'
+import { ruList, ruOnly } from './ruOnly'
 import './App.css'
 
 type View =
@@ -186,10 +187,12 @@ export default function App() {
     fetch(`${import.meta.env.BASE_URL}data/behaviors.json?v=${Date.now()}`, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
       .then((data: BodyCatalog | null) => {
-        if (data?.items) setBodyCatalog(data)
+        if (data?.items) setBodyCatalog(cleanBodyCatalog(data))
       })
       .catch(() => {})
   }, [])
+
+  useVersionReload()
 
   const byId = useMemo(() => {
     const map = new Map<string, SymbolEntry>()
@@ -749,7 +752,38 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.47'
+const APP_VERSION = '0.2.48'
+
+function cleanBodyCatalog(data: BodyCatalog): BodyCatalog {
+  return {
+    ...data,
+    items: data.items.map((item) => ({
+      ...item,
+      short: ruOnly(item.short),
+      long: ruOnly(item.long),
+      term: item.term ? ruOnly(item.term) : item.term,
+      doctor: item.doctor ? ruOnly(item.doctor) : item.doctor,
+      hints: ruList(item.hints),
+      causes: item.causes ? ruList(item.causes) : item.causes,
+      findings: item.findings ? ruList(item.findings) : item.findings,
+      aliases: item.aliases ? ruList(item.aliases) : item.aliases,
+    })),
+  }
+}
+
+function useVersionReload() {
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}version.json?v=${Date.now()}`, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { version?: string } | null) => {
+        if (!data?.version || data.version === APP_VERSION) return
+        if (sessionStorage.getItem('sonnik-v') === data.version) return
+        sessionStorage.setItem('sonnik-v', data.version)
+        location.reload()
+      })
+      .catch(() => {})
+  }, [])
+}
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

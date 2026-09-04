@@ -1,5 +1,6 @@
 import type { BodyBehavior, BodyCatalog } from './types'
 import { speak } from './storage'
+import { ruOnly } from './ruOnly'
 
 function matchesWord(word: string, q: string) {
   return word.toLocaleLowerCase('ru').includes(q)
@@ -21,11 +22,7 @@ function sortZones(zones: BodyCatalog['zones']) {
 }
 
 function ruVisible(text: string) {
-  return text
-    .replace(/[A-Za-z][A-Za-z0-9'’./_-]*/g, '')
-    .replace(/\(\s*\)/g, '')
-    .replace(/\s{2,}/g, ' ')
-    .trim()
+  return ruOnly(text)
 }
 
 export function BodyPanel({

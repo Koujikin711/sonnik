@@ -33,23 +33,23 @@
     <div id="root"></div>
     <script>
       (function () {
+        var BUILD = '0.2.48'
+        try {
+          if (window.caches) {
+            caches.keys().then(function (keys) {
+              return Promise.all(keys.map(function (k) { return caches.delete(k) }))
+            })
+          }
+          if (localStorage.getItem('sonnik-build') !== BUILD) {
+            localStorage.setItem('sonnik-build', BUILD)
+            sessionStorage.removeItem('sonnik-v')
+          }
+        } catch (e) {}
         if (!('serviceWorker' in navigator)) return
-        navigator.serviceWorker.getRegistrations().then(function (regs) {
-          if (!regs.length) return
-          return Promise.all(regs.map(function (r) { return r.unregister() }))
-            .then(function () {
-              if (!window.caches) return
-              return caches.keys().then(function (keys) {
-                return Promise.all(keys.map(function (k) { return caches.delete(k) }))
-              })
-            })
-            .then(function () {
-              if (!sessionStorage.getItem('sonnik-sw-cleared')) {
-                sessionStorage.setItem('sonnik-sw-cleared', '1')
-                location.reload()
-              }
-            })
+        navigator.serviceWorker.addEventListener('message', function (e) {
+          if (e.data && e.data.type === 'sonnik-reload') location.reload()
         })
+        navigator.serviceWorker.register('/sonnik/sw.js').catch(function () {})
       })()
     </script>
     <script type="module" src="/src/main.tsx"></script>
