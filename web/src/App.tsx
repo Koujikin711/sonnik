@@ -297,26 +297,24 @@ export default function App() {
                   <label className="sr-only" htmlFor="q">
                     Поиск
                   </label>
-                  <input
-                    id="q"
-                    className="search"
-                    placeholder="зубы, летать, мама, кровь, деньги…"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    autoComplete="off"
-                  />
-                  <section className="alpha-bar" aria-label="Каталог">
+                  <div className="search-wrap">
+                    <input
+                      id="q"
+                      className="search"
+                      placeholder="зубы, летать, мама, кровь, деньги…"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      autoComplete="off"
+                    />
                     <button
                       type="button"
-                      className={!query.trim() ? 'chip active' : 'chip'}
+                      className="az-btn"
+                      title="Весь список А–Я"
                       onClick={() => setQuery('')}
                     >
-                      Все
-                    </button>
-                    <button type="button" className="chip" onClick={() => setQuery('')}>
                       А–Я
                     </button>
-                  </section>
+                  </div>
                 </section>
               )}
 
@@ -595,7 +593,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.34'
+const APP_VERSION = '0.2.35'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
