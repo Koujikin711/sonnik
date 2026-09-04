@@ -117,7 +117,6 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [bodyQuery, setBodyQuery] = useState('')
   const [bodyZone, setBodyZone] = useState<string | null>(null)
-  const [bodyOnlyFav, setBodyOnlyFav] = useState(false)
   const [tradition, setTradition] = useState<TraditionId>('universal')
   const [favorites, setFavorites] = useState<string[]>([])
   const [history, setHistory] = useState<string[]>([])
@@ -243,23 +242,10 @@ export default function App() {
   return (
     <div className="shell">
       <header className="top">
-        {onBody && (
-          <button type="button" className="text-btn back-home" onClick={() => goTab('search')}>
-            ← Сонник
-          </button>
-        )}
         <div className="top-main">
           <button type="button" className="brand-block brand-hit" onClick={() => goTab('search')}>
             <div className="moon" aria-hidden />
-            <div>
-              <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
-              <p className="tagline">
-                {onBody
-                  ? 'Признаки и исследования · не сонник'
-                  : `Толкование снов · ${catalog.symbols.length} слов`}
-              </p>
-              <BuildStamp />
-            </div>
+            <h1 className="brand">{onBody ? 'Тело' : 'Сонник'}</h1>
           </button>
           <ThemeSwitch theme={theme} onChange={onTheme} />
         </div>
@@ -290,10 +276,7 @@ export default function App() {
             onQuery={setBodyQuery}
             zone={bodyZone}
             onZone={setBodyZone}
-            onlyFav={bodyOnlyFav}
-            onOnlyFav={setBodyOnlyFav}
             favorites={bodyFavorites}
-            history={bodyHistory}
             selected={selectedBehavior}
             onOpen={openBehavior}
             onBack={() => setView({ kind: 'list' })}
@@ -663,7 +646,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.37'
+const APP_VERSION = '0.2.38'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

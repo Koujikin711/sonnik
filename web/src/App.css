@@ -37,12 +37,13 @@
   background: var(--bg0);
   color-scheme: light;
   font-family: var(--font-ui);
-  line-height: 1.4;
+  line-height: 1.32;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'ss01' 1, 'cv11' 1, 'kern' 1;
+  font-variation-settings: 'opsz' 18;
 }
 
 html[data-theme='dark'] {
@@ -122,12 +123,12 @@ input {
 }
 
 .top {
-  padding: 1.35rem 1.25rem 0.65rem;
+  padding: 0.85rem 1.1rem 0.4rem;
 }
 
 .top-main {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
 }
@@ -136,7 +137,7 @@ input {
   position: relative;
   width: 52px;
   height: 30px;
-  margin-top: 0.45rem;
+  margin-top: 0;
   flex-shrink: 0;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -199,7 +200,7 @@ input {
 
 .brand-block {
   display: flex;
-  gap: 0.95rem;
+  gap: 0.7rem;
   align-items: center;
 }
 
@@ -215,8 +216,8 @@ input {
 }
 
 .moon {
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: radial-gradient(circle at 32% 32%, #fff6e4, var(--sand-soft) 42%, var(--sand) 70%, #8a6b3d);
   box-shadow:
@@ -229,7 +230,7 @@ input {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 2.15rem;
+  font-size: 1.85rem;
   letter-spacing: -0.03em;
   color: var(--teal);
   line-height: 1.05;
@@ -254,10 +255,10 @@ input {
 
 .main {
   flex: 1;
-  padding: 0.45rem 1.15rem 1.6rem;
+  padding: 0.35rem 1.05rem 1.3rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.65rem;
 }
 
 .search-panel {
@@ -492,8 +493,21 @@ input {
 
 .zone-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.zone-row {
+  display: grid;
+  grid-template-columns: repeat(var(--zone-n, 8), minmax(0, 1fr));
+  gap: 0.28rem;
+}
+
+.zone-bar .chip {
+  min-width: 0;
+  padding: 0.36rem 0.12rem;
+  font-size: 0.68rem;
+  text-align: center;
 }
 
 .recent-bar {
@@ -633,7 +647,7 @@ input {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.05rem 1.1rem;
+  padding: 0.82rem 0.95rem;
   box-shadow: var(--shadow);
 }
 
@@ -703,28 +717,30 @@ input {
 .meaning-short {
   font-family: var(--font-ui);
   font-weight: 400;
-  font-size: 1.05rem;
-  letter-spacing: 0;
-  line-height: 1.42;
-  margin-bottom: 0.55rem;
+  font-size: 1.02rem;
+  letter-spacing: -0.011em;
+  line-height: 1.34;
+  margin-bottom: 0.4rem;
   color: var(--ink);
 }
 
 .meaning-long {
-  line-height: 1.42;
+  line-height: 1.36;
+  letter-spacing: -0.011em;
   color: var(--ink);
 }
 
 .hints ul {
-  margin: 0.4rem 0 0;
-  padding-left: 1.15rem;
+  margin: 0.28rem 0 0;
+  padding-left: 1.05rem;
   color: var(--ink);
-  font-size: 1.02rem;
+  font-size: 0.98rem;
 }
 
 .hints li {
-  margin: 0.4rem 0;
-  line-height: 1.38;
+  margin: 0.22rem 0;
+  line-height: 1.34;
+  letter-spacing: -0.01em;
 }
 
 .science-card h3 {
@@ -826,7 +842,9 @@ input {
 .about p,
 .about li {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 0.98rem;
+  line-height: 1.36;
+  letter-spacing: -0.011em;
 }
 
 .about-lead {

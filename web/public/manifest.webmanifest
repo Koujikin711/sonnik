@@ -1,0 +1,19 @@
+{
+  "name": "Сонник",
+  "short_name": "Сонник",
+  "description": "Толкование снов и жесты тела",
+  "start_url": "/sonnik/",
+  "scope": "/sonnik/",
+  "display": "standalone",
+  "background_color": "#0f161a",
+  "theme_color": "#0f161a",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/sonnik/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

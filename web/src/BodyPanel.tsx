@@ -22,10 +22,7 @@ export function BodyPanel({
   onQuery,
   zone,
   onZone,
-  onlyFav,
-  onOnlyFav,
   favorites,
-  history,
   selected,
   onOpen,
   onBack,
@@ -36,10 +33,7 @@ export function BodyPanel({
   onQuery: (q: string) => void
   zone: string | null
   onZone: (id: string | null) => void
-  onlyFav: boolean
-  onOnlyFav: (v: boolean) => void
   favorites: string[]
-  history: string[]
   selected: BodyBehavior | null
   onOpen: (id: string) => void
   onBack: () => void
@@ -47,6 +41,7 @@ export function BodyPanel({
 }) {
   const byId = new Map(catalog.items.map((i) => [i.id, i]))
   const zoneTitle = (id: string) => catalog.zones.find((z) => z.id === id)?.title ?? id
+  const zoneMid = Math.ceil(catalog.zones.length / 2)
 
   if (selected) {
     const related = (selected.related ?? [])
@@ -57,7 +52,7 @@ export function BodyPanel({
       <main className="main detail">
         <div className="detail-actions">
           <button type="button" className="text-btn" onClick={onBack}>
-            ← К жестам
+            ←
           </button>
           <div className="detail-actions-right">
             <button type="button" className="icon-btn" onClick={() => speak(speakText)} title="Озвучить">
@@ -76,10 +71,6 @@ export function BodyPanel({
 
         <h2 className="detail-title">{selected.title}</h2>
         <p className="detail-tags">{zoneTitle(selected.zone)}</p>
-
-        <aside className="psycho-note">
-          <strong>Не сонник.</strong> Справка по обзорам, не диагноз и не план лечения.
-        </aside>
 
         <article className="meaning">
           <p className="meaning-kicker">{selected.term ?? 'Признак'}</p>
@@ -139,26 +130,18 @@ export function BodyPanel({
             </div>
           </aside>
         )}
-
-        <p className="disclaimer">{catalog.disclaimer}</p>
       </main>
     )
   }
 
   const list = sortRu(
     catalog.items.filter((item) => {
-      if (onlyFav && !favorites.includes(item.id)) return false
       if (zone && item.zone !== zone) return false
       return matchesBehavior(item, query, zoneTitle(item.zone))
     }),
   )
 
-  const recent = history
-    .map((id) => byId.get(id))
-    .filter((x): x is BodyBehavior => Boolean(x))
-    .slice(0, 3)
-
-  const grouped = !query.trim() && !zone && !onlyFav
+  const grouped = !query.trim() && !zone
 
   function renderRow(item: BodyBehavior) {
     return (
@@ -177,13 +160,21 @@ export function BodyPanel({
     )
   }
 
+  function renderZones(zones: BodyCatalog['zones']) {
+    return zones.map((z) => (
+      <button
+        key={z.id}
+        type="button"
+        className={zone === z.id ? 'chip active' : 'chip'}
+        onClick={() => onZone(zone === z.id ? null : z.id)}
+      >
+        {z.title}
+      </button>
+    ))
+  }
+
   return (
     <main className="main">
-      <aside className="psycho-note">
-        <strong>Не сонник.</strong> Жесты названы клиническими терминами. В карточке — причины
-        и результаты обзоров. Это не диагноз.
-      </aside>
-
       <section className="search-panel">
         <label className="sr-only" htmlFor="body-q">
           Поиск жеста
@@ -198,41 +189,14 @@ export function BodyPanel({
         />
       </section>
 
-      <section className="zone-bar" aria-label="Зона тела">
-        <button type="button" className={onlyFav ? 'chip active' : 'chip'} onClick={() => onOnlyFav(!onlyFav)}>
-          ★ Мои
-        </button>
-        {catalog.zones.map((z) => (
-          <button
-            key={z.id}
-            type="button"
-            className={zone === z.id && !onlyFav ? 'chip active' : 'chip'}
-            onClick={() => {
-              onOnlyFav(false)
-              onZone(zone === z.id ? null : z.id)
-            }}
-          >
-            {z.title}
-          </button>
-        ))}
+      <section
+        className="zone-bar"
+        aria-label="Зона тела"
+        style={{ ['--zone-n' as string]: String(zoneMid) }}
+      >
+        <div className="zone-row">{renderZones(catalog.zones.slice(0, zoneMid))}</div>
+        <div className="zone-row">{renderZones(catalog.zones.slice(zoneMid))}</div>
       </section>
-
-      {!query && !zone && !onlyFav && recent.length > 0 && (
-        <section className="recent-bar" aria-label="Недавние жесты">
-          <h3>Недавно</h3>
-          <div className="recent-row">
-            {recent.map((r) => (
-              <button key={r.id} type="button" className="chip recent-chip" onClick={() => onOpen(r.id)}>
-                {r.title}
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <p className="result-count">
-        {list.length} {onlyFav ? 'в избранном' : zone ? `в зоне «${zoneTitle(zone)}»` : 'жестов'}
-      </p>
 
       {list.length === 0 ? (
         <ul className="symbol-list">
