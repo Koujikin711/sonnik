@@ -288,11 +288,12 @@ export default function App() {
     )
   }
 
+  const catalogAz = useMemo(() => sortSymbolsAz(catalog.symbols), [catalog])
   const symbol = view.kind === 'symbol' ? byId.get(view.id) : null
-  const symbolIndex = symbol ? list.findIndex((s) => s.id === symbol.id) : -1
-  const prevSymbol = symbolIndex > 0 ? list[symbolIndex - 1] : null
+  const symbolIndex = symbol ? catalogAz.findIndex((s) => s.id === symbol.id) : -1
+  const prevSymbol = symbolIndex > 0 ? catalogAz[symbolIndex - 1] : null
   const nextSymbol =
-    symbolIndex >= 0 && symbolIndex < list.length - 1 ? list[symbolIndex + 1] : null
+    symbolIndex >= 0 && symbolIndex < catalogAz.length - 1 ? catalogAz[symbolIndex + 1] : null
   const selectedBehavior =
     view.kind === 'behavior' && bodyCatalog
       ? (bodyCatalog.items.find((i) => i.id === view.id) ?? null)
@@ -657,26 +658,6 @@ function SymbolPage({
           ← Назад
         </button>
         <div className="detail-actions-right">
-          <button
-            type="button"
-            className="icon-btn"
-            disabled={!prev}
-            title={prev ? prev.title : 'Назад'}
-            aria-label="Предыдущее слово"
-            onClick={() => prev && onOpen(prev.id)}
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            className="icon-btn"
-            disabled={!next}
-            title={next ? next.title : 'Вперёд'}
-            aria-label="Следующее слово"
-            onClick={() => next && onOpen(next.id)}
-          >
-            →
-          </button>
           <button type="button" className="icon-btn" onClick={() => speak(titleText)} title="Озвучить">
             ♪
           </button>
@@ -703,7 +684,29 @@ function SymbolPage({
         </div>
       </div>
 
-      <h2 className="detail-title">{symbol.title}</h2>
+      <div className="title-nav">
+        <button
+          type="button"
+          className="title-arrow"
+          disabled={!prev}
+          title={prev ? prev.title : 'Назад'}
+          aria-label="Предыдущее слово"
+          onClick={() => prev && onOpen(prev.id)}
+        >
+          ←
+        </button>
+        <h2 className="detail-title">{symbol.title}</h2>
+        <button
+          type="button"
+          className="title-arrow"
+          disabled={!next}
+          title={next ? next.title : 'Вперёд'}
+          aria-label="Следующее слово"
+          onClick={() => next && onOpen(next.id)}
+        >
+          →
+        </button>
+      </div>
       <p className="detail-tags">{symbol.tags.join(' · ')}</p>
 
       <TraditionSelect traditions={traditions} value={tradition} onChange={onTradition} />
@@ -745,7 +748,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.45'
+const APP_VERSION = '0.2.46'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

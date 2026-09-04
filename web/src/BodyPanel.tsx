@@ -60,6 +60,10 @@ export function BodyPanel({
     const related = (selected.related ?? [])
       .map((id) => byId.get(id))
       .filter((x): x is BodyBehavior => Boolean(x))
+    const bodyAz = sortRu(catalog.items)
+    const bodyIndex = bodyAz.findIndex((x) => x.id === selected.id)
+    const prevBody = bodyIndex > 0 ? bodyAz[bodyIndex - 1] : null
+    const nextBody = bodyIndex >= 0 && bodyIndex < bodyAz.length - 1 ? bodyAz[bodyIndex + 1] : null
     const speakText = `${selected.title}. ${selected.term ?? ''}. ${selected.short}`
     return (
       <main className="main detail">
@@ -82,7 +86,29 @@ export function BodyPanel({
           </div>
         </div>
 
-        <h2 className="detail-title">{selected.title}</h2>
+        <div className="title-nav">
+          <button
+            type="button"
+            className="title-arrow"
+            disabled={!prevBody}
+            title={prevBody ? prevBody.title : 'Назад'}
+            aria-label="Предыдущий жест"
+            onClick={() => prevBody && onOpen(prevBody.id)}
+          >
+            ←
+          </button>
+          <h2 className="detail-title">{selected.title}</h2>
+          <button
+            type="button"
+            className="title-arrow"
+            disabled={!nextBody}
+            title={nextBody ? nextBody.title : 'Вперёд'}
+            aria-label="Следующий жест"
+            onClick={() => nextBody && onOpen(nextBody.id)}
+          >
+            →
+          </button>
+        </div>
         <p className="detail-tags">{zoneTitle(selected.zone)}</p>
 
         <article className="meaning">
