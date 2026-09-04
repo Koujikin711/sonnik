@@ -607,13 +607,13 @@ function IslamicTawil({ symbolId }: { symbolId: string }) {
             </p>
             <p className="hadith-meaning">{h.meaningRu}</p>
             <a className="hadith-link" href={h.url} target="_blank" rel="noreferrer">
-              Текст на sunnah.com
+              Открыть хадис
             </a>
           </li>
         ))}
       </ol>
       <p className="disclaimer">
-        Номера по sunnah.com. Русский — смысл, не официальный перевод. Не фетва.
+        Номера по сборникам. Русский — смысл, не официальный перевод. Не фетва.
       </p>
     </aside>
   )
@@ -749,7 +749,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.46'
+const APP_VERSION = '0.2.47'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

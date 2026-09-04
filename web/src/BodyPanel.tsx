@@ -64,7 +64,7 @@ export function BodyPanel({
     const bodyIndex = bodyAz.findIndex((x) => x.id === selected.id)
     const prevBody = bodyIndex > 0 ? bodyAz[bodyIndex - 1] : null
     const nextBody = bodyIndex >= 0 && bodyIndex < bodyAz.length - 1 ? bodyAz[bodyIndex + 1] : null
-    const speakText = `${selected.title}. ${selected.term ?? ''}. ${selected.short}`
+    const speakText = `${selected.title}. ${ruVisible(selected.term ?? '')}. ${ruVisible(selected.short)}`
     return (
       <main className="main detail">
         <div className="detail-actions">
@@ -188,7 +188,7 @@ export function BodyPanel({
         <button type="button" className="symbol-row" onClick={() => onOpen(item.id)}>
           <span className="sym-body">
             <span className="sym-title">{item.title}</span>
-            <span className="sym-preview">{item.short}</span>
+            <span className="sym-preview">{ruVisible(item.short)}</span>
           </span>
           <span className="pill">{zoneTitle(item.zone)}</span>
           <span className="sym-chevron" aria-hidden>
