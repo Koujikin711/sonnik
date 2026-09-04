@@ -195,7 +195,7 @@ export function BodyPanel({
         <input
           id="body-q"
           className="search"
-          placeholder="челюсть, ком в горле, не могу лечь, заедать…"
+          placeholder="язык, челюсть, ком в горле, заедать…"
           value={query}
           onChange={(e) => onQuery(e.target.value)}
           autoComplete="off"
