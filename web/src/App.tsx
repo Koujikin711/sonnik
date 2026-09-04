@@ -243,6 +243,8 @@ export default function App() {
     }
   }, [catalog])
 
+  const catalogAz = useMemo(() => catalog ? sortSymbolsAz(catalog.symbols) : [], [catalog])
+
   function openSymbol(id: string) {
     setHistory(pushHistory(id))
     setView({ kind: 'symbol', id })
@@ -288,7 +290,6 @@ export default function App() {
     )
   }
 
-  const catalogAz = useMemo(() => sortSymbolsAz(catalog.symbols), [catalog])
   const symbol = view.kind === 'symbol' ? byId.get(view.id) : null
   const symbolIndex = symbol ? catalogAz.findIndex((s) => s.id === symbol.id) : -1
   const prevSymbol = symbolIndex > 0 ? catalogAz[symbolIndex - 1] : null
