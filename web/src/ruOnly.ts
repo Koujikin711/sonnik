@@ -135,7 +135,9 @@ export function ruOnly(text: string) {
     .replace(/\s+([,.;:!?])/g, '$1')
     .replace(/^[\s/·–—-]+/, '')
     .trim()
-  return t.replace(/^\p{Ll}/u, (ch) => ch.toLocaleUpperCase('ru'))
+  return t
+    .replace(/^\p{Ll}/u, (ch) => ch.toLocaleUpperCase('ru'))
+    .replace(/\.\s+(\p{Ll})/gu, (_, ch: string) => `. ${ch.toLocaleUpperCase('ru')}`)
 }
 
 export function ruList(items: string[] | undefined) {
