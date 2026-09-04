@@ -184,7 +184,7 @@ export default function App() {
       .then((data: Catalog) => setCatalog(data))
       .catch((e: Error) => setError(e.message))
 
-    fetch(`${import.meta.env.BASE_URL}data/behaviors.json?v=${Date.now()}`, { cache: 'no-store' })
+    fetch(`${import.meta.env.BASE_URL}data/telo.json?v=${Date.now()}`, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
       .then((data: BodyCatalog | null) => {
         if (data?.items) setBodyCatalog(cleanBodyCatalog(data))
@@ -752,7 +752,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.48'
+const APP_VERSION = '0.2.49'
 
 function cleanBodyCatalog(data: BodyCatalog): BodyCatalog {
   return {
