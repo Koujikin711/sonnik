@@ -28,8 +28,6 @@ type View =
   | { kind: 'symbol'; id: string }
   | { kind: 'behavior'; id: string }
 
-const AZ = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('')
-
 const TRAD_SHORT: Record<string, string> = {
   universal: 'Общий',
   folk: 'Народ',
@@ -118,7 +116,6 @@ export default function App() {
   const [bodyQuery, setBodyQuery] = useState('')
   const [bodyZone, setBodyZone] = useState<string | null>(null)
   const [bodyOnlyFav, setBodyOnlyFav] = useState(false)
-  const [letter, setLetter] = useState<string | null>(null)
   const [tradition, setTradition] = useState<TraditionId>('universal')
   const [favorites, setFavorites] = useState<string[]>([])
   const [history, setHistory] = useState<string[]>([])
@@ -161,11 +158,6 @@ export default function App() {
     return map
   }, [catalog])
 
-  const presentLetters = useMemo(() => {
-    if (!catalog) return new Set<string>()
-    return new Set(catalog.symbols.map((s) => s.letter))
-  }, [catalog])
-
   const list = useMemo(() => {
     if (!catalog) return []
     if (tab === 'favorites') {
@@ -174,11 +166,8 @@ export default function App() {
     if (tab === 'history') {
       return history.map((id) => byId.get(id)).filter(Boolean) as SymbolEntry[]
     }
-    if (letter && !query.trim()) {
-      return catalog.symbols.filter((s) => s.letter === letter)
-    }
     return catalog.symbols.filter((s) => matchesSymbol(s, query))
-  }, [catalog, tab, favorites, history, byId, letter, query])
+  }, [catalog, tab, favorites, history, byId, query])
 
   function openSymbol(id: string) {
     setHistory(pushHistory(id))
@@ -313,36 +302,20 @@ export default function App() {
                     className="search"
                     placeholder="зубы, летать, мама, кровь, деньги…"
                     value={query}
-                    onChange={(e) => {
-                      setQuery(e.target.value)
-                      if (e.target.value) setLetter(null)
-                    }}
+                    onChange={(e) => setQuery(e.target.value)}
                     autoComplete="off"
                   />
-                  <section className="alpha-bar" aria-label="Алфавит">
+                  <section className="alpha-bar" aria-label="Каталог">
                     <button
                       type="button"
-                      className={!letter ? 'letter active' : 'letter'}
-                      onClick={() => {
-                        setLetter(null)
-                        setQuery('')
-                      }}
+                      className={!query.trim() ? 'chip active' : 'chip'}
+                      onClick={() => setQuery('')}
                     >
                       Все
                     </button>
-                    {AZ.filter((L) => presentLetters.has(L)).map((L) => (
-                      <button
-                        key={L}
-                        type="button"
-                        className={letter === L ? 'letter active' : 'letter'}
-                        onClick={() => {
-                          setQuery('')
-                          setLetter(letter === L ? null : L)
-                        }}
-                      >
-                        {L}
-                      </button>
-                    ))}
+                    <button type="button" className="chip" onClick={() => setQuery('')}>
+                      А–Я
+                    </button>
                   </section>
                 </section>
               )}
@@ -364,11 +337,6 @@ export default function App() {
               {tab === 'search' && query.trim() && (
                 <p className="result-count">
                   Найдено {list.length} из {catalog.symbols.length}
-                </p>
-              )}
-              {tab === 'search' && letter && !query.trim() && (
-                <p className="result-count">
-                  {list.length} на букву {letter}
                 </p>
               )}
               {tab !== 'search' && (
@@ -627,7 +595,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.33'
+const APP_VERSION = '0.2.34'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)

@@ -294,8 +294,9 @@ input {
 }
 
 .alpha-bar {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   overflow: visible;
+  gap: 0.45rem;
 }
 
 .trad-row {
