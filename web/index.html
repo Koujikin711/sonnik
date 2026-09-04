@@ -46,10 +46,11 @@
           }
         } catch (e) {}
         if (!('serviceWorker' in navigator)) return
-        navigator.serviceWorker.addEventListener('message', function (e) {
-          if (e.data && e.data.type === 'sonnik-reload') location.reload()
-        })
-        navigator.serviceWorker.register('/sonnik/sw.js').catch(function () {})
+        navigator.serviceWorker.getRegistration('/sonnik/').then(function (reg) {
+          if (reg || navigator.serviceWorker.controller) {
+            return navigator.serviceWorker.register('/sonnik/sw.js')
+          }
+        }).catch(function () {})
       })()
     </script>
     <script type="module" src="/src/main.tsx"></script>
