@@ -308,7 +308,6 @@ input {
 }
 
 .trad-scroll,
-.alpha-bar,
 .related-row {
   display: flex;
   gap: 0.4rem;
@@ -318,9 +317,16 @@ input {
 }
 
 .alpha-bar {
-  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
   overflow: visible;
-  gap: 0.35rem;
+}
+
+.alpha-row {
+  display: grid;
+  grid-template-columns: repeat(var(--az-n, 14), minmax(0, 1fr));
+  gap: 0.28rem;
 }
 
 .trad-row {
@@ -361,10 +367,15 @@ input {
 }
 
 .letter {
-  min-width: 2.15rem;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  display: grid;
+  place-items: center;
   text-align: center;
-  padding-inline: 0.35rem;
-  font-weight: 600;
+  font-size: clamp(0.62rem, 2.5vw, 0.8rem);
+  font-weight: 400;
 }
 
 .letter:disabled {

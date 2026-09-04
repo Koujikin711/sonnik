@@ -167,6 +167,12 @@ export default function App() {
     return new Set(catalog.symbols.map((s) => s.letter))
   }, [catalog])
 
+  const azLetters = useMemo(
+    () => AZ.filter((L) => presentLetters.has(L)),
+    [presentLetters],
+  )
+  const azMid = Math.ceil(azLetters.length / 2)
+
   const list = useMemo(() => {
     if (!catalog) return []
     if (tab === 'favorites') {
@@ -343,17 +349,35 @@ export default function App() {
                     </button>
                   </div>
                   {azOpen && (
-                    <section className="alpha-bar" aria-label="Алфавит">
-                      {AZ.filter((L) => presentLetters.has(L)).map((L) => (
-                        <button
-                          key={L}
-                          type="button"
-                          className={letter === L ? 'letter active' : 'letter'}
-                          onClick={() => setLetter(letter === L ? null : L)}
-                        >
-                          {L}
-                        </button>
-                      ))}
+                    <section
+                      className="alpha-bar"
+                      aria-label="Алфавит"
+                      style={{ ['--az-n' as string]: String(azMid) }}
+                    >
+                      <div className="alpha-row">
+                        {azLetters.slice(0, azMid).map((L) => (
+                          <button
+                            key={L}
+                            type="button"
+                            className={letter === L ? 'letter active' : 'letter'}
+                            onClick={() => setLetter(letter === L ? null : L)}
+                          >
+                            {L}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="alpha-row">
+                        {azLetters.slice(azMid).map((L) => (
+                          <button
+                            key={L}
+                            type="button"
+                            className={letter === L ? 'letter active' : 'letter'}
+                            onClick={() => setLetter(letter === L ? null : L)}
+                          >
+                            {L}
+                          </button>
+                        ))}
+                      </div>
                     </section>
                   )}
                 </section>
@@ -639,7 +663,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.36'
+const APP_VERSION = '0.2.37'
 
 function useBuildStamp() {
   const [build, setBuild] = useState<{ version: string; deployedAt: string } | null>(null)
