@@ -755,7 +755,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.50'
+const APP_VERSION = '0.2.51'
 
 function cleanBodyCatalog(data: BodyCatalog): BodyCatalog {
   return {
@@ -865,6 +865,11 @@ function About({ catalog }: { catalog: Catalog }) {
             {build.updated ? ` · обновлено ${build.updated}` : ''}
           </>
         )}
+      </p>
+      <p>
+        <a className="install-link" href={`${import.meta.env.BASE_URL}install.html`}>
+          Поставить на айфон
+        </a>
       </p>
     </section>
   )

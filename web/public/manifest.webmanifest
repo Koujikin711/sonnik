@@ -2,17 +2,30 @@
   "name": "Сонник",
   "short_name": "Сонник",
   "description": "Толкование снов и жесты тела",
-  "start_url": "/sonnik/?v=250",
+  "start_url": "/sonnik/?v=251",
   "scope": "/sonnik/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0f161a",
   "theme_color": "#0f161a",
   "lang": "ru",
   "icons": [
     {
-      "src": "/sonnik/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/sonnik/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sonnik/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/sonnik/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
       "purpose": "any"
     }
   ]

@@ -915,6 +915,16 @@ input {
   color: var(--ink-soft);
 }
 
+.install-link {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: var(--fill);
+  color: var(--on-fill);
+  text-decoration: none;
+}
+
 .disclaimer {
   margin: 0.4rem 0 0;
   font-size: 0.78rem;
