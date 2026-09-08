@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>FullScreen</key>
+      <true/>
+      <key>Icon</key>
+      <data>
+iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAFgUlEQVR4nO3dPVZbSRCG4RZnVsEyJmQJRN7KBDgidIQDb2UilkDoZbANJphzfS5C0u2f6u6qr98nBqnv0auiJIF9Sg7cPzx+zD4D2r2/vZ5mn2HKAQh4DTMCH3aHRLy2UXF3vRMixiU94+5yw4SMHD3CvrO+QWJGrh6tmD1DCBktrKa1yYQmZrSyaqjpWUHI6KFlWldPaGJGLy1tVQVNzOittrHioIkZo9S0VhQ0MWO00uaygyZmzFLSXlbQxIzZchs8DJqY4UVOi+YffQMz3Qya6Qxvjpq8GjQxw6tbbbJyQMrFoJnO8O5ao1+CJmZEcalVVg5I+RQ00xnRnDfLhIYUgoaUP0GzbiCqfbtMaEghaEi5S4l1A/FtDTOhIYWgIYWgIeXE/gwlTGhIIWhI+Wv2AXDb71/fsr/273/+7XaOKAjamZKAUyLicwTtQGnEKRHyNQQ9ESHbI+gJakJOiZhzEPRgTOW+eNtuIGLujwk9ACvGOEzozoh5LILuiJjHI+hOiHkOgu6gNma0I2hHmM7tCNoYq8ZcBG2IVWM+gjbSEjPT2Q5BQwpBG2A6+0HQkELQjXgh6AtBQwpBT8T+bI+gG7Bu+EPQkELQkELQkELQldiffSJoSCFoSCFoSCFoSCHoiXhhaY+gIYWgIYWgIYWgJ2OPtkXQkELQlSx/l5kpbYegIYWgnWBK2yBoR4i6HUE34G8C/SFoZ5jSbQjaIaKuR9CNeq0dRF2HoB0j6nIEbaDni0OiLkPQAfz+9W1K2LPutwVBGxnxFt7IuLb7ivbW5On+4fFj9iGUjIpuxIvRaDGnRNBdjJykVtGdnzlizCnxf32HVxtitN04FxO6k8jBRJ3OKfGisJuoUUQ994agO4oWR7TzXkLQnUWJJMo5j7BDD+Rxr1YJecOEHshbPN7OY4GgB/MSkZdzWGPl2Pnx83vR1z8/vTTd34wVRDXkzfJBl0Z8TUvcI8JWD3mzbNBWIZ/zNLVXiXhvyaCtY35+evl0m61R75UEvmLA55YJ+sfP71/C62m7L8u4cWyJoEdFvLn0xCHsMaSDHh3yEaLuTzZobzHvEXY/kr8P3RJzbmyenzArk/uksPbDkeenl6LJuf/60u9LiSdEL1ITujaSlhWg9HsJuS+ZHXr0x9ZW50iJndqSxMrhJebttgl0nvATuiTm0aHlnG3/njVPhHahg/Yc88bTT48VhF05IsQ8+75XFDLoKDGXnoG39NqFWzmixbwX+exRhJrQ0YPYn+nofEzpOmEmdPSYz+VeT4Rr8STEhFaLuQSTukyIoHNFirnkrESdz3XQJR84RIp5Q9T2XO/Qq+yZK69U1txO6KMHWel3Jkrep2ZS3+ZyQq8ymc+tet2W3E3olScQfy3Tzl3QpR8Tq1F9ATyKu6BTOn7A1B/QW9enfu2tXAad0vUHbqUH9PxaV7r2Wi5fFO71+ie2Ilj52mu5ndCbmr+sVrHytddyP6GBEu4nNFCCoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCGFoCHl7v3t9TT7EICF97fXExMaUggaUggaUu5S+n/3mH0QoMXWMBMaUggaUv4EzdqBqPbtMqEhhaAh5VPQrB2I5rxZJjSkfAmaKY0oLrV6cUITNby71igrB6RcDZopDa9utXlzQhM1vDlqkpUDUg6DZkrDi5wWsyY0UWO23AazVw6ixiwl7RXt0ESN0UqbK35RSNQYpaa1qnc5iBq91TZW/bYdUaOXlrZMorx/ePywuB2szWJImnywwrRGK6uGzENkWqOE9TA0/+ibaY1cPVrpGh/TGpf0HHrDpilxr23UT+4p6wFxr2HG+uli3yVwDR5eP/0Hb9IjaRCu0/kAAAAASUVORK5CYII=
+      </data>
+      <key>IsRemovable</key>
+      <true/>
+      <key>Label</key>
+      <string>Сонник</string>
+      <key>PayloadDescription</key>
+      <string>Ярлык Сонника на экран Домой</string>
+      <key>PayloadDisplayName</key>
+      <string>Сонник</string>
+      <key>PayloadIdentifier</key>
+      <string>io.github.koujikin711.sonnik.webclip</string>
+      <key>PayloadType</key>
+      <string>com.apple.webClip.managed</string>
+      <key>PayloadUUID</key>
+      <string>021ADD27-842B-4F44-B774-0027B29D9621</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>Precomposed</key>
+      <true/>
+      <key>URL</key>
+      <string>https://koujikin711.github.io/sonnik/</string>
+    </dict>
+  </array>
+  <key>PayloadDescription</key>
+  <string>Ставит Сонник на экран Домой айфона</string>
+  <key>PayloadDisplayName</key>
+  <string>Сонник</string>
+  <key>PayloadIdentifier</key>
+  <string>io.github.koujikin711.sonnik</string>
+  <key>PayloadOrganization</key>
+  <string>Сонник</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>67221765-7C9F-4350-B80A-C694451F4EC4</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>
