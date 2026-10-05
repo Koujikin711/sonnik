@@ -2,7 +2,7 @@
   "name": "Сонник",
   "short_name": "Сонник",
   "description": "Толкование снов и жесты тела",
-  "start_url": "/sonnik/?v=255",
+  "start_url": "/sonnik/?v=256",
   "scope": "/sonnik/",
   "display": "standalone",
   "orientation": "portrait",
