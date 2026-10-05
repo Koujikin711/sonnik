@@ -755,7 +755,7 @@ function SymbolPage({
   )
 }
 
-const APP_VERSION = '0.2.54'
+const APP_VERSION = '0.2.55'
 
 function cleanBodyCatalog(data: BodyCatalog): BodyCatalog {
   return {
