@@ -109,14 +109,14 @@ export function BodyPanel({
         <p className="detail-tags">{zoneTitle(selected.zone)}</p>
 
         <article className="meaning">
-          <p className="meaning-kicker">{ruVisible(selected.term ?? '') || 'Признак'}</p>
+          <p className="meaning-kicker">{ruVisible(selected.term ?? '') || 'Тело говорит'}</p>
           <p className="meaning-short">{ruVisible(selected.short)}</p>
           <p className="meaning-long">{ruVisible(selected.long)}</p>
         </article>
 
         {(selected.causes?.length ?? 0) > 0 && (
           <aside className="hints science-card">
-            <h3>Причины</h3>
+            <h3>Какое чувство</h3>
             <ul>
               {selected.causes!.map((h) => (
                 <li key={h}>{ruVisible(h)}</li>
@@ -127,7 +127,7 @@ export function BodyPanel({
 
         {(selected.findings?.length ?? 0) > 0 && (
           <aside className="hints science-card">
-            <h3>Что показали исследования</h3>
+            <h3>Как тело говорит</h3>
             <ul>
               {selected.findings!.map((h) => (
                 <li key={h}>{ruVisible(h)}</li>
@@ -136,16 +136,9 @@ export function BodyPanel({
           </aside>
         )}
 
-        {selected.doctor && (
-          <aside className="hints science-card doctor-card">
-            <h3>Когда к врачу</h3>
-            <p>{ruVisible(selected.doctor)}</p>
-          </aside>
-        )}
-
         {selected.hints.length > 0 && (
           <aside className="hints">
-            <h3>Что проверить себе</h3>
+            <h3>На что смотреть</h3>
             <ul>
               {selected.hints.map((h) => (
                 <li key={h}>{ruVisible(h)}</li>
